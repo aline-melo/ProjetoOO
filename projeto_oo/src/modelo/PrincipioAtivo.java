@@ -12,12 +12,6 @@ public class PrincipioAtivo {
 		
 	}
 	
-	
-	/*public String toString() {
-	 * return 	
-	 *		}
-	 */
-
 	public String getNomePrincipioAtivo() {
 		return nomePrincipioAtivo;
 	}
@@ -47,7 +41,10 @@ public class PrincipioAtivo {
 		this.unidadeMedidaDosagem = unidadeMedidaDosagem;
 	}
 	
-	public String toString() {
-		return this.getNomePrincipioAtivo()+ this.getNumeroDosagem() + this.getUnidadeMedidaDosagem();
-	}
+	//public String toString() {
+	//	return this.getNomePrincipioAtivo()+ this.getNumeroDosagem() + this.getUnidadeMedidaDosagem();
+	//}
+	
 }
+
+

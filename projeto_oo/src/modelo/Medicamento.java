@@ -20,16 +20,15 @@ public class Medicamento extends Produto{
 	}
 
 	public String toString() {
-		return "Nome:"+ nome +", Descrição:"+ descricao + ", Preço:" + preco + ", Princípio Ativo:"+ principioAtivo.toString() +", Frabricante:" 
-	+fabricante + ", Quantidade:"+ quantidade.toString() ;
+		return "\nNome: "+ nome +"\nDescrição: "+ descricao + "\nPreço: " + preco 
+				+"\nFabricante: " 
+				+fabricante + "\nQuantidade: "+ quantidade.toString() ;
 		
 	}
 
 	public String getTratamento() {
 		return tratamento;
 	}
-
-
 
 	public void setTratamento(String tratamento) {
 		this.tratamento = tratamento;
