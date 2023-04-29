@@ -1,11 +1,13 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Loja {
 	private String localizacao;
 	private String cidade;
-	private Produto[] estoque = new Produto[50];
+	private ArrayList<Produto> estoque  = new ArrayList<Produto>();
 	
-	public Loja (String local, String cid, Produto[] est) {
+	public Loja (String local, String cid, ArrayList<Produto> est) {
 		localizacao = local;
 		cidade = cid;
 		estoque = est;
@@ -14,7 +16,7 @@ public class Loja {
 	public String toString() {
 		return "Loja OO Drogarias localização " + localizacao
 				+ " na cidade de "+ cidade
-				+", possui em seu estoque:\n"+ estoque;
+				+", possui em seu estoque:";
 	}
 	
 	
@@ -30,19 +32,27 @@ public class Loja {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	public Produto[] getEstoque() {
+	public ArrayList<Produto> getEstoque() {
 		return estoque;
 	}
-	public void setEstoque(Produto[] estoque) {
+	public void setEstoque(ArrayList<Produto> estoque) {
 		this.estoque = estoque;
 	}
 	
 	
-	public void add(Produto produto) {
-		int index = estoque.length;
-		this.estoque[index++] = produto;
+	//public void add(Produto produto) {
+		//this.estoque[estoque.size++] = produto;
+        //return true;
+	//}
+	
+	public void listarEstoque(ArrayList<Produto> estoque) {
+		for (int i = 0; i < estoque.size(); i++) {
+		      System.out.println(estoque.get(i).toString());
+		    }
+		
 	}
-	
-	public void 
-	
 }
+	
+	
+	
+

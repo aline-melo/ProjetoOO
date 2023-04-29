@@ -1,7 +1,10 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Teste {
 	static Loja lojinhaDeEsquina;
+	static ArrayList<Produto> estoqueLojinha;
 	static PrincipioAtivo principioAtivoSerenataTeste;
 	static PrincipioAtivo principioAtivoXaropeTeste;
 	static Quantidade quantTesteSerenata;
@@ -11,16 +14,15 @@ public class Teste {
 	static Utilidade utilidade1Teste;
 	static Medicamento medicamento1Teste;
 	static Medicamento medicamento2Teste;
-	static PrincipioAtivo principioAtivoSerenata;
-	//static PrincipioAtivo principioAtivoXarope;
 	static Cosmetico cosmetico1Teste;
 
 	public static void main (String[] args) {
-		lojinhaDeEsquina = new Loja("Gama", "Brasília", null);
 		
+		ArrayList<Produto> estoqueLojinha = new ArrayList<Produto>();
+		lojinhaDeEsquina = new Loja("Gama", "Brasília",estoqueLojinha);
 		
 		quantTesteSerenata = new Quantidade(0, "teste");
-		principioAtivoSerenata = new PrincipioAtivo("Cloridrato de sertralina ", "50", "mg");
+		principioAtivoSerenataTeste = new PrincipioAtivo("Cloridrato de sertralina ", "50", "mg");
 		medicamento1Teste = new Medicamento("serenata", "SERENATA 50MG É UM MEDICAMENTO. SEU USO PODE TRAZER RISCOS. PROCURE UM MÉDICO OU UM FARMACÊUTICO.\n LEIA A BULA. MEDICAMENTOS PODEM CAUSAR EFEITOS INDESEJADOS. EVITE A AUTOMEDICAÇÃO: INFORME-SE COM O FARMACÊUTICO." 
 				, "torrent pharma",148.57, 200, quantTesteSerenata, null, null, false, principioAtivoSerenataTeste);
 		medicamento1Teste.quantidade.setNumQuant(30);
@@ -35,7 +37,6 @@ public class Teste {
 		cosmetico1Teste = new Cosmetico("Batom líquido super stay matte ink", 
 				"Batom Líquido matte de alta fixação", "MAC", 119.90, 10, 
 				quantTesteBatom, null, null, false);
-		lojinhaDeEsquina.add(cosmetico1Teste);
 
 		
 		quantTesteXarope = new Quantidade (120, "ml");
@@ -46,9 +47,18 @@ public class Teste {
 			null);
 		
 		
+		estoqueLojinha.add(cosmetico1Teste);
+		estoqueLojinha.add(medicamento1Teste);
+		estoqueLojinha.add(medicamento2Teste);
+		estoqueLojinha.add(utilidade1Teste);
 		
 		System.out.println(lojinhaDeEsquina.toString());
-		//System.out.println(medicamento1Teste.toString());
+		lojinhaDeEsquina.listarEstoque(estoqueLojinha);
+		
+	}
+}
+		
+	//	System.out.println(medicamento1Teste.toString());
 		//System.out.println(medicamento2Teste.toString());
 		//System.out.println(utilidade1Teste.toString());
 		//System.out.println(cosmetico1Teste.toString());
@@ -57,9 +67,7 @@ public class Teste {
 		
 		
 		
-		
-	}
-}
+
 /*50mg
  * cloridrato de sertralina
  * antidepressivo
