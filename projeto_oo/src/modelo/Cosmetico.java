@@ -16,11 +16,14 @@ public class Cosmetico extends Produto{
 		
 	}
 	public String toString() {
-		return "\nNome:" + nome + "\nDescrição:" + descricao +"\nFabricante:"+ fabricante
-				+"\nPreço:" + preco + "\nQuantidade:" + quantidade +
-				"\nCor:"+ cor +
-				"\nFragrância:"+ getFragrancia()+
-				"\nHipoalergênico:" + isHipoalergenico()
+		return "\nNome:" + nome 
+				+ "\nDescrição:" + descricao 
+				+"\nFabricante:"+ fabricante
+				+"\nPreço:" + preco 
+				+ "\nQuantidade:" + quantidade 
+				+"\nCor:"+ cor 
+				+"\nFragrância:"+ getFragrancia()
+				+"\nHipoalergênico:" + isHipoalergenico()
 				;
 	}
 

@@ -1,7 +1,7 @@
 package modelo;
 
 public class Medicamento extends Produto{
-	private String tratamento;
+	private String[] tratamento;
 	private String tarja;
 	private boolean generico;
 	private PrincipioAtivo principioAtivo;
@@ -9,7 +9,7 @@ public class Medicamento extends Produto{
 	
 	
 	public Medicamento(String nom, String desc, String fabri
-			, double prc,int emEst, Quantidade quant, String trat, String tarj, 
+			, double prc,int emEst, Quantidade quant, String[] trat, String tarj, 
 			boolean gen, PrincipioAtivo prinAtv) {
 
 		super(nom, desc, fabri, prc, emEst, quant);
@@ -21,32 +21,34 @@ public class Medicamento extends Produto{
 
 	public String toString() {
 		return "\nNome: "+ nome +"\nDescrição: "+ descricao + "\nPreço: " + preco 
-				+"\nFabricante: " 
-				+fabricante + "\nQuantidade: "+ quantidade.toString() ;
+				+"\nFabricante: " +fabricante + "\nQuantidade: "+ quantidade.toString() 
+				+ "\nTarja :"+ tarja +"\nPrincipio Ativo: "+ principioAtivo + 
+				"\nTratamento: "+ tratamento +"\nGenerico: "+ generico;
 	}
 
 	
 	
 	//gets e sets
-	public String getTratamento() {
-		return tratamento;
-	}
 
-	public void setTratamento(String tratamento) {
-		this.tratamento = tratamento;
-	}
-
-
-
+	
+	
 	public String getTarja() {
 		return tarja;
 	}
 
 
-
 	public void setTarja(String tarja) {
 		this.tarja = tarja;
 	}
+
+	public String[] getTratamento() {
+		return tratamento;
+	}
+
+	public void setTratamento(String[] tratamento) {
+		this.tratamento = tratamento;
+	}
+
 
 
 

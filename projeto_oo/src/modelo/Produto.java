@@ -64,9 +64,13 @@ public abstract class Produto {
 		this.emEstoque = emEstoque;
 	}
 
+
+
 	public Quantidade getQuantidade() {
 		return quantidade;
 	}
+
+
 
 	public void setQuantidade(Quantidade quantidade) {
 		this.quantidade = quantidade;

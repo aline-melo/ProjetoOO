@@ -10,7 +10,12 @@ public class Loja {
 		cidade = cid;
 		estoque = est;
 	}
-	
+	 
+	public String toString() {
+		return "Loja OO Drogarias localização " + localizacao
+				+ " na cidade de "+ cidade
+				+", possui em seu estoque:\n"+ estoque;
+	}
 	
 	
 	public String getLocalizacao() {
@@ -31,5 +36,13 @@ public class Loja {
 	public void setEstoque(Produto[] estoque) {
 		this.estoque = estoque;
 	}
-
+	
+	
+	public void add(Produto produto) {
+		int index = estoque.length;
+		this.estoque[index++] = produto;
+	}
+	
+	public void 
+	
 }
