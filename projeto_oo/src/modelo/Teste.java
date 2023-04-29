@@ -45,7 +45,7 @@ public class Teste {
 				, "2/5, 1", "mg/ml, mg/ml");
 		medicamento2Teste = new Medicamento ("Decongex", "Xarope expectorante", "Aché", 20.89, 10, 
 				quantTesteXarope, "expectorante", "Sem tarja", false, 
-			null);
+			principioAtivoXaropeTeste);
 		
 		
 		estoqueLojinha.add(cosmetico1Teste);

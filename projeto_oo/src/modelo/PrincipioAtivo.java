@@ -30,19 +30,22 @@ public class PrincipioAtivo {
 	public void setUnidadeMedidaDosagem(String unidadeMedidaDosagem) {
 		this.unidadeMedidaDosagem = unidadeMedidaDosagem;
 	}
+	
+	
 	public String retornoPrincipioAtivo() {
 		String retorno = "";
 		int i = 0;
-		String[] arrOfNome = this.getNomePrincipioAtivo().split(",");
-		String[] arrOfNum = this.getNumeroDosagem().split(",");
-		String[] arrOfUnid = this.getUnidadeMedidaDosagem().split(",");
+		String[] arrOfNome = getNomePrincipioAtivo().split(",");
+		String[] arrOfNum = getNumeroDosagem().split(",");
+		String[] arrOfUnid = getUnidadeMedidaDosagem().split(",");
 		while (i != arrOfNome.length) {
 			retorno = retorno.concat(arrOfNome[i]);
 			retorno = retorno.concat(arrOfNum[i]);
 			retorno = retorno.concat(arrOfUnid[i]);
-			retorno = retorno.concat(", ");
+			retorno = retorno.concat(" ");
 			i++;
 		}
 		return retorno;
 	}
+	
 }
