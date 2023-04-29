@@ -53,9 +53,9 @@ public class Teste {
 		estoqueLojinha.add(medicamento2Teste);
 		estoqueLojinha.add(utilidade1Teste);
 		
-		//System.out.println(lojinhaDeEsquina.toString());
-//		lojinhaDeEsquina.listarEstoque(estoqueLojinha);
-	System.out.println(principioAtivoXaropeTeste.retornoPrincipioAtivo());	
+		System.out.println(lojinhaDeEsquina.toString());
+		lojinhaDeEsquina.listarEstoque(estoqueLojinha);
+	//System.out.println(principioAtivoXaropeTeste.retornoPrincipioAtivo());	
 	}
 }
 	
