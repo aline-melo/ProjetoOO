@@ -32,6 +32,12 @@ public class PrincipioAtivo {
 	}
 	
 	
+	
+	/*
+	 *a seção abaixo será movida para a camada 
+	 *controle na próxima etapa do projeto
+	*/
+	
 	public String retornoPrincipioAtivo() {
 		String retorno = "";
 		int i = 0;
@@ -39,13 +45,9 @@ public class PrincipioAtivo {
 		String[] arrOfNum = getNumeroDosagem().split(",");
 		String[] arrOfUnid = getUnidadeMedidaDosagem().split(",");
 		while (i != arrOfNome.length) {
-			retorno = retorno.concat(arrOfNome[i]);
-			retorno = retorno.concat(arrOfNum[i]);
-			retorno = retorno.concat(arrOfUnid[i]);
-			retorno = retorno.concat(" ");
+			retorno = retorno.concat(arrOfNome[i] + arrOfNum[i] + arrOfUnid[i] + " ");
 			i++;
 		}
 		return retorno;
 	}
-	
 }
