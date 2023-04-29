@@ -24,11 +24,12 @@ public class Medicamento extends Produto{
 				+"\nDescrição: "+ descricao 
 				+ "\nPreço: " + preco 
 				+"\nFabricante: " +fabricante 
-				+ "\nQuantidade: "+ quantidade.toString() 
+				+ "\nQuantidade: "+ quantidade.retornoQuantidade() 
 				+ "\nTarja :"+ retornoTarja() 
 				+"\nPrincipio Ativo: "+ principioAtivo.retornoPrincipioAtivo()
 				+ "\nTratamento: "+ tratamento 
-				+"\nGenerico: "+ retornoGenerico();
+				+"\nGenerico: "+ retornoGenerico()
+				+"\nEm estoque: " + emEstoque;
 	}
 
 	
@@ -59,6 +60,8 @@ public class Medicamento extends Produto{
 		this.principioAtivo = principioAtivo;
 	}
 
+	
+	
 	
 	public String retornoTarja() {
 		if (tarja == null) {

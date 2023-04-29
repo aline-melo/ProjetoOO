@@ -21,13 +21,10 @@ public class Teste {
 		ArrayList<Produto> estoqueLojinha = new ArrayList<Produto>();
 		lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília",estoqueLojinha);
 		
-		quantTesteSerenata = new Quantidade(0, "teste");
+		quantTesteSerenata = new Quantidade(30, " comprimidos");
 		principioAtivoSerenataTeste = new PrincipioAtivo("Cloridrato de sertralina ", "50", "mg");
 		medicamento1Teste = new Medicamento("serenata", "SERENATA 50MG É UM MEDICAMENTO. SEU USO PODE TRAZER RISCOS. PROCURE UM MÉDICO OU UM FARMACÊUTICO.\n LEIA A BULA. MEDICAMENTOS PODEM CAUSAR EFEITOS INDESEJADOS. EVITE A AUTOMEDICAÇÃO: INFORME-SE COM O FARMACÊUTICO." 
-				, "torrent pharma",148.57, 200, quantTesteSerenata, "Anti-depressivo", "", false, principioAtivoSerenataTeste);
-		
-		medicamento1Teste.quantidade.setNumQuant(30);
-		medicamento1Teste.quantidade.setUnidMedidaQuant(" comprimidos");
+				, "torrent pharma",148.57, 20, quantTesteSerenata, "Anti-depressivo", "Vermelha", false, principioAtivoSerenataTeste);
 		
 		
 		quantTestePresilha = new Quantidade(12, " unidades");

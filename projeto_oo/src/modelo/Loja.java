@@ -14,7 +14,7 @@ public class Loja {
 	}
 	 
 	public String toString() {
-		return "Loja OO Drogarias localização " + localizacao
+		return "A loja OO Drogarias na localização " + localizacao
 				+ " na cidade de "+ cidade
 				+", possui em seu estoque:";
 	}

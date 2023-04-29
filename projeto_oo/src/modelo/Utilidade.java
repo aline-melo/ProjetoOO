@@ -19,9 +19,10 @@ public class Utilidade extends Produto{
 				+ "\nPreço:"+ preco
 				+"\nDescrição: " + descricao 
 				+"\nFabricante: "+ fabricante 
-				+"\nQuantidade: " + quantidade.toString()
+				+"\nQuantidade: " + quantidade.retornoQuantidade()
 				+"\nDigital: "+ retornoDigital()
-				+"\nDescartavel: " + retornoDescartavel();	
+				+"\nDescartavel: " + retornoDescartavel()
+				+"\nEm estoque: " + emEstoque;	
 	}
 	
 	

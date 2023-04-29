@@ -19,10 +19,11 @@ public class Cosmetico extends Produto{
 				+"\nDescrição:" + descricao 
 				+"\nFabricante:"+ fabricante
 				+"\nPreço:" + preco 
-				+"\nQuantidade:" + quantidade 
+				+"\nQuantidade:" + quantidade.retornoQuantidade() 
 				+"\nCor:"+ retornoCor()
 				+"\nFragrância:"+ retornoFragrancia()
-				+"\nHipoalergênico:" + retornoHipoalergenico();
+				+"\nHipoalergênico:" + retornoHipoalergenico()
+				+"\nEm estoque: " + emEstoque;
 	}
 
 	

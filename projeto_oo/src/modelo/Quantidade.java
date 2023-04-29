@@ -10,8 +10,13 @@ public class Quantidade {
 	}
 	
 	
-	public String toString() {
-		return this.numQuant +this.unidMedidaQuant;
+	public String retornoQuantidade() {
+		if (numQuant <= 1) {
+			return "Valor unitário";
+		}
+		else {
+			return this.numQuant +this.unidMedidaQuant;
+		}
 	}
 		
 	
