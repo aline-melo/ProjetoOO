@@ -24,6 +24,8 @@ public class Cosmetico extends Produto{
 				;
 	}
 
+	
+	//gets e sets
 	public String getCor() {
 		
 		return cor;
@@ -56,6 +58,8 @@ public class Cosmetico extends Produto{
 	}
 	
 	
+	
+	//médotos que eventualmente serão movidos para a camada controle
 	
 	public String toStringCor() {
 		if (cor == null) {

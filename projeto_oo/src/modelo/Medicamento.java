@@ -23,9 +23,11 @@ public class Medicamento extends Produto{
 		return "\nNome: "+ nome +"\nDescrição: "+ descricao + "\nPreço: " + preco 
 				+"\nFabricante: " 
 				+fabricante + "\nQuantidade: "+ quantidade.toString() ;
-		
 	}
 
+	
+	
+	//gets e sets
 	public String getTratamento() {
 		return tratamento;
 	}

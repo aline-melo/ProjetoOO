@@ -9,8 +9,6 @@ public class Loja {
 		localizacao = local;
 		cidade = cid;
 		estoque = est;
-		
-		
 	}
 	
 	
