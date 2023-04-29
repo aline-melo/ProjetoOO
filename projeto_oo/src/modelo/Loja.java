@@ -40,19 +40,12 @@ public class Loja {
 	}
 	
 	
-	//public void add(Produto produto) {
-		//this.estoque[estoque.size++] = produto;
-        //return true;
-	//}
+	
 	
 	public void listarEstoque(ArrayList<Produto> estoque) {
 		for (int i = 0; i < estoque.size(); i++) {
 		      System.out.println(estoque.get(i).toString());
-		    }
-		
+		    }	
 	}
+	
 }
-	
-	
-	
-

@@ -1,7 +1,7 @@
 package modelo;
 
 public class Medicamento extends Produto{
-	private String[] tratamento;
+	private String tratamento;
 	private String tarja;
 	private boolean generico;
 	private PrincipioAtivo principioAtivo;
@@ -9,7 +9,7 @@ public class Medicamento extends Produto{
 	
 	
 	public Medicamento(String nom, String desc, String fabri
-			, double prc,int emEst, Quantidade quant, String[] trat, String tarj, 
+			, double prc,int emEst, Quantidade quant, String trat, String tarj, 
 			boolean gen, PrincipioAtivo prinAtv) {
 
 		super(nom, desc, fabri, prc, emEst, quant);
@@ -20,58 +20,66 @@ public class Medicamento extends Produto{
 	}
 
 	public String toString() {
-		return "\nNome: "+ nome +"\nDescrição: "+ descricao + "\nPreço: " + preco 
-				+"\nFabricante: " +fabricante + "\nQuantidade: "+ quantidade.toString() 
-				+ "\nTarja :"+ tarja +"\nPrincipio Ativo: "+ principioAtivo + 
-				"\nTratamento: "+ tratamento +"\nGenerico: "+ generico;
+		return "\nNome: "+ nome 
+				+"\nDescrição: "+ descricao 
+				+ "\nPreço: " + preco 
+				+"\nFabricante: " +fabricante 
+				+ "\nQuantidade: "+ quantidade.toString() 
+				+ "\nTarja :"+ retornoTarja() 
+				+"\nPrincipio Ativo: "+ principioAtivo.retornoPrincipioAtivo()
+				+ "\nTratamento: "+ tratamento 
+				+"\nGenerico: "+ retornoGenerico();
 	}
 
 	
-	
-	//gets e sets
-
 	
 	
 	public String getTarja() {
 		return tarja;
 	}
-
-
 	public void setTarja(String tarja) {
 		this.tarja = tarja;
 	}
-
-	public String[] getTratamento() {
+	public String getTratamento() {
 		return tratamento;
 	}
-
-	public void setTratamento(String[] tratamento) {
+	public void setTratamento(String tratamento) {
 		this.tratamento = tratamento;
 	}
-
-
-
-
 	public boolean isGenerico() {
 		return generico;
 	}
-
-
-
 	public void setGenerico(boolean generico) {
 		this.generico = generico;
 	}
-
-
-
 	public PrincipioAtivo getPrincipioAtivo() {
 		return principioAtivo;
 	}
-
-
-
 	public void setPrincipioAtivo(PrincipioAtivo principioAtivo) {
 		this.principioAtivo = principioAtivo;
 	}
 
+	
+	public String retornoTarja() {
+		if (tarja == null) {
+			return "Este produto não possui tarja registrada";
+		}
+		else {
+			return tarja;
+		}
+	}
+	public String retornoGenerico() {
+		if(generico == true) {
+			return "Este produto é genérico";
+		}
+		else
+			return "Este produto não é genérico";
+	}
+	
+	
+	
+	
+	
+	
+	
 }
