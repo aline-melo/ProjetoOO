@@ -1,9 +1,9 @@
 package modelo;
 
 public class Utilidade extends Produto{
-	protected boolean digital;
-	protected boolean descartavel;
-	protected boolean curativo;
+	private boolean digital;
+	private boolean descartavel;
+	private boolean curativo;
 	
 	public Utilidade (String nom, String desc,String fabri,double prc, int emEst, 
 			Quantidade quant, boolean dig, boolean descart, boolean curat) {
