@@ -35,11 +35,11 @@ public class TelaInicial implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		TelaInicial menu = new TelaInicial();
+		TelaInicial inicial = new TelaInicial();
 		
-		produto.addActionListener(menu);
-		filial.addActionListener(menu);
-		cidade.addActionListener(menu);
+		produto.addActionListener(inicial);
+		filial.addActionListener(inicial);
+		cidade.addActionListener(inicial);
 	}
 	
 	
@@ -47,12 +47,12 @@ public class TelaInicial implements ActionListener {
 		Object src = e.getSource();
 		
 		if(src == cidade)
-			new TelaCidade().mostrarDados(dados, 1);
+			new TelaCidade().mostrarMenu(dados, 1);
 		
 		if(src == produto)
-			new TelaProduto().mostrarDados(dados, 2);
+			new TelaProduto().mostrarMenu(dados, 2);
 		
 		if(src == filial)
-			new TelaFilial().mostrarDados(dados, 3);
+			new TelaFilial().mostrarMenu(dados, 3);
 	}
 }
