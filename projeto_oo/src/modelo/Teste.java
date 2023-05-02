@@ -52,7 +52,6 @@ public class Teste {
 		
 		System.out.println(lojinhaDeEsquina.toString());
 		lojinhaDeEsquina.listarEstoque(estoqueLojinha);
-	//System.out.println(principioAtivoXaropeTeste.retornoPrincipioAtivo());	
 	}
 }
 	

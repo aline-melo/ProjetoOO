@@ -6,4 +6,5 @@
  *
  */
 module projeto_oo {
+	requires java.desktop;
 }
