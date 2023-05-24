@@ -11,7 +11,6 @@ public class Teste {
 	static Quantidade quantTesteXarope;
 	static Quantidade quantTestePresilha;
 	static Quantidade quantTesteBatom;
-	static Utilidade utilidade1Teste;
 	static Medicamento medicamento1Teste;
 	static Medicamento medicamento2Teste;
 	static Cosmetico cosmetico1Teste;
@@ -26,10 +25,6 @@ public class Teste {
 		medicamento1Teste = new Medicamento("serenata", "SERENATA 50MG É UM MEDICAMENTO. SEU USO PODE TRAZER RISCOS. PROCURE UM MÉDICO OU UM FARMACÊUTICO.\n LEIA A BULA. MEDICAMENTOS PODEM CAUSAR EFEITOS INDESEJADOS. EVITE A AUTOMEDICAÇÃO: INFORME-SE COM O FARMACÊUTICO." 
 				, "torrent pharma",148.57, 20, quantTesteSerenata, "Anti-depressivo", "Vermelha", false, principioAtivoSerenataTeste);
 		
-		
-		quantTestePresilha = new Quantidade(12, " unidades");
-		utilidade1Teste = new Utilidade("presilha", "belíssimas presilhas cobertas de glitter", 
-				"shopee",1.99, 50, quantTestePresilha, false, false, false);
 		
 		quantTesteBatom = new Quantidade (1, " unidade");
 		cosmetico1Teste = new Cosmetico("Batom líquido super stay matte ink", 
@@ -48,7 +43,6 @@ public class Teste {
 		estoqueLojinha.add(cosmetico1Teste);
 		estoqueLojinha.add(medicamento1Teste);
 		estoqueLojinha.add(medicamento2Teste);
-		estoqueLojinha.add(utilidade1Teste);
 		
 		System.out.println(lojinhaDeEsquina.toString());
 		lojinhaDeEsquina.listarEstoque(estoqueLojinha);

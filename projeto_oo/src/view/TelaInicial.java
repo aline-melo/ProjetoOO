@@ -46,12 +46,12 @@ public class TelaInicial implements ActionListener {
 		Object src = e.getSource();
 		
 		if(src == cidade)
-			new TelaCidade().mostrarMenu();
+			new TelaCidade();
 		
 		if(src == produto)
-			new TelaProduto().mostrarMenu();
+			new TelaProduto();
 		
 		if(src == filial)
-			new TelaFilial().mostrarMenu();
+			new TelaFilial();
 	}
 }
