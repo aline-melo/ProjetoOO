@@ -13,7 +13,6 @@ public class TelaInicial implements ActionListener {
 	private static JButton produto = new JButton("Produtos");
 	private static JButton filial = new JButton("Filiais");
 	private static JButton cidade = new JButton("Cidades");
-	public static ControleDados dados = new ControleDados();
 	
 	public TelaInicial() {
 		titulo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -47,12 +46,12 @@ public class TelaInicial implements ActionListener {
 		Object src = e.getSource();
 		
 		if(src == cidade)
-			new TelaCidade().mostrarMenu(dados, 1);
+			new TelaCidade().mostrarMenu();
 		
 		if(src == produto)
-			new TelaProduto().mostrarMenu(dados, 2);
+			new TelaProduto().mostrarMenu();
 		
 		if(src == filial)
-			new TelaFilial().mostrarMenu(dados, 3);
+			new TelaFilial().mostrarMenu();
 	}
 }
