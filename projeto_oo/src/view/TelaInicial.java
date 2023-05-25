@@ -47,10 +47,7 @@ public class TelaInicial implements ActionListener {
 		
 		if(src == cidade)
 			new TelaCidade();
-		
-		if(src == produto)
-			new TelaProduto();
-		
+				
 		if(src == filial)
 			new TelaFilial();
 	}
