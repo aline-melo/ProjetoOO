@@ -33,10 +33,7 @@ public class PrincipioAtivo {
 	
 	
 	
-	/*
-	 *a seção abaixo será movida para a camada 
-	 *controle na próxima etapa do projeto
-	*/
+	
 	
 	public String retornoPrincipioAtivo() {
 		String retorno = "";
