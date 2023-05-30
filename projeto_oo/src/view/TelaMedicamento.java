@@ -13,12 +13,28 @@ public class TelaMedicamento implements ActionListener, ListSelectionListener {
     private static JFrame janelaMedicamento = new JFrame("Medicamento");
     private static JButton salvar = new JButton("Salvar");
     private static JTextField nomeMedicamento = new JTextField ("Sertralina");
+    private static JTextField atributo1 = new JTextField ("atributo1");
+    private static JTextField atributo2 = new JTextField ("atributo2");
+    private static JTextField atributo3 = new JTextField ("atributo3");
+    private static JTextField atributo4 = new JTextField ("atributo4");
+    private static JTextField atributo5 = new JTextField ("atributo5");
+    private static JTextField atributo6 = new JTextField ("atributo6");
+    private static JTextField atributo7 = new JTextField ("atributo7");
+    private static JTextField atributo8 = new JTextField ("atributo8");
 
     public TelaMedicamento() {
         nomeMedicamento.setBounds(120, 50, 300, 30);
         salvar.setBounds(500, 50, 100, 30);
-        janelaMedicamento.setLayout(null);
+        atributo1.setBounds(120, 100, 100, 30);
+        atributo2.setBounds(120, 150, 100, 30);
+        atributo3.setBounds(120, 200, 100, 30);
+        atributo4.setBounds(120, 250, 100, 30);
+        atributo5.setBounds(220, 100, 100, 30);
+        atributo6.setBounds(220, 150, 100, 30);
+        atributo7.setBounds(220, 200, 100, 30);
+        atributo8.setBounds(220, 250, 100, 30);
 
+        janelaMedicamento.setLayout(null);
         janelaMedicamento.add(nomeMedicamento);
         janelaMedicamento.add(salvar);
         janelaMedicamento.setSize(700, 500);
