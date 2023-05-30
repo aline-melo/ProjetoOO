@@ -23,4 +23,10 @@ public class TelaMedicamento implements ActionListener, ListSelectionListener {
         janelaMedicamento.add(salvar);
         janelaMedicamento.setSize(700, 500);
         janelaMedicamento.setVisible(true);
-    }
+   }
+    public static void main(String[] args) {
+		TelaMedicamento tela = new TelaMedicamento();
+		
+		
+	}
+}

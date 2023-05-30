@@ -38,7 +38,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 		botaoCidades.setBounds(500, 100, 100, 30);
 		botaoLojas.setBounds(500, 150, 100, 30);
 		lista.setBounds(120, 100, 300, 300);
-		lista.setVisibleRowCount(10);
+		//lista.setVisibleRowCount(10);
 		
 		janela.setLayout(null);
 		
