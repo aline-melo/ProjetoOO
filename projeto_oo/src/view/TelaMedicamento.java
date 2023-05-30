@@ -9,9 +9,18 @@ import javax.swing.event.ListSelectionListener;
 
 import controle.*;
 
-public class TelaMenu implements ActionListener, ListSelectionListener {
+public class TelaMedicamento implements ActionListener, ListSelectionListener {
     private static JFrame janelaMedicamento = new JFrame("Medicamento");
     private static JButton salvar = new JButton("Salvar");
     private static JTextField nomeMedicamento = new JTextField ("Sertralina");
 
-}
+    public TelaMedicamento() {
+        nomeMedicamento.setBounds(120, 50, 300, 30);
+        salvar.setBounds(500, 50, 100, 30);
+        janelaMedicamento.setLayout(null);
+
+        janelaMedicamento.add(nomeMedicamento);
+        janelaMedicamento.add(salvar);
+        janelaMedicamento.setSize(700, 500);
+        janelaMedicamento.setVisible(true);
+    }
