@@ -6,15 +6,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import controle.*;
 
 /*
- * jlist
- * caixa de texto pra busca
- * botao buscar
- * botao listar cidades 
- * botao listar lojas
+ * fazer o jlist funcionar
+ *  
  */
 
 public class TelaMenu implements ActionListener, ListSelectionListener {
@@ -51,7 +47,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 		janela.setVisible(true);
 	}
 	public static void main(String[] args) {
-		TelaMenu menu = new TelaMenu();
+		TelaMenu tela = new TelaMenu();
 		
 		
 	}
