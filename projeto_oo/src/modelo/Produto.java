@@ -6,10 +6,10 @@ public abstract class Produto {
 	protected String fabricante;
 	protected double preco;
 	protected int emEstoque;
-	protected Quantidade quantidade;
+	protected String quantidade;
 	
 		public Produto(String nom, String desc, String fabri
-			, double prc,int emEst, Quantidade quant) {
+			, double prc,int emEst, String quant) {
 			nome = nom;
 			descricao = desc;
 			fabricante = fabri;
@@ -49,10 +49,10 @@ public abstract class Produto {
 	public void setEmEstoque(int emEstoque) {
 		this.emEstoque = emEstoque;
 	}
-	public Quantidade getQuantidade() {
+	public String getQuantidade() {
 		return quantidade;
 	}
-	public void setQuantidade(Quantidade quantidade) {
+	public void setQuantidade(String quantidade) {
 		this.quantidade = quantidade;
 	}	
 }

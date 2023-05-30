@@ -7,7 +7,7 @@ public class Cosmetico extends Produto{
 	
 	
 	public Cosmetico(String nom, String desc,String fabri,double prc, int emEstoq, 
-			Quantidade quant, String c, String frag, boolean hipoaler ) {
+			String quant, String c, String frag, boolean hipoaler ) {
 		super(nom, desc, fabri,prc, emEstoq, quant);
 		cor = c;
 		fragrancia = frag;
@@ -19,7 +19,7 @@ public class Cosmetico extends Produto{
 				+"\nDescrição:" + descricao 
 				+"\nFabricante:"+ fabricante
 				+"\nPreço:" + preco 
-				+"\nQuantidade:" + quantidade.retornoQuantidade() 
+				+"\nQuantidade:" + quantidade
 				+"\nCor:"+ retornoCor()
 				+"\nFragrância:"+ retornoFragrancia()
 				+"\nHipoalergênico:" + retornoHipoalergenico()

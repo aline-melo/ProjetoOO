@@ -9,7 +9,7 @@ public class Medicamento extends Produto{
 	
 	
 	public Medicamento(String nom, String desc, String fabri
-			, double prc,int emEst, Quantidade quant, String trat, String tarj, 
+			, double prc,int emEst, String quant, String trat, String tarj, 
 			boolean gen, PrincipioAtivo prinAtv) {
 
 		super(nom, desc, fabri, prc, emEst, quant);
@@ -24,7 +24,7 @@ public class Medicamento extends Produto{
 				+"\nDescrição: "+ descricao 
 				+ "\nPreço: " + preco 
 				+"\nFabricante: " +fabricante 
-				+ "\nQuantidade: "+ quantidade.retornoQuantidade() 
+				+ "\nQuantidade: "+ quantidade 
 				+ "\nTarja :"+ retornoTarja() 
 				+"\nPrincipio Ativo: "+ principioAtivo.retornoPrincipioAtivo()
 				+ "\nTratamento: "+ tratamento 
