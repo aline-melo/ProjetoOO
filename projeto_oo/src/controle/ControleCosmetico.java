@@ -1,6 +1,9 @@
 package controle;
-import modelo.*;
+import modelo.Cosmetico;
 
 public class ControleCosmetico {
-
-}
+	
+	
+	
+	
+	}

@@ -62,6 +62,7 @@ public class TelaMedicamento implements ActionListener, ListSelectionListener {
         janelaMedicamento.add(field_atributo6);
         janelaMedicamento.add(field_atributo7);
         janelaMedicamento.add(field_atributo8);
+        
         janelaMedicamento.add(label_atributo1);
         janelaMedicamento.add(label_atributo2);
         janelaMedicamento.add(label_atributo3);

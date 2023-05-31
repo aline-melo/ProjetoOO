@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import controle.*;
 
 public class Teste {
 	static Loja lojinhaDeEsquina;

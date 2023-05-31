@@ -49,15 +49,18 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 	public static void main(String[] args) {
 		TelaMenu tela = new TelaMenu();
 		
+		buscar.addActionListener(tela);
+		botaoCidades.addActionListener(tela);
+		botaoLojas.addActionListener(tela);
 		
 	}
 
-	public String[] getListaAExibir() {
-		return listaAExibir;
-	}
-	public void setListaAExibir(String[] listaAExibir) {
-		this.listaAExibir = listaAExibir;
-	}
+	//public String[] getListaAExibir() {
+	//	return listaAExibir;
+	//}
+	//public void setListaAExibir(String[] listaAExibir) {
+	//	this.listaAExibir = listaAExibir;
+	//}
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO Auto-generated method stub
