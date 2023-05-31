@@ -12,7 +12,7 @@ import controle.*;
 public class TelaMedicamento implements ActionListener, ListSelectionListener {
     private static JFrame janelaMedicamento = new JFrame("Medicamento");
     private static JButton salvar = new JButton("Salvar");
-    private static JTextField nomeMedicamento = new JTextField ("Sertralina");
+    private static JTextField nomeMedicamento = new JTextField ("Nome do medicamento");
     private static JTextField atributo1 = new JTextField ("atributo1");
     private static JTextField atributo2 = new JTextField ("atributo2");
     private static JTextField atributo3 = new JTextField ("atributo3");
@@ -21,6 +21,8 @@ public class TelaMedicamento implements ActionListener, ListSelectionListener {
     private static JTextField atributo6 = new JTextField ("atributo6");
     private static JTextField atributo7 = new JTextField ("atributo7");
     private static JTextField atributo8 = new JTextField ("atributo8");
+
+
 
     public TelaMedicamento() {
         nomeMedicamento.setBounds(120, 50, 300, 30);
@@ -36,13 +38,32 @@ public class TelaMedicamento implements ActionListener, ListSelectionListener {
 
         janelaMedicamento.setLayout(null);
         janelaMedicamento.add(nomeMedicamento);
+        janelaMedicamento.add(atributo1);
+        janelaMedicamento.add(atributo2);
+        janelaMedicamento.add(atributo3);
+        janelaMedicamento.add(atributo4);
+        janelaMedicamento.add(atributo5);
+        janelaMedicamento.add(atributo6);
+        janelaMedicamento.add(atributo7);
+        janelaMedicamento.add(atributo8);
         janelaMedicamento.add(salvar);
+
         janelaMedicamento.setSize(700, 500);
         janelaMedicamento.setVisible(true);
    }
-    public static void main(String[] args) {
-		TelaMedicamento tela = new TelaMedicamento();
-		
-		
-	}
+    public static void main(String [] args) {
+        TelaMedicamento tela = new TelaMedicamento();
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+
+    }
 }
