@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Dados {
 	private ArrayList<Loja> lojas = new ArrayList<Loja>();
+	private int qtdLojas = lojas.size();
 	
 	
 	public void criarDados() {
@@ -28,7 +29,19 @@ public class Dados {
 		estoqueLojinha.add(medicamento1Teste);
 		estoqueLojinha.add(medicamento2Teste);
 		lojas.add(lojinhaDeEsquina);
+		//int qtdLojas = lojas.size();
 		
+		
+	}
+
+
+	public ArrayList<Loja> getLojas() {
+		return lojas;
+	}
+
+
+	public void setLojas(ArrayList<Loja> lojas) {
+		this.lojas = lojas;
 	}
 
 	
