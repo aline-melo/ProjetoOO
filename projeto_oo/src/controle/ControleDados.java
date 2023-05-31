@@ -11,15 +11,12 @@ public class ControleDados {
 	public ControleDados() {
 		d.criarDados();
 	}
-	public String[] listarLojas () {
-	//		String[] s = new String[qtdAlunos];
-		//	for(int i = 0; i < qtdAlunos; i++) {
-			//	s[i] = a[i].getNome();
-		
+	
+	public String[] listarLojas () {	
 		String[] listaLojas = new String[d.getLojas().size()];
 		
 		for(int i = 0; i < d.getLojas().size(); i++) {
-			listaLojas[i] = a.;
+			listaLojas[i] = d.getLojas().get(i).getLocalizacao()+ ", "+ d.getLojas().get(i).getCidade();
 		}
 		return listaLojas;
 	}

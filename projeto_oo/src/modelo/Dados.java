@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Dados {
 	private ArrayList<Loja> lojas = new ArrayList<Loja>();
-	private int qtdLojas = lojas.size();
+	//private int qtdLojas = lojas.size();
 	
 	
 	public void criarDados() {

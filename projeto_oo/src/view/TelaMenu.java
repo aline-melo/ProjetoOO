@@ -14,6 +14,8 @@ import controle.*;
  */
 
 public class TelaMenu implements ActionListener, ListSelectionListener {
+
+	private static ControleDados controleDados = new ControleDados();
 	private static JFrame janela = new JFrame("Drogarias OO");
 	private static JButton buscar = new JButton("Buscar");
 	private static JButton botaoCidades = new JButton("Cidades");
@@ -23,8 +25,9 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 	private JList<String> lista = new JList<String>();
 
 	public TelaMenu() {
+		
 
-		String[] listaAExibir = { "oioi","olaola"};
+		String[] listaAExibir = controleDados.listarLojas();
 		lista = new JList<String>(listaAExibir);
 		
 		
