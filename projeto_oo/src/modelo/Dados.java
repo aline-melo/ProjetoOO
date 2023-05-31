@@ -3,7 +3,8 @@ package modelo;
 import java.util.ArrayList;
 
 public class Dados {
-	private Loja[] lojas = new Loja[50];
+	private ArrayList<Loja> lojas = new ArrayList<Loja>();
+	
 	
 	public void criarDados() {
 		ArrayList<Produto> estoqueLojinha = new ArrayList<Produto>();
@@ -26,17 +27,11 @@ public class Dados {
 		estoqueLojinha.add(cosmetico1Teste);
 		estoqueLojinha.add(medicamento1Teste);
 		estoqueLojinha.add(medicamento2Teste);
+		lojas.add(lojinhaDeEsquina);
 		
 	}
 
 	
-	public Loja[] getLojas() {
-		return lojas;
-	}
 
-	public void setLojas(Loja[] lojas) {
-		this.lojas = lojas;
-	}
-	
 
 }
