@@ -18,7 +18,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 
 	private static ControleDados controleDados = new ControleDados();
 	private static JFrame janela = new JFrame("Drogarias OO");
-	private static JButton buscar = new JButton("Buscar");
+	private static JButton buscar = new JButton("Buscar Produto");
 	private static JButton botaoCidades = new JButton("Cidades");
 	private static JButton botaoLojas = new JButton("Lojas");
 	private static JTextField caixaDeBusca = new JTextField ("...");
@@ -27,14 +27,14 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 
 	public TelaMenu() {
 
-		String[] listaAExibir = {"teste","teste?"};
+		String[] listaAExibir = {};
 
 		lista = new JList<String>(listaAExibir);
 		
 		
 		//titulo.setFont(new Font("Arial", Font.BOLD, 20));
 		caixaDeBusca.setBounds(120, 50, 300, 30);
-		buscar.setBounds(500, 50, 100, 30);
+		buscar.setBounds(450, 50, 150, 30);
 		botaoCidades.setBounds(500, 100, 100, 30);
 		botaoLojas.setBounds(500, 150, 100, 30);
 		lista.setBounds(120, 100, 300, 300);
