@@ -28,7 +28,6 @@ public class ControleDados {
 				j++;
 				listaCidades[j] = d.getLojas().get(i).getCidade();
 			}
-
 		}
 		return listaCidades;
 	}
