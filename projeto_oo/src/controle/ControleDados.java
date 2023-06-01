@@ -33,8 +33,14 @@ public class ControleDados {
 		return listaCidades;
 	}
 	public String[] buscaProduto() {
-		String[] listaBusca = {"OuR SoNg iS ThE SlAmMiNg sCrEeN DoOr\n" +
-				" sNeAkIn' OuT LaTe, TaPpInG On yOuR WiNdOw"};
+		String[] listaBusca = {"OuR SoNg iS ThE SlAmMiNg sCrEeN DoOr\n",
+				"sNeAkIn' OuT LaTe, TaPpInG On yOuR WiNdOw\n",
+				"wHeN We'rE On tHe pHoNe, AnD YoU TaLk rEaL SlOw\n",
+				"'CaUsE It's lAtE, aNd yOuR MaMa dOn't kNoW\n",
+				"OuR SoNg iS ThE WaY YoU LaUgH\n",
+				"ThE FiRsT DaTe, \"mAn, I DiDn't kIsS HeR, aNd i sHoUlD HaVe\"\n",
+				"AnD WhEn i gOt hOmE, 'FoRe i sAiD, \"AmEn\"\n",
+				"AsKiNg gOd iF He cOuLd pLaY It aGaIn"};
 		return listaBusca;
 	}
 	
