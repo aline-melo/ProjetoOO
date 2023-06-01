@@ -34,7 +34,7 @@ public class ControleDados {
 	}
 	public String[] buscaProduto() {
 		String[] listaBusca = {"OuR SoNg iS ThE SlAmMiNg sCrEeN DoOr\n" +
-				"sNeAkIn' OuT LaTe, TaPpInG On yOuR WiNdOw"};
+				" sNeAkIn' OuT LaTe, TaPpInG On yOuR WiNdOw"};
 		return listaBusca;
 	}
 	
