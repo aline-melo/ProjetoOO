@@ -10,6 +10,11 @@ public class Dados {
 	public void criarDados() {
 		ArrayList<Produto> estoqueLojinha = new ArrayList<Produto>();
 		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília",estoqueLojinha);
+		ArrayList<Produto> outroestoque= new ArrayList<Produto>();
+		Loja outraLoja = new Loja("Shopping do gama", "Brasília", outroestoque);
+		ArrayList<Produto> estoqueNoroeste= new ArrayList<Produto>();
+		Loja lojaNoroeste = new Loja("Noroeste", "Brasília", estoqueNoroeste);
+		
 		
 		Medicamento medicamento1Teste = new Medicamento("serenata", "SERENATA 50MG É UM MEDICAMENTO. SEU USO PODE TRAZER RISCOS. PROCURE UM MÉDICO OU UM FARMACÊUTICO.\n LEIA A BULA. MEDICAMENTOS PODEM CAUSAR EFEITOS INDESEJADOS. EVITE A AUTOMEDICAÇÃO: INFORME-SE COM O FARMACÊUTICO." 
 				, "torrent pharma",148.57, 20, "30 comprimidos", "Anti-depressivo", "Vermelha", false, "principioAtivoSerenataTeste");
@@ -29,6 +34,8 @@ public class Dados {
 		estoqueLojinha.add(medicamento1Teste);
 		estoqueLojinha.add(medicamento2Teste);
 		lojas.add(lojinhaDeEsquina);
+		lojas.add(outraLoja);
+		lojas.add(lojaNoroeste);
 		//int qtdLojas = lojas.size();
 		
 		

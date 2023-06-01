@@ -9,7 +9,8 @@ import javax.swing.event.ListSelectionListener;
 import controle.*;
 
 /*
- * fazer o jlist funcionar
+ * exibição do jlist
+ * depois eu faço a actionlistener da jlist
  *  
  */
 
@@ -21,13 +22,13 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 	private static JButton botaoCidades = new JButton("Cidades");
 	private static JButton botaoLojas = new JButton("Lojas");
 	private static JTextField caixaDeBusca = new JTextField ("...");
-	private String[] listaAExibir = new String[50];
+//	private String[] listaAExibir = new String[50];
 	private JList<String> lista = new JList<String>();
 
 	public TelaMenu() {
-		
 
-		String[] listaAExibir = controleDados.listarLojas();
+		String[] listaAExibir = {"teste","teste?"};
+
 		lista = new JList<String>(listaAExibir);
 		
 		
@@ -66,13 +67,18 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 	//}
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
+		Object src = e.getSource();
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object src = e.getSource();
+		if (src == botaoLojas) {
+			String[] listaAExibir = controleDados.listarLojas();
+			lista.setListData(listaAExibir);
+			lista.updateUI();	
+		}
 		
 	}
 
