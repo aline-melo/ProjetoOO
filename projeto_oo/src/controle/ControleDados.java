@@ -5,8 +5,6 @@ import modelo.*;
 
 public class ControleDados {
 	private Dados d = new Dados();
-	int aaaaa = d.getLojas().size();
-	private ArrayList<Loja> a = d.getLojas();
 	
 	public ControleDados() {
 		d.criarDados();
@@ -20,7 +18,23 @@ public class ControleDados {
 		}
 		return listaLojas;
 	}
+	
+	public String[] listarCidades() {
+		String[] listaCidades = new String[d.getLojas().size()];
+		
+		int j = 0;
+		for(int i = 0; i < d.getLojas().size(); i++ ) {
+			if (listaCidades[j] != d.getLojas().get(i).getCidade()) {
+				j++;
+				listaCidades[j] = d.getLojas().get(i).getCidade();
+			}
 
+		}
+		return listaCidades;
+	}
+	
+	
+	
 	public Dados getDados() {
 		return d;
 	}
@@ -28,5 +42,7 @@ public class ControleDados {
 	public void setDados(Dados d) {
 		this.d = d;
 	}
+
+	
 
 }

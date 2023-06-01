@@ -79,7 +79,11 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 			lista.setListData(listaAExibir);
 			lista.updateUI();	
 		}
-		
+		if (src == botaoCidades) {
+			String[] listaAExibir = controleDados.listarCidades();
+			lista.setListData(listaAExibir);
+			lista.updateUI();	
+		}
 	}
 
 }
