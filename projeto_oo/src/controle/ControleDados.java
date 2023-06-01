@@ -32,7 +32,10 @@ public class ControleDados {
 		}
 		return listaCidades;
 	}
-	
+	public String[] buscaProduto() {
+		String[] listaBusca = {"xispa que ainda não tá pronto"};
+		return listaBusca ;
+	}
 	
 	
 	public Dados getDados() {
@@ -42,6 +45,8 @@ public class ControleDados {
 	public void setDados(Dados d) {
 		this.d = d;
 	}
+
+	
 
 	
 

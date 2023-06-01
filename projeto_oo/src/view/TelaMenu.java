@@ -84,6 +84,11 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 			lista.setListData(listaAExibir);
 			lista.updateUI();	
 		}
+		if (src == buscar) {
+			String[] listaAExibir = controleDados.buscaProduto();
+			lista.setListData(listaAExibir);
+			lista.updateUI();	
+		}
 	}
 
 }
