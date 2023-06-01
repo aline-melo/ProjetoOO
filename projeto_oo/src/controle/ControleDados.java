@@ -33,8 +33,9 @@ public class ControleDados {
 		return listaCidades;
 	}
 	public String[] buscaProduto() {
-		String[] listaBusca = {"xispa que ainda não tá pronto"};
-		return listaBusca ;
+		String[] listaBusca = {"OuR SoNg iS ThE SlAmMiNg sCrEeN DoOr\n" +
+				"sNeAkIn' OuT LaTe, TaPpInG On yOuR WiNdOw"};
+		return listaBusca;
 	}
 	
 	
