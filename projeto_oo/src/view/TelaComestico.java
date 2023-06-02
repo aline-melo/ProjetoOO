@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -89,7 +90,13 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+        Object src = e.getSource();
+        if (src == button_salvar) {
+            label_descricao.setText("se mata");
+            TelaComestico.field_descricao.insert("se mata ", 0);
+            label_descricao.updateUI();
+            field_descricao.updateUI();
+        }
 
     }
 }
