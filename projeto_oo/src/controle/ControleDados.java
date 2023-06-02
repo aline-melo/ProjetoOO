@@ -34,7 +34,6 @@ public class ControleDados {
 		
 	}
 	public String[] buscaProduto() {
-
 		String[] listaBusca = {"NÃO TÁ PRONTO"};
 		return listaBusca;
 	}

@@ -32,20 +32,36 @@ public class Loja {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
+
 	public ArrayList<Produto> getEstoque() {
 		return estoque;
 	}
+
 	public void setEstoque(ArrayList<Produto> estoque) {
 		this.estoque = estoque;
 	}
-	
-	
-	
-	
-	public void listarEstoque(ArrayList<Produto> estoque) {
+
+
+	public ArrayList listarEstoque(ArrayList<Produto> estoque) {
+		ArrayList lista_retorno = new ArrayList();
 		for (int i = 0; i < estoque.size(); i++) {
-		      System.out.println(estoque.get(i).toString());
-		    }	
+			lista_retorno.add(estoque.get(i));
+		}
+		return lista_retorno;
 	}
-	
+
+	public ArrayList buscar_loja(String termo_busca) {
+		ArrayList lista_retorno = new ArrayList();
+		ArrayList estoque = this.getEstoque();
+
+		for (int i = 0; i < estoque.size(); i++) {
+			Produto x = (Produto) estoque.get(i);
+			String nome = x.getNome();
+			if (nome.contains(termo_busca)) {
+				lista_retorno.add(x);
+			}
+		}
+		return lista_retorno;
+	}
+
 }
