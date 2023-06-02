@@ -11,7 +11,7 @@ public class Dados {
 		ArrayList<Produto> estoqueLojinha = new ArrayList<Produto>();
 		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília",estoqueLojinha);
 		ArrayList<Produto> outroestoque= new ArrayList<Produto>();
-		Loja outraLoja = new Loja("Shopping do gama", "Brasília", outroestoque);
+		Loja outraLoja = new Loja("Shopping do gama", "Gama", outroestoque);
 		ArrayList<Produto> estoqueNoroeste= new ArrayList<Produto>();
 		Loja lojaNoroeste = new Loja("Noroeste", "Brasília", estoqueNoroeste);
 		

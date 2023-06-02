@@ -21,19 +21,15 @@ public class ControleDados {
 		}
 		return listaLojas;
 	}
-	//cria uma list e um array talvez
 	public String[] listarCidades() {
-		String[] listaCidades = new String[d.getLojas().size()];
-
-        //List<String> a = Arrays.asList(listaCidades);
-		int j = 0;
+		List<String> lista = new ArrayList<String>();
 		for(int i = 0; i < d.getLojas().size(); i++ ) {
-			if (listaCidades[j] != d.getLojas().get(i).getCidade()) {
-				j++;
-				listaCidades[j] = d.getLojas().get(i).getCidade();
+			if (lista.contains(d.getLojas().get(i).getCidade()) == false) {
+				lista.add(d.getLojas().get(i).getCidade());
 			}
 		}
-		
+		String[] listaCidades = new String[lista.size()];
+		listaCidades = lista.toArray(listaCidades);
 		return (String[]) listaCidades;
 		
 	}
