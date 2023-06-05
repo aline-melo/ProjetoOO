@@ -42,17 +42,17 @@ public class Loja {
 	}
 
 
-	public ArrayList listarEstoque() {
-		ArrayList lista_retorno = new ArrayList();
+	public ArrayList<Produto> listarEstoque() {
+		ArrayList<Produto> lista_retorno = new ArrayList<Produto>();
 		for (int i = 0; i < this.estoque.size(); i++) {
 			lista_retorno.add(this.estoque.get(i));
 		}
 		return lista_retorno;
 	}
 
-	public ArrayList buscar_loja(String termo_busca) {
-		ArrayList lista_retorno = new ArrayList();
-		ArrayList estoque = this.getEstoque();
+	public ArrayList<Produto> buscar_loja(String termo_busca) {
+		ArrayList<Produto> lista_retorno = new ArrayList<Produto>();
+		ArrayList<Produto> estoque = this.getEstoque();
 
 		for (int i = 0; i < estoque.size(); i++) {
 			Produto x = (Produto) estoque.get(i);

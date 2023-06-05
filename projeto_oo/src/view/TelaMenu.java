@@ -23,7 +23,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 	private static JButton botaoCidades = new JButton("Cidades");
 	private static JButton botaoLojas = new JButton("Lojas");
 	private static JTextField caixaDeBusca = new JTextField ("...");
-//	private String[] listaAExibir = new String[50];
 	private JList<String> lista = new JList<String>();
 
 	public TelaMenu() {
@@ -60,12 +59,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 		
 	}
 
-	//public String[] getListaAExibir() {
-	//	return listaAExibir;
-	//}
-	//public void setListaAExibir(String[] listaAExibir) {
-	//	this.listaAExibir = listaAExibir;
-	//}
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		Object src = e.getSource();
