@@ -60,6 +60,16 @@ public class Dados {
 		return return_list;
 	}
 
+	public ArrayList<Produto> listar_tudo() {
+		ArrayList<Produto> return_list = new ArrayList<Produto>();
+		for (int i = 0; i < lojas.size(); i++) {
+			Loja y = lojas.get(i);
+			ArrayList achados = y.listarEstoque();
+			return_list.addAll(achados);
+		}
+		return return_list;
+	}
+
 	public void setLojas(ArrayList<Loja> lojas) {
 		this.lojas = lojas;
 	}

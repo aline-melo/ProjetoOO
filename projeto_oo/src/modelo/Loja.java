@@ -42,10 +42,10 @@ public class Loja {
 	}
 
 
-	public ArrayList listarEstoque(ArrayList<Produto> estoque) {
+	public ArrayList listarEstoque() {
 		ArrayList lista_retorno = new ArrayList();
-		for (int i = 0; i < estoque.size(); i++) {
-			lista_retorno.add(estoque.get(i));
+		for (int i = 0; i < this.estoque.size(); i++) {
+			lista_retorno.add(this.estoque.get(i));
 		}
 		return lista_retorno;
 	}
