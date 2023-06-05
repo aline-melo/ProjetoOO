@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Dados {
 	private ArrayList<Loja> lojas = new ArrayList<Loja>();
@@ -68,6 +69,27 @@ public class Dados {
 			return_list.addAll(achados);
 		}
 		return return_list;
+	}
+
+	public String[] listarCidades() {
+		List<String> lista = new ArrayList<String>();
+		for (int i = 0; i < lojas.size(); i++) {
+			if (!lista.contains(lojas.get(i).getCidade())) {
+				lista.add(lojas.get(i).getCidade());
+			}
+		}
+		String[] listaCidades = new String[lista.size()];
+		listaCidades = lista.toArray(listaCidades);
+		return (String[]) listaCidades;
+	}
+
+	public String[] listarLojas() {
+		String[] listaLojas = new String[lojas.size()];
+
+		for (int i = 0; i < lojas.size(); i++) {
+			listaLojas[i] = lojas.get(i).getLocalizacao() + ", " + lojas.get(i).getCidade();
+		}
+		return listaLojas;
 	}
 
 	public void setLojas(ArrayList<Loja> lojas) {

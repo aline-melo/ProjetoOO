@@ -12,27 +12,8 @@ public class ControleDados {
 	public ControleDados() {
 		d.criarDados();
 	}
-	
-	public String[] listarLojas () {	
-		String[] listaLojas = new String[d.getLojas().size()];
-		
-		for(int i = 0; i < d.getLojas().size(); i++) {
-			listaLojas[i] = d.getLojas().get(i).getLocalizacao()+ ", "+ d.getLojas().get(i).getCidade();
-		}
-		return listaLojas;
-	}
-	
-	public String[] listarCidades() {
-		List<String> lista = new ArrayList<String>();
-		for(int i = 0; i < d.getLojas().size(); i++ ) {
-			if (lista.contains(d.getLojas().get(i).getCidade()) == false) {
-				lista.add(d.getLojas().get(i).getCidade());
-			}
-		}
-		String[] listaCidades = new String[lista.size()];
-		listaCidades = lista.toArray(listaCidades);
-		return (String[]) listaCidades;
-	}
+
+
 	public String[] buscaProduto() {
 		//List<String> lista = new ArrayList<String>();
 

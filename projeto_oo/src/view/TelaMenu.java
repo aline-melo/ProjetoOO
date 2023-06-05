@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import controle.*;
+import modelo.Dados;
 
 /*
  * exibição do jlist
@@ -75,12 +76,12 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src == botaoLojas) {
-			String[] listaAExibir = controleDados.listarLojas();
+			String[] listaAExibir = controleDados.getDados().listarLojas();
 			lista.setListData(listaAExibir);
 			lista.updateUI();	
 		}
 		if (src == botaoCidades) {
-			String[] listaAExibir = controleDados.listarCidades();
+			String[] listaAExibir = controleDados.getDados().listarCidades();
 			lista.setListData(listaAExibir);
 			lista.updateUI();	
 		}
