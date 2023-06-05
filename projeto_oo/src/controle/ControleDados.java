@@ -21,6 +21,7 @@ public class ControleDados {
 		}
 		return listaLojas;
 	}
+	
 	public String[] listarCidades() {
 		List<String> lista = new ArrayList<String>();
 		for(int i = 0; i < d.getLojas().size(); i++ ) {
@@ -31,11 +32,11 @@ public class ControleDados {
 		String[] listaCidades = new String[lista.size()];
 		listaCidades = lista.toArray(listaCidades);
 		return (String[]) listaCidades;
-		
 	}
 	public String[] buscaProduto() {
+		List<String> lista = new ArrayList<String>();
 
-		String[] listaBusca = {"NÃO TÁ PRONTO"};
+		String[] listaBusca =  new String[lista.size()];
 		return listaBusca;
 	}
 	
