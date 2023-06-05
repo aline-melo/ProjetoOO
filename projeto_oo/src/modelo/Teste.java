@@ -49,7 +49,7 @@ public class Teste {
 		estoqueBarato.add(cosmetico2Teste);
 
 
-		ArrayList lista_busca;
+		ArrayList<Produto> lista_busca;
 		//lista_busca = dados_teste.getLojas().get(0).buscar_loja("o");
 		lista_busca = dados_teste.buscar_tudo("e");
 		System.out.println("\nResultado da busca:\n");

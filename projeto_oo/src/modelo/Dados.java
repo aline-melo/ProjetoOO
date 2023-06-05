@@ -54,7 +54,7 @@ public class Dados {
 		ArrayList<Produto> return_list = new ArrayList<Produto>();
 		for (int i = 0; i < lojas.size(); i++) {
 			Loja y = lojas.get(i);
-			ArrayList achados = y.buscar_loja(termo);
+			ArrayList<Produto> achados = y.buscar_loja(termo);
 			return_list.addAll(achados);
 		}
 		return return_list;
@@ -64,7 +64,7 @@ public class Dados {
 		ArrayList<Produto> return_list = new ArrayList<Produto>();
 		for (int i = 0; i < lojas.size(); i++) {
 			Loja y = lojas.get(i);
-			ArrayList achados = y.listarEstoque();
+			ArrayList<Produto> achados = y.listarEstoque();
 			return_list.addAll(achados);
 		}
 		return return_list;
