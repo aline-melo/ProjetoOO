@@ -57,7 +57,7 @@ public class Loja {
 		for (int i = 0; i < estoque.size(); i++) {
 			Produto x = (Produto) estoque.get(i);
 			String nome = x.getNome();
-			if (nome.contains(termo_busca)) {
+			if (nome.toLowerCase().contains(termo_busca.toLowerCase())) {
 				lista_retorno.add(x);
 			}
 		}

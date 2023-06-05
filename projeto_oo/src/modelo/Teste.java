@@ -51,8 +51,11 @@ public class Teste {
 
 		ArrayList lista_busca;
 		//lista_busca = dados_teste.getLojas().get(0).buscar_loja("o");
-		lista_busca = dados_teste.buscar_tudo("o");
+		lista_busca = dados_teste.buscar_tudo("e");
+		System.out.println("\nResultado da busca:\n");
 		System.out.println(lista_busca);
+		System.out.println("\nTodos os Produtos:\n");
+		System.out.println(dados_teste.listar_tudo());
 
 	}
 }
