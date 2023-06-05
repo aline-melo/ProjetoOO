@@ -34,9 +34,10 @@ public class ControleDados {
 		return (String[]) listaCidades;
 	}
 	public String[] buscaProduto() {
-		List<String> lista = new ArrayList<String>();
+		//List<String> lista = new ArrayList<String>();
 
-		String[] listaBusca =  new String[lista.size()];
+		//String[] listaBusca =  new String[lista.size()];
+		String[] listaBusca = {"NÃO TÁ PRONTO"};
 		return listaBusca;
 	}
 	
