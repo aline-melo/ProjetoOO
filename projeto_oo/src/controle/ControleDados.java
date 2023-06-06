@@ -83,8 +83,15 @@ public class ControleDados {
 				"aRe yOu rEaDy fOr iT?"};
 		return listaBusca;
 	}
-	
-	
+
+	public static String[] listarEmString(ArrayList<Produto> array) {
+		String[] lista_retorno = new String[array.size()];
+		for (int i = 0; i < array.size(); i++) {
+			lista_retorno[i] = array.get(i).getNome();
+		}
+		return lista_retorno;
+	}
+
 	public Dados getDados() {
 		return d;
 	}

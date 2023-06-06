@@ -18,6 +18,7 @@ import modelo.Dados;
 public class TelaMenu implements ActionListener, ListSelectionListener {
 
 	private static ControleDados controleDados = new ControleDados();
+	private static Dados dados = controleDados.getDados();
 	private static JFrame janela = new JFrame("Drogarias OO");
 	private static JButton buscar = new JButton("Buscar Produto");
 	private static JButton botaoCidades = new JButton("Cidades");
@@ -69,17 +70,17 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src == botaoLojas) {
-			String[] listaAExibir = controleDados.getDados().listarLojas();
+			String[] listaAExibir = dados.listarLojas();
 			lista.setListData(listaAExibir);
 			lista.updateUI();	
 		}
 		if (src == botaoCidades) {
-			String[] listaAExibir = controleDados.getDados().listarCidades();
+			String[] listaAExibir = dados.listarCidades();
 			lista.setListData(listaAExibir);
 			lista.updateUI();	
 		}
 		if (src == buscar) {
-			String[] listaAExibir = controleDados.buscaProduto();
+			String[] listaAExibir = controleDados.listarEmString(dados.buscar_tudo(caixaDeBusca.getText()));
 			lista.setListData(listaAExibir);
 			lista.updateUI();	
 		}
