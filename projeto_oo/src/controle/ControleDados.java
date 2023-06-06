@@ -1,8 +1,5 @@
 package controle;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.IntStream;
 
 import modelo.*;
 
@@ -14,17 +11,17 @@ public class ControleDados {
 	}
 
 
-	public String[] buscaProduto() {
-		//List<String> lista = new ArrayList<String>();
+	public String[] taylorSwift() {
+        //List<String> lista = new ArrayList<String>();
 
-		//String[] listaBusca =  new String[lista.size()];
-		String[] listaBusca = {"kNeW He wAs a kIlLeR FiRsT TiMe tHaT I SaW HiM\n",
-				"WoNdEr hOw mAnY GiRlS He hAd lOvEd aNd lEfT HaUnTeD\n",
-				"BuT If hE'S A GhOsT, tHeN I CaN Be a pHaNtOm\n",
-				"hOlDiN' hIm fOr rAnSoM\n",
-				"SoMe, SoMe bOyS ArE TrYiN' tOo hArD\n",
-				"He dOn't tRy aT AlL, tHoUgH\n",
-				"YoUnGeR ThAn mY ExEs bUt hE AcT LiKe sUcH A MaN, sO\n",
+        //String[] listaBusca =  new String[lista.size()];
+        String[] listaBusca = {"kNeW He wAs a kIlLeR FiRsT TiMe tHaT I SaW HiM\n",
+                "WoNdEr hOw mAnY GiRlS He hAd lOvEd aNd lEfT HaUnTeD\n",
+                "BuT If hE'S A GhOsT, tHeN I CaN Be a pHaNtOm\n",
+                "hOlDiN' hIm fOr rAnSoM\n",
+                "SoMe, SoMe bOyS ArE TrYiN' tOo hArD\n",
+                "He dOn't tRy aT AlL, tHoUgH\n",
+                "YoUnGeR ThAn mY ExEs bUt hE AcT LiKe sUcH A MaN, sO\n",
 				"I SeE NoThInG BeTtEr, I KeEp hIm fOrEvEr\n",
 				"lIkE A VeNdEtTa-tA\n",
 				"I-I-I SeE HoW ThIs iS GoN' gO\n",

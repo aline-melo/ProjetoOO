@@ -80,9 +80,18 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 			lista.updateUI();	
 		}
 		if (src == buscar) {
-			String[] listaAExibir = controleDados.listarEmString(dados.buscar_tudo(caixaDeBusca.getText()));
-			lista.setListData(listaAExibir);
-			lista.updateUI();	
+			String text = caixaDeBusca.getText().toLowerCase();
+			if (text.contains("taylor") || text.contains("swift")) {
+				String[] listaAExibir = controleDados.taylorSwift();
+				lista.setListData(listaAExibir);
+				lista.updateUI();
+
+			} else {
+				String[] listaAExibir = controleDados.listarEmString(dados.buscar_tudo(text));
+				lista.setListData(listaAExibir);
+				lista.updateUI();
+			}
+
 		}
 	}
 
