@@ -11,17 +11,31 @@ public class ControleDados {
 	}
 
 
-	public String[] taylorSwift() {
-        //List<String> lista = new ArrayList<String>();
+	public static String[] listarEmString(ArrayList<Produto> array) {
+		String[] lista_retorno = new String[array.size()];
+		for (int i = 0; i < array.size(); i++) {
+			lista_retorno[i] = array.get(i).getNome();
+		}
+		return lista_retorno;
+	}
 
-        //String[] listaBusca =  new String[lista.size()];
-        String[] listaBusca = {"kNeW He wAs a kIlLeR FiRsT TiMe tHaT I SaW HiM\n",
-                "WoNdEr hOw mAnY GiRlS He hAd lOvEd aNd lEfT HaUnTeD\n",
-                "BuT If hE'S A GhOsT, tHeN I CaN Be a pHaNtOm\n",
-                "hOlDiN' hIm fOr rAnSoM\n",
-                "SoMe, SoMe bOyS ArE TrYiN' tOo hArD\n",
-                "He dOn't tRy aT AlL, tHoUgH\n",
-                "YoUnGeR ThAn mY ExEs bUt hE AcT LiKe sUcH A MaN, sO\n",
+	public Dados getDados() {
+		return d;
+	}
+
+	public void setDados(Dados d) {
+		this.d = d;
+	}
+
+	public String[] taylorSwift() {
+
+		String[] listaLetras = {"kNeW He wAs a kIlLeR FiRsT TiMe tHaT I SaW HiM\n",
+				"WoNdEr hOw mAnY GiRlS He hAd lOvEd aNd lEfT HaUnTeD\n",
+				"BuT If hE'S A GhOsT, tHeN I CaN Be a pHaNtOm\n",
+				"hOlDiN' hIm fOr rAnSoM\n",
+				"SoMe, SoMe bOyS ArE TrYiN' tOo hArD\n",
+				"He dOn't tRy aT AlL, tHoUgH\n",
+				"YoUnGeR ThAn mY ExEs bUt hE AcT LiKe sUcH A MaN, sO\n",
 				"I SeE NoThInG BeTtEr, I KeEp hIm fOrEvEr\n",
 				"lIkE A VeNdEtTa-tA\n",
 				"I-I-I SeE HoW ThIs iS GoN' gO\n",
@@ -78,27 +92,6 @@ public class ControleDados {
 				"lEt tHe gAmEs bEgIn\n",
 				"lEt tHe gAmEs bEgIn\n",
 				"aRe yOu rEaDy fOr iT?"};
-		return listaBusca;
+		return listaLetras;
 	}
-
-	public static String[] listarEmString(ArrayList<Produto> array) {
-		String[] lista_retorno = new String[array.size()];
-		for (int i = 0; i < array.size(); i++) {
-			lista_retorno[i] = array.get(i).getNome();
-		}
-		return lista_retorno;
-	}
-
-	public Dados getDados() {
-		return d;
-	}
-
-	public void setDados(Dados d) {
-		this.d = d;
-	}
-
-	
-
-	
-
 }
