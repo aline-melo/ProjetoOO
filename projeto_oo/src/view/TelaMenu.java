@@ -15,7 +15,7 @@ import modelo.Dados;
  *  
  */
 
-public class TelaMenu implements ActionListener, ListSelectionListener {
+public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener {
 
 	private static ControleDados controleDados = new ControleDados();
 	private static Dados dados = controleDados.getDados();
@@ -23,7 +23,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 	private static JButton buscar = new JButton("Buscar Produto");
 	private static JButton botaoCidades = new JButton("Cidades");
 	private static JButton botaoLojas = new JButton("Lojas");
-	private static JTextField caixaDeBusca = new JTextField ("...");
+	private static JTextField caixaDeBusca = new JTextField("");
 	private JList<String> lista = new JList<String>();
 
 	public TelaMenu() {
@@ -50,20 +50,37 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 		janela.add(buscar);
 		janela.setSize(700, 500);
 		janela.setVisible(true);
+
 	}
+
 	public static void main(String[] args) {
 		TelaMenu tela = new TelaMenu();
-		
+
 		buscar.addActionListener(tela);
 		botaoCidades.addActionListener(tela);
 		botaoLojas.addActionListener(tela);
-		
+
+
+	}
+
+	public void busca() {
+		String text = caixaDeBusca.getText().toLowerCase();
+		if (text.contains("taylor") || text.contains("swift")) {
+			String[] listaAExibir = controleDados.taylorSwift();
+			lista.setListData(listaAExibir);
+			lista.updateUI();
+
+		} else {
+			String[] listaAExibir = controleDados.listarEmString(dados.buscar_tudo(text));
+			lista.setListData(listaAExibir);
+			lista.updateUI();
+		}
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		Object src = e.getSource();
-		
+
 	}
 
 	@Override
@@ -77,22 +94,27 @@ public class TelaMenu implements ActionListener, ListSelectionListener {
 		if (src == botaoCidades) {
 			String[] listaAExibir = dados.listarCidades();
 			lista.setListData(listaAExibir);
-			lista.updateUI();	
+			lista.updateUI();
 		}
 		if (src == buscar) {
-			String text = caixaDeBusca.getText().toLowerCase();
-			if (text.contains("taylor") || text.contains("swift")) {
-				String[] listaAExibir = controleDados.taylorSwift();
-				lista.setListData(listaAExibir);
-				lista.updateUI();
-
-			} else {
-				String[] listaAExibir = controleDados.listarEmString(dados.buscar_tudo(text));
-				lista.setListData(listaAExibir);
-				lista.updateUI();
-			}
-
+			this.busca();
 		}
 	}
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyChar() == '\n') {
+			this.busca();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
+	}
 }
