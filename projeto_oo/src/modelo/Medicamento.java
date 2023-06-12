@@ -72,10 +72,9 @@ public class Medicamento extends Produto{
 		}
 	}
 	public String retornoGenerico() {
-		if(generico == true) {
+		if (generico) {
 			return "Este produto é genérico";
-		}
-		else
+		} else
 			return "Este produto não é genérico";
 	}
 	

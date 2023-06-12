@@ -29,7 +29,7 @@ public class ControleDados {
 
 	public String[] taylorSwift() {
 
-		String[] listaLetras = {"kNeW He wAs a kIlLeR FiRsT TiMe tHaT I SaW HiM\n",
+		return new String[]{"kNeW He wAs a kIlLeR FiRsT TiMe tHaT I SaW HiM\n",
 				"WoNdEr hOw mAnY GiRlS He hAd lOvEd aNd lEfT HaUnTeD\n",
 				"BuT If hE'S A GhOsT, tHeN I CaN Be a pHaNtOm\n",
 				"hOlDiN' hIm fOr rAnSoM\n",
@@ -92,6 +92,5 @@ public class ControleDados {
 				"lEt tHe gAmEs bEgIn\n",
 				"lEt tHe gAmEs bEgIn\n",
 				"aRe yOu rEaDy fOr iT?"};
-		return listaLetras;
 	}
 }

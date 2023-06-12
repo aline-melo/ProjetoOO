@@ -78,7 +78,7 @@ public class Dados {
 		}
 		String[] listaCidades = new String[lista.size()];
 		listaCidades = lista.toArray(listaCidades);
-		return (String[]) listaCidades;
+		return listaCidades;
 	}
 
 	public String[] listarLojas() {

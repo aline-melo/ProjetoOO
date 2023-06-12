@@ -58,9 +58,9 @@ public class Loja {
 		ArrayList<Produto> estoque = this.getEstoque();
 
 		for (Produto produto : estoque) {
-			String nome = ((Produto) produto).getNome();
+			String nome = produto.getNome();
 			if (nome.toLowerCase().contains(termo_busca.toLowerCase())) {
-				lista_retorno.add((Produto) produto);
+				lista_retorno.add(produto);
 			}
 		}
 		return lista_retorno;
