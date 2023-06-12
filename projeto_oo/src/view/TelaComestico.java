@@ -1,38 +1,41 @@
 package view;
 
 import modelo.Cosmetico;
+import modelo.Dados;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.lang.Double.parseDouble;
+
 public class TelaComestico implements ActionListener, ListSelectionListener {
-    private static JFrame janelaComestico = new JFrame("Cosmetico");
-    private static JButton button_salvar = new JButton("Salvar");
-    private static JTextField field_nome = new JTextField("Nome do comestico");
-    private static JTextArea field_descricao = new JTextArea("field_descricao");
-    private static JTextField field_preco = new JTextField("field_preco");
-    private static JTextField field_estoque = new JTextField("field_estoque");
-    private static JTextField field_fabricante = new JTextField("field_fabricante");
-    private static JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
-    private static JTextField field_cor = new JTextField("field_cor");
-    private static JTextField field_fragancia = new JTextField("field_fragancia");
-    private static JCheckBox checkbox_hipoalergenico = new JCheckBox("Sim");
-    private static JLabel label_nome = new JLabel("Nome do Cosmético:");
-    private static JLabel label_descricao = new JLabel("Descrição:");
-    private static JLabel label_preco = new JLabel("Preço:");
-    private static JLabel label_estoque = new JLabel("Quantidade em Estoque:");
-    private static JLabel label_fabricante = new JLabel("Fabricante:");
-    private static JLabel label_tamanho_embalagem = new JLabel("Tamanho:");
-    private static JLabel label_cor = new JLabel("Cor:");
-    private static JLabel label_fragancia = new JLabel("Fragância:");
-    private static JLabel label_hipoalergenico = new JLabel("É hipoalergênico?");
+    private static final JFrame janelaComestico = new JFrame("Cosmetico");
+    private static final JButton button_salvar = new JButton("Salvar");
+    private static final JTextField field_nome = new JTextField("Nome do comestico");
+    private static final JTextArea field_descricao = new JTextArea("field_descricao");
+    private static final JTextField field_preco = new JTextField("field_preco");
+    private static final JTextField field_estoque = new JTextField("field_estoque");
+    private static final JTextField field_fabricante = new JTextField("field_fabricante");
+    private static final JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
+    private static final JTextField field_cor = new JTextField("field_cor");
+    private static final JTextField field_fragancia = new JTextField("field_fragancia");
+    private static final JCheckBox checkbox_hipoalergenico = new JCheckBox("Sim");
+    private static final JLabel label_nome = new JLabel("Nome do Cosmético:");
+    private static final JLabel label_descricao = new JLabel("Descrição:");
+    private static final JLabel label_preco = new JLabel("Preço:");
+    private static final JLabel label_estoque = new JLabel("Quantidade em Estoque:");
+    private static final JLabel label_fabricante = new JLabel("Fabricante:");
+    private static final JLabel label_tamanho_embalagem = new JLabel("Tamanho:");
+    private static final JLabel label_cor = new JLabel("Cor:");
+    private static final JLabel label_fragancia = new JLabel("Fragância:");
+    private static final JLabel label_hipoalergenico = new JLabel("É hipoalergênico?");
 
 
     public TelaComestico(Cosmetico item) {
+
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
         field_descricao.setBounds(40, 120, 300, 90);
@@ -101,10 +104,7 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if (src == button_salvar) {
-            label_descricao.setText("se mata");
-            TelaComestico.field_descricao.insert("se mata ", 0);
-            label_descricao.updateUI();
-            field_descricao.updateUI();
+
         }
 
     }

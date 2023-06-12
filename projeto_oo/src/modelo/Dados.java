@@ -9,12 +9,10 @@ public class Dados {
 	
 	
 	public void criarDados() {
-		ArrayList<Produto> estoqueLojinha = new ArrayList<Produto>();
-		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília", estoqueLojinha);
-		ArrayList<Produto> outroestoque = new ArrayList<Produto>();
-		Loja outraLoja = new Loja("Shopping do gama", "Gama", outroestoque);
-		ArrayList<Produto> estoqueNoroeste = new ArrayList<Produto>();
-		Loja lojaNoroeste = new Loja("Noroeste", "Brasília", estoqueNoroeste);
+
+		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília", new ArrayList<>());
+		Loja outraLoja = new Loja("Shopping do gama", "Gama", new ArrayList<>());
+		Loja lojaNoroeste = new Loja("Noroeste", "Brasília", new ArrayList<>());
 
 
 		Medicamento medicamento1Teste = new Medicamento("serenata", "SERENATA 50MG É UM MEDICAMENTO. SEU USO PODE TRAZER RISCOS. PROCURE UM MÉDICO OU UM FARMACÊUTICO.\n LEIA A BULA. MEDICAMENTOS PODEM CAUSAR EFEITOS INDESEJADOS. EVITE A AUTOMEDICAÇÃO: INFORME-SE COM O FARMACÊUTICO."
@@ -34,10 +32,12 @@ public class Dados {
 				"po", "avon", 119.90, 10,
 				"1 unidade", "creme", null, true);
 
-		estoqueLojinha.add(cosmetico1Teste);
-		estoqueLojinha.add(medicamento1Teste);
-		estoqueLojinha.add(medicamento2Teste);
-		estoqueNoroeste.add(cosmetico2Teste);
+
+		lojinhaDeEsquina.addToEstoque(cosmetico1Teste);
+		lojinhaDeEsquina.addToEstoque(medicamento1Teste);
+		lojaNoroeste.addToEstoque(medicamento2Teste);
+		lojaNoroeste.addToEstoque(cosmetico2Teste);
+
 		lojas.add(lojinhaDeEsquina);
 		lojas.add(outraLoja);
 		lojas.add(lojaNoroeste);
@@ -53,8 +53,7 @@ public class Dados {
 
 	public ArrayList<Produto> buscar_tudo(String termo) {
 		ArrayList<Produto> return_list = new ArrayList<Produto>();
-		for (int i = 0; i < lojas.size(); i++) {
-			Loja y = lojas.get(i);
+		for (Loja y : lojas) {
 			ArrayList<Produto> achados = y.buscar_loja(termo);
 			return_list.addAll(achados);
 		}
@@ -63,8 +62,7 @@ public class Dados {
 
 	public ArrayList<Produto> listar_tudo() {
 		ArrayList<Produto> return_list = new ArrayList<Produto>();
-		for (int i = 0; i < lojas.size(); i++) {
-			Loja y = lojas.get(i);
+		for (Loja y : lojas) {
 			ArrayList<Produto> achados = y.listarEstoque();
 			return_list.addAll(achados);
 		}
@@ -73,9 +71,9 @@ public class Dados {
 
 	public String[] listarCidades() {
 		List<String> lista = new ArrayList<String>();
-		for (int i = 0; i < lojas.size(); i++) {
-			if (!lista.contains(lojas.get(i).getCidade())) {
-				lista.add(lojas.get(i).getCidade());
+		for (Loja loja : lojas) {
+			if (!lista.contains(loja.getCidade())) {
+				lista.add(loja.getCidade());
 			}
 		}
 		String[] listaCidades = new String[lista.size()];

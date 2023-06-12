@@ -1,36 +1,38 @@
 package view;
 
+import modelo.Medicamento;
+
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class TelaMedicamento implements ActionListener, ListSelectionListener {
-    private static JFrame janelaMedicamento = new JFrame("Medicamento");
-    private static JButton button_salvar = new JButton("Salvar");
-    private static JTextField field_nome = new JTextField("Nome do medicamento");
-    private static JTextArea field_descricao = new JTextArea("field_descricao");
-    private static JTextField field_preco = new JTextField("field_preco");
-    private static JTextField field_estoque = new JTextField("field_estoque");
-    private static JTextField field_fabricante = new JTextField("field_fabricante");
-    private static JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
-    private static JTextField field_tratamento = new JTextField("field_tratamento");
-    private static JTextField field_tarja = new JTextField("field_tarja");
-    private static JTextField field_principio = new JTextField("field_principio");
-    private static JCheckBox checkbox_generico = new JCheckBox("Sim");
-    private static JLabel label_nome = new JLabel("Nome do Medicamento:");
-    private static JLabel label_descricao = new JLabel("Descrição:");
-    private static JLabel label_preco = new JLabel("Preço:");
-    private static JLabel label_estoque = new JLabel("Quantidade em Estoque:");
-    private static JLabel label_fabricante = new JLabel("Fabricante:");
-    private static JLabel label_tamanho_embalagem = new JLabel("Tamanho:");
-    private static JLabel label_tratamento = new JLabel("Tratamento:");
-    private static JLabel label_tarja = new JLabel("Tarja:");
-    private static JLabel label_principio = new JLabel("Princípios Ativos:");
-    private static JLabel label_generico = new JLabel("É genérico?");
+    private static final JFrame janelaMedicamento = new JFrame("Medicamento");
+    private static final JButton button_salvar = new JButton("Salvar");
+    private static final JTextField field_nome = new JTextField("Nome do medicamento");
+    private static final JTextArea field_descricao = new JTextArea("field_descricao");
+    private static final JTextField field_preco = new JTextField("field_preco");
+    private static final JTextField field_estoque = new JTextField("field_estoque");
+    private static final JTextField field_fabricante = new JTextField("field_fabricante");
+    private static final JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
+    private static final JTextField field_tratamento = new JTextField("field_tratamento");
+    private static final JTextField field_tarja = new JTextField("field_tarja");
+    private static final JTextField field_principio = new JTextField("field_principio");
+    private static final JCheckBox checkbox_generico = new JCheckBox("Sim");
+    private static final JLabel label_nome = new JLabel("Nome do Medicamento:");
+    private static final JLabel label_descricao = new JLabel("Descrição:");
+    private static final JLabel label_preco = new JLabel("Preço:");
+    private static final JLabel label_estoque = new JLabel("Quantidade em Estoque:");
+    private static final JLabel label_fabricante = new JLabel("Fabricante:");
+    private static final JLabel label_tamanho_embalagem = new JLabel("Tamanho:");
+    private static final JLabel label_tratamento = new JLabel("Tratamento:");
+    private static final JLabel label_tarja = new JLabel("Tarja:");
+    private static final JLabel label_principio = new JLabel("Princípios Ativos:");
+    private static final JLabel label_generico = new JLabel("É genérico?");
 
 
-    public TelaMedicamento() {
+    public TelaMedicamento(Medicamento item) {
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
         field_descricao.setBounds(40, 120, 300, 90);
@@ -80,11 +82,19 @@ public class TelaMedicamento implements ActionListener, ListSelectionListener {
 
         janelaMedicamento.setSize(555, 420);
         janelaMedicamento.setVisible(true);
+
+        field_nome.setText(item.getNome());
+        field_descricao.setText(item.getDescricao());
+        field_preco.setText(Double.toString(item.getPreco()));
+        field_estoque.setText(Integer.toString(item.getEmEstoque()));
+        field_fabricante.setText(item.getFabricante());
+        field_tamanho_embalagem.setText(item.getQuantidade());
+        field_tratamento.setText(item.getTratamento());
+        field_tarja.setText(item.getTarja());
+        field_principio.setText(item.getPrincipioAtivo());
+        checkbox_generico.setSelected(item.isGenerico());
     }
 
-    public static void main(String[] args) {
-        TelaMedicamento tela = new TelaMedicamento();
-    }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {

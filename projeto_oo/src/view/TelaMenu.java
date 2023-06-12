@@ -19,14 +19,14 @@ import modelo.Produto;
 
 public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener {
 
-	private static ControleDados controleDados = new ControleDados();
-	private static Dados dados = controleDados.getDados();
-	private static JFrame janela = new JFrame("Drogarias OO");
-	private static JButton buscar = new JButton("Buscar Produto");
-	private static JButton botaoCidades = new JButton("Cidades");
-	private static JButton botaoLojas = new JButton("Lojas");
-	private static JTextField caixaDeBusca = new JTextField("");
-	private static JList<String> jlist_produtos = new JList<String>();
+	private static final ControleDados controleDados = new ControleDados();
+	private static final Dados dados = controleDados.getDados();
+	private static final JFrame janela = new JFrame("Drogarias OO");
+	private static final JButton buttonBusca = new JButton("Buscar Produto");
+	private static final JButton buttonCidades = new JButton("Cidades");
+	private static final JButton buttonLojas = new JButton("Lojas");
+	private static final JTextField textfieldBusca = new JTextField("");
+	private static JList<String> jlistMenu = new JList<String>();
 	private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
 	private static int listMode = 0;
 
@@ -35,66 +35,78 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 		String[] listaAExibir = {};
 
-		jlist_produtos = new JList<String>(listaAExibir);
+		jlistMenu = new JList<String>(listaAExibir);
 
 
 		//titulo.setFont(new Font("Arial", Font.BOLD, 20));
-		caixaDeBusca.setBounds(120, 50, 300, 30);
-		buscar.setBounds(450, 50, 150, 30);
-		botaoCidades.setBounds(500, 100, 100, 30);
-		botaoLojas.setBounds(500, 150, 100, 30);
-		jlist_produtos.setBounds(120, 100, 300, 300);
+		textfieldBusca.setBounds(120, 50, 300, 30);
+		buttonBusca.setBounds(450, 50, 150, 30);
+		buttonCidades.setBounds(500, 100, 100, 30);
+		buttonLojas.setBounds(500, 150, 100, 30);
+		jlistMenu.setBounds(120, 100, 300, 300);
 		//lista.setVisibleRowCount(10);
 
 		janela.setLayout(null);
 
-		janela.add(caixaDeBusca);
-		janela.add(jlist_produtos);
-		janela.add(botaoCidades);
-		janela.add(botaoLojas);
-		janela.add(buscar);
+		janela.add(textfieldBusca);
+		janela.add(jlistMenu);
+		janela.add(buttonCidades);
+		janela.add(buttonLojas);
+		janela.add(buttonBusca);
 		janela.setSize(700, 500);
 		janela.setVisible(true);
 		MouseListener mouseListener = new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//super.mouseClicked(e);
-				//System.out.println(getClicked());
-				if (getProdutoClicked().getClass() == Cosmetico.class) {
-					TelaComestico tela = new TelaComestico((Cosmetico) getProdutoClicked());
-				} else if (getProdutoClicked().getClass() == Medicamento.class) {
-					TelaMedicamento tela = new TelaMedicamento();
+				var itemClicked = getObjectClicked();
+				if (itemClicked != null) {
+					if (getObjectClicked().getClass() == Cosmetico.class) {
+						TelaComestico tela = new TelaComestico((Cosmetico) getObjectClicked());
+					} else if (getObjectClicked().getClass() == Medicamento.class) {
+						TelaMedicamento tela = new TelaMedicamento((Medicamento) getObjectClicked());
+					}
 				}
 			}
 		};
-		jlist_produtos.addMouseListener(mouseListener);
+		jlistMenu.addMouseListener(mouseListener);
 	}
 
 	public static void main(String[] args) {
 		TelaMenu tela = new TelaMenu();
 
-		buscar.addActionListener(tela);
-		botaoCidades.addActionListener(tela);
-		botaoLojas.addActionListener(tela);
-		jlist_produtos.addListSelectionListener(tela);
+		buttonBusca.addActionListener(tela);
+		buttonCidades.addActionListener(tela);
+		buttonLojas.addActionListener(tela);
+		jlistMenu.addListSelectionListener(tela);
 	}
 
 
 	public void atualizarJlistProdutos(ArrayList<Produto> obj_list) {
 		listMode = 0;
 		listaObjetos = obj_list;
-		jlist_produtos.setListData(ControleDados.listarEmString(obj_list));
-		jlist_produtos.updateUI();
+		jlistMenu.setListData(ControleDados.listarEmString(obj_list));
+		jlistMenu.updateUI();
 	}
 
-	public static Produto getProdutoClicked() {
+	public static Object getObjectClicked() {
 		if (listMode == 0) {
-			int index = jlist_produtos.getSelectedIndex();
+			int index = jlistMenu.getSelectedIndex();
 			return listaObjetos.get(index);
 		}
 		return null;
 	}
 
+	public static void medicamentoVazio() {
+		TelaMedicamento tela = new TelaMedicamento(new Medicamento(null, null,
+				null, 0, 0, null, null, null, false,
+				null));
+	}
+
+	public static void cosmeticoVazio() {
+		TelaComestico tela = new TelaComestico(new Cosmetico(null,
+				null, null, 0, 0,
+				null, null, null, true));
+	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
@@ -105,20 +117,20 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
-		if (src == botaoLojas) {
+		if (src == buttonLojas) {
 			listMode = 2;
 			String[] listaAExibir = dados.listarLojas();
-			jlist_produtos.setListData(listaAExibir);
-			jlist_produtos.updateUI();
+			jlistMenu.setListData(listaAExibir);
+			jlistMenu.updateUI();
 		}
-		if (src == botaoCidades) {
+		if (src == buttonCidades) {
 			listMode = 1;
 			String[] listaAExibir = dados.listarCidades();
-			jlist_produtos.setListData(listaAExibir);
-			jlist_produtos.updateUI();
+			jlistMenu.setListData(listaAExibir);
+			jlistMenu.updateUI();
 		}
-		if (src == buscar) {
-			this.atualizarJlistProdutos(dados.buscar_tudo(caixaDeBusca.getText()));
+		if (src == buttonBusca) {
+			this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
 		}
 	}
 

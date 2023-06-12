@@ -66,10 +66,9 @@ public class Cosmetico extends Produto{
 		}
 	}
 	public String retornoHipoalergenico() {
-		if (hipoalergenico == true) {
+		if (hipoalergenico) {
 			return "Este produto é hipoalergênico";
-		}
-		else {
+		} else {
 			return "Este produto não é hipoalergênico";
 		}
 	}
