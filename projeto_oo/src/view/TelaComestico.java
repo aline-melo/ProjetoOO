@@ -1,5 +1,7 @@
 package view;
 
+import modelo.Cosmetico;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -30,7 +32,7 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     private static JLabel label_hipoalergenico = new JLabel("É hipoalergênico?");
 
 
-    public TelaComestico() {
+    public TelaComestico(Cosmetico item) {
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
         field_descricao.setBounds(40, 120, 300, 90);
@@ -76,11 +78,18 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
 
         janelaComestico.setSize(555, 420);
         janelaComestico.setVisible(true);
+
+        field_nome.setText(item.getNome());
+        field_descricao.setText(item.getDescricao());
+        field_preco.setText(Double.toString(item.getPreco()));
+        field_estoque.setText(Integer.toString(item.getEmEstoque()));
+        field_fabricante.setText(item.getFabricante());
+        field_tamanho_embalagem.setText(item.getQuantidade());
+        field_cor.setText(item.getCor());
+        field_fragancia.setText(item.getFragrancia());
+        checkbox_hipoalergenico.setSelected(item.isHipoalergenico());
     }
 
-    public static void main(String[] args) {
-        TelaComestico tela = new TelaComestico();
-    }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {

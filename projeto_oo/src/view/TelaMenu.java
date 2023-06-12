@@ -6,7 +6,9 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import controle.*;
+import modelo.Cosmetico;
 import modelo.Dados;
+import modelo.Medicamento;
 import modelo.Produto;
 
 /*
@@ -57,7 +59,12 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//super.mouseClicked(e);
-				System.out.println(getClicked());
+				//System.out.println(getClicked());
+				if (getProdutoClicked().getClass() == Cosmetico.class) {
+					TelaComestico tela = new TelaComestico((Cosmetico) getProdutoClicked());
+				} else if (getProdutoClicked().getClass() == Medicamento.class) {
+					TelaMedicamento tela = new TelaMedicamento();
+				}
 			}
 		};
 		jlist_produtos.addMouseListener(mouseListener);
@@ -70,8 +77,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		botaoCidades.addActionListener(tela);
 		botaoLojas.addActionListener(tela);
 		jlist_produtos.addListSelectionListener(tela);
-
-
 	}
 
 
@@ -82,13 +87,14 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlist_produtos.updateUI();
 	}
 
-	public static Object getClicked() {
+	public static Produto getProdutoClicked() {
 		if (listMode == 0) {
 			int index = jlist_produtos.getSelectedIndex();
 			return listaObjetos.get(index);
 		}
 		return null;
 	}
+
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {

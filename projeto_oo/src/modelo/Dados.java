@@ -32,7 +32,7 @@ public class Dados {
 
 		Cosmetico cosmetico2Teste = new Cosmetico("Poziny",
 				"po", "avon", 119.90, 10,
-				"1 unidade", "creme", null, false);
+				"1 unidade", "creme", null, true);
 
 		estoqueLojinha.add(cosmetico1Teste);
 		estoqueLojinha.add(medicamento1Teste);
