@@ -1,13 +1,13 @@
 package view;
 
-import java.awt.Font;
 import java.awt.event.*;
-import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import controle.*;
 import modelo.Dados;
+import modelo.Produto;
 
 /*
  * exibição do jlist
@@ -24,33 +24,43 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private static JButton botaoCidades = new JButton("Cidades");
 	private static JButton botaoLojas = new JButton("Lojas");
 	private static JTextField caixaDeBusca = new JTextField("");
-	private JList<String> lista = new JList<String>();
+	private static JList<String> jlist_produtos = new JList<String>();
+	private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
+	private static int listMode = 0;
+
 
 	public TelaMenu() {
 
 		String[] listaAExibir = {};
 
-		lista = new JList<String>(listaAExibir);
-		
-		
+		jlist_produtos = new JList<String>(listaAExibir);
+
+
 		//titulo.setFont(new Font("Arial", Font.BOLD, 20));
 		caixaDeBusca.setBounds(120, 50, 300, 30);
 		buscar.setBounds(450, 50, 150, 30);
 		botaoCidades.setBounds(500, 100, 100, 30);
 		botaoLojas.setBounds(500, 150, 100, 30);
-		lista.setBounds(120, 100, 300, 300);
+		jlist_produtos.setBounds(120, 100, 300, 300);
 		//lista.setVisibleRowCount(10);
-		
+
 		janela.setLayout(null);
-		
+
 		janela.add(caixaDeBusca);
-		janela.add(lista);
+		janela.add(jlist_produtos);
 		janela.add(botaoCidades);
 		janela.add(botaoLojas);
 		janela.add(buscar);
 		janela.setSize(700, 500);
 		janela.setVisible(true);
-
+		MouseListener mouseListener = new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//super.mouseClicked(e);
+				System.out.println(getClicked());
+			}
+		};
+		jlist_produtos.addMouseListener(mouseListener);
 	}
 
 	public static void main(String[] args) {
@@ -59,22 +69,25 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		buscar.addActionListener(tela);
 		botaoCidades.addActionListener(tela);
 		botaoLojas.addActionListener(tela);
+		jlist_produtos.addListSelectionListener(tela);
 
 
 	}
 
-	public void busca() {
-		String text = caixaDeBusca.getText().toLowerCase();
-		if (text.contains("taylor") || text.contains("swift")) {
-			String[] listaAExibir = controleDados.taylorSwift();
-			lista.setListData(listaAExibir);
-			lista.updateUI();
 
-		} else {
-			String[] listaAExibir = controleDados.listarEmString(dados.buscar_tudo(text));
-			lista.setListData(listaAExibir);
-			lista.updateUI();
+	public void atualizarJlistProdutos(ArrayList<Produto> obj_list) {
+		listMode = 0;
+		listaObjetos = obj_list;
+		jlist_produtos.setListData(ControleDados.listarEmString(obj_list));
+		jlist_produtos.updateUI();
+	}
+
+	public static Object getClicked() {
+		if (listMode == 0) {
+			int index = jlist_produtos.getSelectedIndex();
+			return listaObjetos.get(index);
 		}
+		return null;
 	}
 
 	@Override
@@ -87,17 +100,19 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src == botaoLojas) {
+			listMode = 2;
 			String[] listaAExibir = dados.listarLojas();
-			lista.setListData(listaAExibir);
-			lista.updateUI();	
+			jlist_produtos.setListData(listaAExibir);
+			jlist_produtos.updateUI();
 		}
 		if (src == botaoCidades) {
+			listMode = 1;
 			String[] listaAExibir = dados.listarCidades();
-			lista.setListData(listaAExibir);
-			lista.updateUI();
+			jlist_produtos.setListData(listaAExibir);
+			jlist_produtos.updateUI();
 		}
 		if (src == buscar) {
-			this.busca();
+			this.atualizarJlistProdutos(dados.buscar_tudo(caixaDeBusca.getText()));
 		}
 	}
 
@@ -108,9 +123,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyChar() == '\n') {
-			this.busca();
-		}
+
 	}
 
 	@Override
