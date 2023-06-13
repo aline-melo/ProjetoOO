@@ -1,13 +1,14 @@
 package controle;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import modelo.*;
 
 public class ControleDados {
-	private Dados d = new Dados();
+	private static Dados dados = new Dados();
 	
 	public ControleDados() {
-		d.criarDados();
+		dados.criarDados();
 	}
 
 
@@ -19,12 +20,46 @@ public class ControleDados {
 		return lista_retorno;
 	}
 
+	public void deletarCosmetico(Cosmetico item) {
+		for (Loja loja : dados.getLojas()) {
+			if ( loja.getEstoque().contains(item) ) {
+				ArrayList<Produto> novoEstoque = loja.getEstoque();
+				novoEstoque.remove(item);
+				loja.setEstoque(novoEstoque);
+			}
+		}
+	}
+
+	public static void salvarProduto(ArrayList listaInfo) {
+		String nomeAnterior = (String) listaInfo.get(0);
+		for (Produto item : dados.listar_tudo()) {
+			if ( Objects.equals(item.getNome(), nomeAnterior) ) {
+				item.setNome((String) listaInfo.get(1));
+				item.setDescricao((String) listaInfo.get(2));
+				item.setPreco((double) listaInfo.get(3));
+				item.setEmEstoque((int) listaInfo.get(4));
+				item.setFabricante((String) listaInfo.get(5));
+				item.setQuantidade((String) listaInfo.get(6));
+				if ( item.getClass() == Cosmetico.class ) {
+					((Cosmetico) item).setCor((String) listaInfo.get(7));
+					((Cosmetico) item).setFragrancia((String) listaInfo.get(8));
+					((Cosmetico) item).setHipoalergenico((boolean) listaInfo.get(9));
+				} else if ( item.getClass() == Medicamento.class ) {
+					((Medicamento) item).setTratamento((String) listaInfo.get(7));
+					((Medicamento) item).setTarja((String) listaInfo.get(8));
+					((Medicamento) item).setGenerico((boolean) listaInfo.get(9));
+					((Medicamento) item).setPrincipioAtivo((String) listaInfo.get(10));
+				}
+			}
+		}
+	}
+
 	public Dados getDados() {
-		return d;
+		return dados;
 	}
 
 	public void setDados(Dados d) {
-		this.d = d;
+		dados = d;
 	}
 
 	public String[] taylorSwift() {

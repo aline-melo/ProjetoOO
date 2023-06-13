@@ -1,6 +1,6 @@
 package view;
 
-import controle.ControleCosmetico;
+import controle.ControleDados;
 import modelo.Cosmetico;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ import static java.lang.Integer.parseInt;
 
 public class TelaComestico implements ActionListener, ListSelectionListener {
     private static final JFrame janelaComestico = new JFrame("Cosmetico");
-    private static final JButton button_salvar = new JButton("Salvar");
+    private static JButton button_salvar = new JButton("Salvar");
     private static final JTextField field_nome = new JTextField("Nome do comestico");
     private static final JTextArea field_descricao = new JTextArea("field_descricao");
     private static final JTextField field_preco = new JTextField("field_preco");
@@ -43,6 +43,8 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
 
         nomeAnterior = item.getNome();
         telaPai = pai;
+
+        button_salvar.addActionListener(this);
 
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
@@ -103,16 +105,16 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
 
     public ArrayList<Object> getInfo() {
         ArrayList<Object> info = new ArrayList<>();
-        info.add(field_nome.getText()); //0
-        info.add(field_descricao.getText()); //1
-        info.add(parseDouble(field_preco.getText())); //2
-        info.add(parseInt(field_estoque.getText())); //3
-        info.add(field_fabricante.getText()); //4
-        info.add(field_tamanho_embalagem.getText()); //5
-        info.add(field_cor.getText()); //6
-        info.add(field_fragancia.getText()); //7
-        info.add(checkbox_hipoalergenico.isSelected()); //8
-        info.add(nomeAnterior); //9
+        info.add(nomeAnterior); //0
+        info.add(field_nome.getText());//1
+        info.add(field_descricao.getText()); //2
+        info.add(parseDouble(field_preco.getText())); //3
+        info.add(parseInt(field_estoque.getText())); //4
+        info.add(field_fabricante.getText()); //5
+        info.add(field_tamanho_embalagem.getText()); //6
+        info.add(field_cor.getText()); //7
+        info.add(field_fragancia.getText()); //8
+        info.add(checkbox_hipoalergenico.isSelected()); //9
         return info;
     }
 
@@ -134,9 +136,13 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if (src == button_salvar) {
-            ControleCosmetico.salvarCosmetico(getInfo());
-            janelaComestico.dispose();
-            System.out.println("Salvou");
+            if ( field_nome.getText().equals("") ) {
+                JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
+            } else {
+                ControleDados.salvarProduto(getInfo());
+                janelaComestico.dispose();
+                telaPai.atualizarJlistProdutos();
+            }
         }
     }
 }

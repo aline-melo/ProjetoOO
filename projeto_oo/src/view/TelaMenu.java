@@ -76,8 +76,14 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.updateUI();
 	}
 
+	public void atualizarJlistProdutos() {
+		listMode = 0;
+		jlistMenu.setListData(ControleDados.listarEmString(listaObjetos));
+		jlistMenu.updateUI();
+	}
+
 	public static Object getObjectClicked() {
-		if (listMode == 0) {
+		if ( listMode == 0 ) {
 			int index = jlistMenu.getSelectedIndex();
 			return listaObjetos.get(index);
 		}
