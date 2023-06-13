@@ -11,11 +11,6 @@ import modelo.Dados;
 import modelo.Medicamento;
 import modelo.Produto;
 
-/*
- * exibição do jlist
- * depois eu faço a actionlistener da jlist
- *  
- */
 
 public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener {
 
@@ -29,6 +24,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private static JList<String> jlistMenu = new JList<String>();
 	private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
 	private static int listMode = 0;
+	private static TelaMenu self;
 
 
 	public TelaMenu() {
@@ -36,6 +32,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		String[] listaAExibir = {};
 
 		jlistMenu = new JList<String>(listaAExibir);
+		self = this;
 
 
 		//titulo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -55,29 +52,17 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		janela.add(buttonBusca);
 		janela.setSize(700, 500);
 		janela.setVisible(true);
-		MouseListener mouseListener = new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				var itemClicked = getObjectClicked();
-				if (itemClicked != null) {
-					if (getObjectClicked().getClass() == Cosmetico.class) {
-						TelaComestico tela = new TelaComestico((Cosmetico) getObjectClicked());
-					} else if (getObjectClicked().getClass() == Medicamento.class) {
-						TelaMedicamento tela = new TelaMedicamento((Medicamento) getObjectClicked());
-					}
-				}
-			}
-		};
+		MouseListener mouseListener = new MyMouseAdapter();
 		jlistMenu.addMouseListener(mouseListener);
 	}
 
 	public static void main(String[] args) {
-		TelaMenu tela = new TelaMenu();
+		TelaMenu telaMain = new TelaMenu();
 
-		buttonBusca.addActionListener(tela);
-		buttonCidades.addActionListener(tela);
-		buttonLojas.addActionListener(tela);
-		jlistMenu.addListSelectionListener(tela);
+		buttonBusca.addActionListener(telaMain);
+		buttonCidades.addActionListener(telaMain);
+		buttonLojas.addActionListener(telaMain);
+		jlistMenu.addListSelectionListener(telaMain);
 	}
 
 
@@ -102,10 +87,10 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				null));
 	}
 
-	public static void cosmeticoVazio() {
+	public void cosmeticoVazio() {
 		TelaComestico tela = new TelaComestico(new Cosmetico(null,
 				null, null, 0, 0,
-				null, null, null, true));
+				null, null, null, true), this);
 	}
 
 	@Override
@@ -134,6 +119,25 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		}
 	}
 
+	private static class MyMouseAdapter extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			var itemClicked = getObjectClicked();
+			if (itemClicked != null) {
+				if (getObjectClicked().getClass() == Cosmetico.class) {
+					TelaComestico tela = new TelaComestico((Cosmetico) getObjectClicked(), self);
+				} else if (getObjectClicked().getClass() == Medicamento.class) {
+					TelaMedicamento tela = new TelaMedicamento((Medicamento) getObjectClicked());
+				}
+			}
+		}
+	}
+
+	public Dados getDados() {
+		return dados;
+	}
+
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 
@@ -148,4 +152,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	public void keyReleased(KeyEvent e) {
 
 	}
+
+
 }

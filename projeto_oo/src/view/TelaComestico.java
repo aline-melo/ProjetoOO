@@ -32,9 +32,15 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     private static final JLabel label_cor = new JLabel("Cor:");
     private static final JLabel label_fragancia = new JLabel("Fragância:");
     private static final JLabel label_hipoalergenico = new JLabel("É hipoalergênico?");
+    private static String nomeAnterior;
 
 
-    public TelaComestico(Cosmetico item) {
+    private static TelaMenu telaPai;
+
+    public TelaComestico(Cosmetico item, TelaMenu pai) {
+
+        nomeAnterior = item.getNome();
+        telaPai = pai;
 
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
@@ -93,6 +99,13 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
         checkbox_hipoalergenico.setSelected(item.isHipoalergenico());
     }
 
+    public String getNomeAnterior() {
+        return nomeAnterior;
+    }
+
+    public static TelaMenu getTelaPai() {
+        return telaPai;
+    }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
