@@ -25,6 +25,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private static final JButton buttonBusca = new JButton("Buscar Produto");
 	private static final JButton buttonCidades = new JButton("Cidades");
 	private static final JButton buttonLojas = new JButton("Lojas");
+	private static final JButton buttonNovaLoja = new JButton("Nova Loja");
 	private static final JTextField textfieldBusca = new JTextField("");
 	private static JList<String> jlistMenu = new JList<String>();
 	private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
@@ -43,6 +44,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		buttonBusca.setBounds(450, 50, 150, 30);
 		buttonCidades.setBounds(500, 100, 100, 30);
 		buttonLojas.setBounds(500, 150, 100, 30);
+		buttonNovaLoja.setBounds(500, 200, 100, 30);
 		jlistMenu.setBounds(120, 100, 300, 300);
 		//lista.setVisibleRowCount(10);
 
@@ -52,6 +54,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		janela.add(jlistMenu);
 		janela.add(buttonCidades);
 		janela.add(buttonLojas);
+		janela.add(buttonNovaLoja);
 		janela.add(buttonBusca);
 		janela.setSize(700, 500);
 		janela.setVisible(true);
