@@ -1,15 +1,17 @@
 package view;
 
+import controle.ControleCosmetico;
 import modelo.Cosmetico;
-import modelo.Dados;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 public class TelaComestico implements ActionListener, ListSelectionListener {
     private static final JFrame janelaComestico = new JFrame("Cosmetico");
@@ -99,6 +101,21 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
         checkbox_hipoalergenico.setSelected(item.isHipoalergenico());
     }
 
+    public ArrayList<Object> getInfo() {
+        ArrayList<Object> info = new ArrayList<>();
+        info.add(field_nome.getText()); //0
+        info.add(field_descricao.getText()); //1
+        info.add(parseDouble(field_preco.getText())); //2
+        info.add(parseInt(field_estoque.getText())); //3
+        info.add(field_fabricante.getText()); //4
+        info.add(field_tamanho_embalagem.getText()); //5
+        info.add(field_cor.getText()); //6
+        info.add(field_fragancia.getText()); //7
+        info.add(checkbox_hipoalergenico.isSelected()); //8
+        info.add(nomeAnterior); //9
+        return info;
+    }
+
     public String getNomeAnterior() {
         return nomeAnterior;
     }
@@ -117,8 +134,9 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if (src == button_salvar) {
-
+            ControleCosmetico.salvarCosmetico(getInfo());
+            janelaComestico.dispose();
+            System.out.println("Salvou");
         }
-
     }
 }
