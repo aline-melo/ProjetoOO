@@ -15,7 +15,7 @@ import static java.lang.Integer.parseInt;
 
 public class TelaComestico implements ActionListener, ListSelectionListener {
     private static final JFrame janelaComestico = new JFrame("Cosmetico");
-    private static final JButton button_salvar = new JButton("Salvar");
+    private static JButton button_salvar = new JButton("Salvar");
     private static final JTextField field_nome = new JTextField("Nome do comestico");
     private static final JTextArea field_descricao = new JTextArea("field_descricao");
     private static final JTextField field_preco = new JTextField("field_preco");
@@ -43,6 +43,8 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
 
         nomeAnterior = item.getNome();
         telaPai = pai;
+
+        button_salvar.addActionListener(this);
 
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
@@ -134,9 +136,13 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if (src == button_salvar) {
+            if ( field_nome.getText().equals("") ) {
+                JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
+                return;
+            }
             ControleCosmetico.salvarCosmetico(getInfo());
             janelaComestico.dispose();
-            System.out.println("Salvou");
+            telaPai.atualizarJlistProdutos();
         }
     }
 }
