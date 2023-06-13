@@ -14,7 +14,7 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class TelaComestico implements ActionListener, ListSelectionListener {
-    private static final JFrame janelaComestico = new JFrame("Cosmetico");
+    private static final JFrame janelaComestico = new JFrame("");
     private static JButton button_salvar = new JButton("Salvar");
     private static final JTextField field_nome = new JTextField("Nome do comestico");
     private static final JTextArea field_descricao = new JTextArea("field_descricao");
@@ -91,6 +91,7 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
 
         janelaComestico.setSize(555, 420);
         janelaComestico.setVisible(true);
+        janelaComestico.setTitle("Cosmetico:  " + item.getNome());
 
         field_nome.setText(item.getNome());
         field_descricao.setText(item.getDescricao());
