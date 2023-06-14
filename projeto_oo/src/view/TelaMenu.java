@@ -9,7 +9,7 @@ import controle.*;
 import modelo.*;
 
 
-public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener {
+public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener, WindowListener, FocusListener {
 
 	private static final ControleDados controleDados = new ControleDados();
 	private static final Dados dados = controleDados.getDados();
@@ -42,6 +42,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		//lista.setVisibleRowCount(10);
 
 		janela.setLayout(null);
+		janela.addWindowListener(this);
 
 		janela.add(textfieldBusca);
 		janela.add(jlistMenu);
@@ -138,14 +139,16 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	static class MyMouseAdapter extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			var itemClicked = getObjectClicked();
-			if ( itemClicked != null ) {
-				if ( getObjectClicked().getClass() == Cosmetico.class ) {
-					TelaComestico telaComestico = new TelaComestico((Cosmetico) getObjectClicked(), self);
-				} else if ( getObjectClicked().getClass() == Medicamento.class ) {
-					TelaMedicamento telaMedicamento = new TelaMedicamento((Medicamento) getObjectClicked());
-				} else if ( getObjectClicked().getClass() == Loja.class ) {
-					TelaLoja telaLoja = new TelaLoja((Loja) getObjectClicked(), self);
+			if ( e.getClickCount() == 2 ) {
+				var itemClicked = getObjectClicked();
+				if ( itemClicked != null ) {
+					if ( getObjectClicked().getClass() == Cosmetico.class ) {
+						new TelaComestico((Cosmetico) getObjectClicked(), self);
+					} else if ( getObjectClicked().getClass() == Medicamento.class ) {
+						new TelaMedicamento((Medicamento) getObjectClicked());
+					} else if ( getObjectClicked().getClass() == Loja.class ) {
+						new TelaLoja((Loja) getObjectClicked(), self);
+					}
 				}
 			}
 		}
@@ -154,7 +157,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	public Dados getDados() {
 		return dados;
 	}
-
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -171,6 +173,48 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	}
 
+	@Override
+	public void windowOpened(WindowEvent e) {
 
-	
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		self.atualizarJlistProdutos(dados.buscar_tudo(""));
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		self.atualizarJlistProdutos(dados.buscar_tudo(""));
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+
+	}
 }
