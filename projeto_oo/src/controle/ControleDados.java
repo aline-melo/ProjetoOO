@@ -8,7 +8,7 @@ import view.TelaComestico;
 
 public class ControleDados {
 	private static Dados dados = new Dados();
-	
+
 	public ControleDados() {
 		dados.criarDados();
 	}
@@ -20,8 +20,8 @@ public class ControleDados {
 			lista_retorno[i] = array.get(i).getNome();
 		}
 		if ( array.isEmpty() ) {
-			lista_retorno = new String[1];
-			lista_retorno[0] = "Nenhum produto encontrado";
+			lista_retorno = new String[0];
+
 		}
 		return lista_retorno;
 	}
@@ -61,19 +61,23 @@ public class ControleDados {
 	}
 
 	public static void criarCosmetico(ArrayList listaInfo, Loja lojaPertecente) {
-		lojaPertecente.addToEstoque(
-				new Cosmetico(
-						(String) listaInfo.get(1),
-						(String) listaInfo.get(2),
-						(String) listaInfo.get(5),
-						(Double) listaInfo.get(3),
-						(Integer) listaInfo.get(4),
-						(String) listaInfo.get(6),
-						(String) listaInfo.get(7),
-						(String) listaInfo.get(8),
-						(Boolean) listaInfo.get(9)
-				)
-		);
+		if ( dados.buscar_tudo((String) listaInfo.get(1)).isEmpty() ) {
+			lojaPertecente.addToEstoque(
+					new Cosmetico(
+							(String) listaInfo.get(1),
+							(String) listaInfo.get(2),
+							(String) listaInfo.get(5),
+							(Double) listaInfo.get(3),
+							(Integer) listaInfo.get(4),
+							(String) listaInfo.get(6),
+							(String) listaInfo.get(7),
+							(String) listaInfo.get(8),
+							(Boolean) listaInfo.get(9)
+					)
+			);
+		} else {
+			salvarProduto(listaInfo);
+		}
 	}
 
 	public String[] listarLojas() {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.ListUI;
 
 import controle.ControleDados;
 import modelo.Cosmetico;
@@ -59,6 +60,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.add(textfieldCidade);
         janelaLoja.setSize(700, 500);
         janelaLoja.setVisible(true);
+        janelaLoja.addWindowListener(this);
         MouseListener mouseListener = new LojaMouseAdapter();
         jlistLoja.addMouseListener(mouseListener);
 
@@ -77,10 +79,71 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     }
 
+    public Loja getLojaPai() {
+        return lojaPai;
+    }
+
+    public TelaMenu getTelaPai() {
+        return telaPai;
+    }
+
+    public void atualizarJlistProdutos() {
+        listaObjetos = lojaPai.getEstoque();
+        jlistLoja.setListData(ControleDados.listarEmString(listaObjetos));
+        jlistLoja.updateUI();
+        jlistLoja.update(jlistLoja.getGraphics());
+        jlistLoja.clearSelection();
+        jlistLoja.revalidate();
+    }
+
+    public void atualizarJlistProdutos(ArrayList<Produto> lista) {
+        jlistLoja.removeListSelectionListener(this);
+        listaObjetos = lista;
+        jlistLoja.setListData(ControleDados.listarEmString(lista));
+        jlistLoja.updateUI();
+        jlistLoja.update(jlistLoja.getGraphics());
+        jlistLoja.clearSelection();
+        jlistLoja.addListSelectionListener(this);
+    }
+
+    static class LojaMouseAdapter extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            try {
+                int index = jlistLoja.locationToIndex(e.getPoint());
+                jlistLoja.clearSelection();
+                Produto produto = listaObjetos.get(index);
+                if ( produto instanceof Medicamento ) {
+                    new TelaMedicamento((Medicamento) produto);
+                } else if ( produto instanceof Cosmetico ) {
+                    new TelaComestico((Cosmetico) produto, self);
+                }
+            } catch (IndexOutOfBoundsException exception) {
+                return;
+            }
+
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if ( src == buttonCriarProduto ) {
+            TelaComestico tela = new TelaComestico(
+                    new Cosmetico(
+                            null, null, null, 0, 0,
+                            null, null, null, false
+                    ),
+                    self
+            );
+        } else if ( src == buttonBusca ) {
+            atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
+        }
+    }
+
     @Override
     public void windowOpened(WindowEvent e) {
-        listaObjetos = lojaPai.getEstoque();
-        self.atualizarJlistProdutos();
+
     }
 
     @Override
@@ -90,8 +153,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     @Override
     public void windowClosed(WindowEvent e) {
-        janelaLoja.dispose();
-        System.gc();
     }
 
     @Override
@@ -114,46 +175,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     }
 
-    static class LojaMouseAdapter extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            listaObjetos = lojaPai.getEstoque();
-            self.atualizarJlistProdutos();
-            int index = jlistLoja.locationToIndex(e.getPoint());
-            Produto produto = listaObjetos.get(index);
-            if ( produto instanceof Medicamento ) {
-                new TelaMedicamento((Medicamento) produto);
-            } else if ( produto instanceof Cosmetico ) {
-                new TelaComestico((Cosmetico) produto, self);
-            }
-
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if ( src == buttonCriarProduto ) {
-            TelaComestico tela = new TelaComestico(
-                    new Cosmetico(
-                            null, null, null, 0, 0,
-                            null, null, null, false
-                    ),
-                    self
-            );
-        }
-    }
-
-    public void atualizarJlistProdutos() {
-        jlistLoja.setListData(ControleDados.listarEmString(listaObjetos));
-        jlistLoja.updateUI();
-    }
-
-    public void atualizarJlistProdutos(ArrayList<Produto> lista) {
-        jlistLoja.setListData(ControleDados.listarEmString(lista));
-        jlistLoja.updateUI();
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -174,11 +195,5 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     }
 
-    public Loja getLojaPai() {
-        return lojaPai;
-    }
 
-    public TelaMenu getTelaPai() {
-        return telaPai;
-    }
 }
