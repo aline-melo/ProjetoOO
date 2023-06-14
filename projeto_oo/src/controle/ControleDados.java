@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import modelo.*;
+import view.TelaComestico;
 
 public class ControleDados {
 	private static Dados dados = new Dados();
@@ -53,6 +54,22 @@ public class ControleDados {
 				}
 			}
 		}
+	}
+
+	public static void criarCosmetico(ArrayList listaInfo, Loja lojaPertecente) {
+		lojaPertecente.addToEstoque(
+				new Cosmetico(
+						(String) listaInfo.get(1),
+						(String) listaInfo.get(2),
+						(String) listaInfo.get(5),
+						(Double) listaInfo.get(3),
+						(Integer) listaInfo.get(4),
+						(String) listaInfo.get(6),
+						(String) listaInfo.get(7),
+						(String) listaInfo.get(8),
+						(Boolean) listaInfo.get(9)
+				)
+		);
 	}
 
 	public String[] listarLojas() {

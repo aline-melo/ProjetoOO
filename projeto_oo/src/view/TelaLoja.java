@@ -24,6 +24,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     private static JList<String> jlistLoja;
     private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
     private static TelaLoja self;
+
     private static Loja lojaPai;
     private static TelaMenu telaPai;
 
@@ -35,6 +36,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         jlistLoja = new JList<String>(listaAExibir);
         self = this;
         telaPai = pai;
+        lojaPai = loja;
         listaObjetos = loja.getEstoque();
 
 
@@ -65,6 +67,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         jlistLoja.setListData(ControleDados.listarEmString(loja.getEstoque()));
         jlistLoja.updateUI();
 
+        buttonBusca.addActionListener(this);
+        buttonCriarProduto.addActionListener(this);
+
     }
 
     static class LojaMouseAdapter extends MouseAdapter {
@@ -86,7 +91,13 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if ( src == buttonCriarProduto ) {
-
+            TelaComestico tela = new TelaComestico(
+                    new Cosmetico(
+                            null, null, null, 0, 0,
+                            null, null, null, false
+                    ),
+                    self
+            );
         }
     }
 
@@ -113,5 +124,13 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
+    }
+
+    public Loja getLojaPai() {
+        return lojaPai;
+    }
+
+    public TelaMenu getTelaPai() {
+        return telaPai;
     }
 }

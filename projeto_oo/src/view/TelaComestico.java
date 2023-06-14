@@ -2,6 +2,7 @@ package view;
 
 import controle.ControleDados;
 import modelo.Cosmetico;
+import modelo.Loja;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -109,8 +110,14 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
         info.add(nomeAnterior); //0
         info.add(field_nome.getText());//1
         info.add(field_descricao.getText()); //2
-        info.add(parseDouble(field_preco.getText())); //3
-        info.add(parseInt(field_estoque.getText())); //4
+        try {
+            info.add(parseDouble(field_preco.getText())); //3
+            info.add(parseInt(field_estoque.getText())); //4
+        } catch (NumberFormatException x) {
+            info.remove(4);
+            info.add(3, 0);
+            info.add(4, 0);
+        }
         info.add(field_fabricante.getText()); //5
         info.add(field_tamanho_embalagem.getText()); //6
         info.add(field_cor.getText()); //7
@@ -144,13 +151,19 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
             if ( field_nome.getText().equals("") ) {
                 JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
             } else {
-                ControleDados.salvarProduto(getInfo());
+                if ( nomeAnterior != null ) {
+                    ControleDados.salvarProduto(getInfo());
+                } else {
+                    ControleDados.criarCosmetico(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
+                }
+
                 janelaComestico.dispose();
 
                 if ( telaPai instanceof TelaMenu ) {
                     ((TelaMenu) telaPai).atualizarJlistProdutos();
                 } else if ( telaPai instanceof TelaLoja ) {
                     ((TelaLoja) telaPai).atualizarJlistProdutos();
+                    ((TelaLoja) telaPai).getTelaPai().atualizarJlistProdutos();
                 }
             }
         }
