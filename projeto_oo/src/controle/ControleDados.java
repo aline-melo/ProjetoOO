@@ -1,5 +1,6 @@
 package controle;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import modelo.*;
@@ -52,6 +53,29 @@ public class ControleDados {
 				}
 			}
 		}
+	}
+
+	public String[] listarLojas() {
+		ArrayList<Loja> lojas = dados.getLojas();
+		String[] listaLojas = new String[lojas.size()];
+
+		for (int i = 0; i < lojas.size(); i++) {
+			listaLojas[i] = lojas.get(i).getLocalizacao() + ", " + lojas.get(i).getCidade();
+		}
+		return listaLojas;
+	}
+
+	public String[] listarCidades() {
+		ArrayList<Loja> lojas = dados.getLojas();
+		List<String> lista = new ArrayList<String>();
+		for (Loja loja : lojas) {
+			if ( !lista.contains(loja.getCidade()) ) {
+				lista.add(loja.getCidade());
+			}
+		}
+		String[] listaCidades = new String[lista.size()];
+		listaCidades = lista.toArray(listaCidades);
+		return listaCidades;
 	}
 
 	public Dados getDados() {

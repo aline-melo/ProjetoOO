@@ -6,10 +6,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import controle.*;
-import modelo.Cosmetico;
-import modelo.Dados;
-import modelo.Medicamento;
-import modelo.Produto;
+import modelo.*;
 
 
 public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener {
@@ -65,6 +62,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		buttonBusca.addActionListener(telaMain);
 		buttonCidades.addActionListener(telaMain);
 		buttonLojas.addActionListener(telaMain);
+		buttonNovaLoja.addActionListener(telaMain);
 		jlistMenu.addListSelectionListener(telaMain);
 	}
 
@@ -83,11 +81,16 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	public static Object getObjectClicked() {
+		int index = jlistMenu.getSelectedIndex();
+		Object returnValue = null;
 		if ( listMode == 0 ) {
-			int index = jlistMenu.getSelectedIndex();
-			return listaObjetos.get(index);
+			returnValue = listaObjetos.get(index);
+		} else if ( listMode == 1 ) {
+			returnValue = dados.getLojas().get(index);
+		} else if ( listMode == 2 ) {
+			returnValue = controleDados.listarCidades()[index];
 		}
-		return null;
+		return returnValue;
 	}
 
 	public static void medicamentoVazio() {
@@ -112,31 +115,36 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src == buttonLojas) {
-			listMode = 2;
-			String[] listaAExibir = dados.listarLojas();
-			jlistMenu.setListData(listaAExibir);
-			jlistMenu.updateUI();
-		}
-		if (src == buttonCidades) {
 			listMode = 1;
-			String[] listaAExibir = dados.listarCidades();
+			String[] listaAExibir = controleDados.listarLojas();
 			jlistMenu.setListData(listaAExibir);
 			jlistMenu.updateUI();
 		}
-		if (src == buttonBusca) {
+		if ( src == buttonCidades ) {
+			listMode = 2;
+			String[] listaAExibir = controleDados.listarCidades();
+			jlistMenu.setListData(listaAExibir);
+			jlistMenu.updateUI();
+		}
+		if ( src == buttonBusca ) {
 			this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+		}
+		if ( src == buttonNovaLoja ) {
+			TelaLoja tela = new TelaLoja(new Loja("null", "null", new ArrayList<>()), self);
 		}
 	}
 
-	private static class MyMouseAdapter extends MouseAdapter {
+	static class MyMouseAdapter extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			var itemClicked = getObjectClicked();
-			if (itemClicked != null) {
-				if (getObjectClicked().getClass() == Cosmetico.class) {
+			if ( itemClicked != null ) {
+				if ( getObjectClicked().getClass() == Cosmetico.class ) {
 					TelaComestico tela = new TelaComestico((Cosmetico) getObjectClicked(), self);
-				} else if (getObjectClicked().getClass() == Medicamento.class) {
+				} else if ( getObjectClicked().getClass() == Medicamento.class ) {
 					TelaMedicamento tela = new TelaMedicamento((Medicamento) getObjectClicked());
+				} else if ( getObjectClicked().getClass() == Loja.class ) {
+					TelaLoja tela = new TelaLoja((Loja) getObjectClicked(), self);
 				}
 			}
 		}

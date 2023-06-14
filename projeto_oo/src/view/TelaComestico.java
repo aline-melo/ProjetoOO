@@ -35,14 +35,14 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     private static final JLabel label_fragancia = new JLabel("Fragância:");
     private static final JLabel label_hipoalergenico = new JLabel("É hipoalergênico?");
     private static String nomeAnterior;
+    private static Object telaPai;
 
-
-    private static TelaMenu telaPai;
-
-    public TelaComestico(Cosmetico item, TelaMenu pai) {
+    public TelaComestico(Cosmetico item, Object pai) {
 
         nomeAnterior = item.getNome();
+
         telaPai = pai;
+
 
         button_salvar.addActionListener(this);
 
@@ -124,7 +124,11 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     }
 
     public static TelaMenu getTelaPai() {
-        return telaPai;
+        return (TelaMenu) telaPai;
+    }
+
+    public static TelaLoja getTelaPaiLoja() {
+        return (TelaLoja) telaPai;
     }
 
     @Override
@@ -142,7 +146,12 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
             } else {
                 ControleDados.salvarProduto(getInfo());
                 janelaComestico.dispose();
-                telaPai.atualizarJlistProdutos();
+
+                if ( telaPai instanceof TelaMenu ) {
+                    ((TelaMenu) telaPai).atualizarJlistProdutos();
+                } else if ( telaPai instanceof TelaLoja ) {
+                    ((TelaLoja) telaPai).atualizarJlistProdutos();
+                }
             }
         }
     }

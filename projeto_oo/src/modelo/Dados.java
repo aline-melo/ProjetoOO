@@ -69,26 +69,6 @@ public class Dados {
 		return return_list;
 	}
 
-	public String[] listarCidades() {
-		List<String> lista = new ArrayList<String>();
-		for (Loja loja : lojas) {
-			if (!lista.contains(loja.getCidade())) {
-				lista.add(loja.getCidade());
-			}
-		}
-		String[] listaCidades = new String[lista.size()];
-		listaCidades = lista.toArray(listaCidades);
-		return listaCidades;
-	}
-
-	public String[] listarLojas() {
-		String[] listaLojas = new String[lojas.size()];
-
-		for (int i = 0; i < lojas.size(); i++) {
-			listaLojas[i] = lojas.get(i).getLocalizacao() + ", " + lojas.get(i).getCidade();
-		}
-		return listaLojas;
-	}
 
 	public void setLojas(ArrayList<Loja> lojas) {
 		this.lojas = lojas;
