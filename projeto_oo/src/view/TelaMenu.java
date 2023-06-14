@@ -32,7 +32,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu = new JList<String>(listaAExibir);
 		self = this;
 
-
 		//titulo.setFont(new Font("Arial", Font.BOLD, 20));
 		textfieldBusca.setBounds(120, 50, 300, 30);
 		buttonBusca.setBounds(450, 50, 150, 30);
@@ -54,16 +53,17 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		janela.setVisible(true);
 		MouseListener mouseListener = new MyMouseAdapter();
 		jlistMenu.addMouseListener(mouseListener);
+
+		buttonBusca.addActionListener(this);
+		buttonCidades.addActionListener(this);
+		buttonLojas.addActionListener(this);
+		buttonNovaLoja.addActionListener(this);
+		jlistMenu.addListSelectionListener(this);
 	}
 
 	public static void main(String[] args) {
 		TelaMenu telaMain = new TelaMenu();
-
-		buttonBusca.addActionListener(telaMain);
-		buttonCidades.addActionListener(telaMain);
-		buttonLojas.addActionListener(telaMain);
-		buttonNovaLoja.addActionListener(telaMain);
-		jlistMenu.addListSelectionListener(telaMain);
+		telaMain.atualizarJlistProdutos(dados.buscar_tudo(""));
 	}
 
 
@@ -130,7 +130,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
 		}
 		if ( src == buttonNovaLoja ) {
-			TelaLoja tela = new TelaLoja(new Loja("null", "null", new ArrayList<>()), self);
+			TelaLoja telaLojaNova = new TelaLoja(new Loja(null, null, null), self);
+
 		}
 	}
 
@@ -140,11 +141,11 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			var itemClicked = getObjectClicked();
 			if ( itemClicked != null ) {
 				if ( getObjectClicked().getClass() == Cosmetico.class ) {
-					TelaComestico tela = new TelaComestico((Cosmetico) getObjectClicked(), self);
+					TelaComestico telaComestico = new TelaComestico((Cosmetico) getObjectClicked(), self);
 				} else if ( getObjectClicked().getClass() == Medicamento.class ) {
-					TelaMedicamento tela = new TelaMedicamento((Medicamento) getObjectClicked());
+					TelaMedicamento telaMedicamento = new TelaMedicamento((Medicamento) getObjectClicked());
 				} else if ( getObjectClicked().getClass() == Loja.class ) {
-					TelaLoja tela = new TelaLoja((Loja) getObjectClicked(), self);
+					TelaLoja telaLoja = new TelaLoja((Loja) getObjectClicked(), self);
 				}
 			}
 		}

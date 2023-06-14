@@ -19,6 +19,10 @@ public class ControleDados {
 		for (int i = 0; i < array.size(); i++) {
 			lista_retorno[i] = array.get(i).getNome();
 		}
+		if ( array.isEmpty() ) {
+			lista_retorno = new String[1];
+			lista_retorno[0] = "Nenhum produto encontrado";
+		}
 		return lista_retorno;
 	}
 

@@ -34,6 +34,9 @@ public class Loja {
 	}
 
 	public ArrayList<Produto> getEstoque() {
+		if ( estoque == null || estoque.isEmpty() ) {
+			estoque = new ArrayList<Produto>();
+		}
 		return estoque;
 	}
 

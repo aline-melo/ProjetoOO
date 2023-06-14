@@ -13,11 +13,11 @@ import modelo.Medicamento;
 import modelo.Produto;
 
 
-public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
+public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener, WindowListener {
     private static final JFrame janelaLoja = new JFrame("Loja");
     private static final JButton buttonBusca = new JButton("Buscar Produto");
     private static final JButton buttonCriarProduto = new JButton("Criar Produto");
-    private static final JTextField textfieldBusca = new JTextField("Termo de busca");
+    private static final JTextField textfieldBusca = new JTextField("");
     private static final JTextField textfieldEndereco = new JTextField("Endereço");
     private static final JTextField textfieldCidade = new JTextField("Cidade");
 
@@ -26,7 +26,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     private static TelaLoja self;
 
     private static Loja lojaPai;
-    private static TelaMenu telaPai;
+    private TelaMenu telaPai;
 
 
     public TelaLoja(Loja loja, TelaMenu pai) {
@@ -64,18 +64,61 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
         textfieldCidade.setText(loja.getCidade());
         textfieldEndereco.setText(loja.getLocalizacao());
-        jlistLoja.setListData(ControleDados.listarEmString(loja.getEstoque()));
+        if ( loja.getLocalizacao() == null || listaObjetos.isEmpty() ) {
+            listaObjetos = new ArrayList<Produto>();
+        } else {
+            listaObjetos = loja.getEstoque();
+        }
         jlistLoja.updateUI();
-
         buttonBusca.addActionListener(this);
         buttonCriarProduto.addActionListener(this);
+
+        this.atualizarJlistProdutos();
+
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        listaObjetos = lojaPai.getEstoque();
+        self.atualizarJlistProdutos();
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        janelaLoja.dispose();
+        System.gc();
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
 
     }
 
     static class LojaMouseAdapter extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-
+            listaObjetos = lojaPai.getEstoque();
+            self.atualizarJlistProdutos();
             int index = jlistLoja.locationToIndex(e.getPoint());
             Produto produto = listaObjetos.get(index);
             if ( produto instanceof Medicamento ) {
@@ -103,6 +146,11 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     public void atualizarJlistProdutos() {
         jlistLoja.setListData(ControleDados.listarEmString(listaObjetos));
+        jlistLoja.updateUI();
+    }
+
+    public void atualizarJlistProdutos(ArrayList<Produto> lista) {
+        jlistLoja.setListData(ControleDados.listarEmString(lista));
         jlistLoja.updateUI();
     }
 
