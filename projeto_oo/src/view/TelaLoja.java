@@ -145,7 +145,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         } else if ( option == 1 ) {
             janelaLoja.dispose();
 
-        } else if ( option == 2 ) {
+        } else if ( option == 2 || option == -1 ) {
             janelaLoja.setState(Frame.NORMAL);
             janelaLoja.setVisible(true);
         }

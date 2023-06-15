@@ -54,7 +54,8 @@ public class Dados {
 	public ArrayList<Loja> buscar_lojas(String termo) {
 		ArrayList<Loja> return_list = new ArrayList<Loja>();
 		for (Loja y : lojas) {
-			if ( y.getLocalizacao().contains(termo) || y.getCidade().contains(termo) ) {
+			if ( y.getLocalizacao().toLowerCase().contains(termo.toLowerCase()) ||
+					y.getCidade().toLowerCase().contains(termo.toLowerCase()) ) {
 				return_list.add(y);
 			}
 		}

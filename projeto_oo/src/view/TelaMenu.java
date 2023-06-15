@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -143,18 +144,22 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				atualizarJlistProdutos(dados.buscar_tudo(""));
 			}
 			if ( src == buttonBusca ) {
-				switch (listMode) {
-					case 0 -> atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
-					case 1 -> {
-						System.out.println("Buscando lojas");
-						changeModo(1);
-						jlistMenu.setListData(ControleDados.listarEmString(dados.buscar_lojas(textfieldBusca.getText())));
-						jlistMenu.updateUI();
-					}
-				}
+				buscar();
 			}
 			if ( src == buttonNovaLoja ) {
 				TelaLoja telaLojaNova = new TelaLoja(new Loja(null, null, null), self);
+			}
+		}
+	}
+
+	public static void buscar() {
+		switch (listMode) {
+			case 0 -> self.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+			case 1 -> {
+				System.out.println("Buscando lojas");
+				self.changeModo(1);
+				jlistMenu.setListData(ControleDados.listarEmString(dados.buscar_lojas(textfieldBusca.getText())));
+				jlistMenu.updateUI();
 			}
 		}
 	}
@@ -178,7 +183,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	public boolean clickable(long currentClick) {
-		if ( currentClick - lastClick > 350 ) {
+		if ( currentClick - lastClick > 175 ) {
 			lastClick = currentClick;
 			return true;
 		} else {
@@ -189,7 +194,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO: função de busca menu
 
 	}
 
@@ -200,7 +204,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
+		buscar();
 	}
 
 	@Override
