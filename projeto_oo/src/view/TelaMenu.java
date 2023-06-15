@@ -94,16 +94,9 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		return returnValue;
 	}
 
-	public static void medicamentoVazio() {
-		TelaMedicamento tela = new TelaMedicamento(new Medicamento(null, null,
-				null, 0, 0, null, null, null, false,
-				null));
-	}
 
-	public void cosmeticoVazio() {
-		TelaComestico tela = new TelaComestico(new Cosmetico(null,
-				null, null, 0, 0,
-				null, null, null, true), this);
+	public Dados getDados() {
+		return dados;
 	}
 
 	@Override
@@ -154,9 +147,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		}
 	}
 
-	public Dados getDados() {
-		return dados;
-	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {

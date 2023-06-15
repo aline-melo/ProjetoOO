@@ -80,6 +80,16 @@ public class ControleDados {
 		}
 	}
 
+	public static void salvarLoja(ArrayList infoList) {
+		Loja loja = (Loja) infoList.get(0);
+		loja.setLocalizacao((String) infoList.get(1));
+		loja.setCidade((String) infoList.get(2));
+		loja.setEstoque((ArrayList<Produto>) infoList.get(3));
+		ArrayList<Loja> lista = dados.getLojas();
+		lista.add(loja);
+		dados.setLojas(lista);
+	}
+
 	public String[] listarLojas() {
 		ArrayList<Loja> lojas = dados.getLojas();
 		String[] listaLojas = new String[lojas.size()];

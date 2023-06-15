@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -14,10 +15,11 @@ import modelo.Medicamento;
 import modelo.Produto;
 
 
-public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener, WindowListener {
+public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
     private static final JFrame janelaLoja = new JFrame("Loja");
     private static final JButton buttonBusca = new JButton("Buscar Produto");
     private static final JButton buttonCriarProduto = new JButton("Criar Produto");
+    private static final JButton buttonSalvar = new JButton("Salvar Loja");
     private static final JTextField textfieldBusca = new JTextField("");
     private static final JTextField textfieldEndereco = new JTextField("Endereço");
     private static final JTextField textfieldCidade = new JTextField("Cidade");
@@ -45,8 +47,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         textfieldBusca.setBounds(120, 50, 300, 30);
         buttonBusca.setBounds(450, 50, 150, 30);
         buttonCriarProduto.setBounds(450, 100, 150, 30);
-        textfieldEndereco.setBounds(450, 170, 150, 30);
-        textfieldCidade.setBounds(450, 220, 150, 30);
+        buttonSalvar.setBounds(450, 150, 150, 30);
+        textfieldEndereco.setBounds(450, 200, 150, 30);
+        textfieldCidade.setBounds(450, 250, 150, 30);
         jlistLoja.setBounds(120, 100, 300, 300);
         //lista.setVisibleRowCount(10);
 
@@ -56,16 +59,18 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.add(jlistLoja);
         janelaLoja.add(buttonCriarProduto);
         janelaLoja.add(buttonBusca);
+        janelaLoja.add(buttonSalvar);
         janelaLoja.add(textfieldEndereco);
         janelaLoja.add(textfieldCidade);
         janelaLoja.setSize(700, 500);
-        janelaLoja.addWindowListener(this);
+        janelaLoja.addWindowListener(new LojaWindowAdapter());
         janelaLoja.setVisible(true);
         MouseListener mouseListener = new LojaMouseAdapter();
         jlistLoja.addMouseListener(mouseListener);
         buttonBusca.addActionListener(this);
+        buttonSalvar.addActionListener(this);
         buttonCriarProduto.addActionListener(this);
-
+        janelaLoja.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         textfieldCidade.setText(loja.getCidade());
         textfieldEndereco.setText(loja.getLocalizacao());
         if ( loja.getLocalizacao() == null || listaObjetos.isEmpty() ) {
@@ -116,6 +121,30 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
+    public void windowClose(int mode) {
+        int option = 0;
+        if ( mode != 1 ) {
+            option = JOptionPane.showConfirmDialog(null, "Deseja salvar as alterações?");
+        }
+
+        if ( option == 0 ) {
+            if ( textfieldEndereco.getText().equals("") || textfieldCidade.getText().equals("") ) {
+                JOptionPane.showMessageDialog(null, "A loja precisa de um endereço e " +
+                        "uma cidade!");
+            } else {
+                ControleDados.salvarLoja(getInfo());
+                JOptionPane.showMessageDialog(null, "Loja salva com sucesso!");
+                janelaLoja.dispose();
+            }
+        } else if ( option == 1 ) {
+            janelaLoja.dispose();
+
+        } else if ( option == 2 ) {
+            janelaLoja.setState(Frame.NORMAL);
+            janelaLoja.setVisible(true);
+        }
+    }
+
     static class LojaMouseAdapter extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -123,56 +152,48 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if ( src == buttonCriarProduto ) {
-            TelaComestico tela = new TelaComestico(
-                    new Cosmetico(
-                            null, null, null, 0, 0,
-                            null, null, null, false
-                    ),
-                    self
-            );
-        } else if ( src == buttonBusca ) {
-            atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
+    static class LojaWindowAdapter extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            self.windowClose(0);
         }
     }
 
     @Override
-    public void windowOpened(WindowEvent e) {
-
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if ( src == buttonCriarProduto ) {
+            cosmeticoVazio();
+        } else if ( src == buttonBusca ) {
+            atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
+        } else if ( src == buttonSalvar ) {
+            windowClose(1);
+        }
     }
 
-    @Override
-    public void windowClosing(WindowEvent e) {
-
+    public ArrayList getInfo() {
+        ArrayList info = new ArrayList<>();
+        info.add(lojaPai);
+        info.add(textfieldEndereco.getText());
+        info.add(textfieldCidade.getText());
+        info.add(listaObjetos);
+        return info;
     }
 
-    @Override
-    public void windowClosed(WindowEvent e) {
+    public TelaMedicamento medicamentoVazio() {
+        TelaMedicamento tela = new TelaMedicamento(new Medicamento(null, null,
+                null, 0, 0, null, null, null, false,
+                null));
+        return tela;
     }
 
-    @Override
-    public void windowIconified(WindowEvent e) {
-
+    public TelaComestico cosmeticoVazio() {
+        TelaComestico tela = new TelaComestico(new Cosmetico(null,
+                null, null, 0, 0,
+                null, null, null, true), this);
+        return tela;
     }
 
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-        System.out.println("TelaLoja aberta");
-        atualizarJlistProdutos();
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-
-    }
 
     @Override
     public void keyTyped(KeyEvent e) {
