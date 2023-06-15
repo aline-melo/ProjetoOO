@@ -143,8 +143,10 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				changeModo(0);
 				atualizarJlistProdutos(dados.buscar_tudo(""));
 			}
-			if ( src == buttonBusca ) {
+			if ( src == buttonBusca && listMode != 2 ) {
 				buscar();
+			} else {
+
 			}
 			if ( src == buttonNovaLoja ) {
 				TelaLoja telaLojaNova = new TelaLoja(new Loja(null, null, null), self);
@@ -170,12 +172,16 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			if ( self.clickable(e.getWhen()) ) {
 				var itemClicked = getObjectClicked();
 				if ( itemClicked != null ) {
-					if ( getObjectClicked().getClass() == Cosmetico.class ) {
-						new TelaComestico((Cosmetico) getObjectClicked(), self);
-					} else if ( getObjectClicked().getClass() == Medicamento.class ) {
-						new TelaMedicamento((Medicamento) getObjectClicked());
-					} else if ( getObjectClicked().getClass() == Loja.class ) {
-						new TelaLoja((Loja) getObjectClicked(), self);
+					if ( itemClicked.getClass() == Cosmetico.class ) {
+						new TelaComestico((Cosmetico) itemClicked, self);
+					} else if ( itemClicked.getClass() == Medicamento.class ) {
+						new TelaMedicamento((Medicamento) itemClicked);
+					} else if ( itemClicked.getClass() == Loja.class ) {
+						new TelaLoja((Loja) itemClicked, self);
+					} else if ( itemClicked.getClass() == String.class ) {
+						self.changeModo(1);
+						jlistMenu.setListData(ControleDados.listarEmString(dados.buscar_lojas((String) itemClicked)));
+						jlistMenu.updateUI();
 					}
 				}
 			}
