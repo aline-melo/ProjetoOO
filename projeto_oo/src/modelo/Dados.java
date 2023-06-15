@@ -51,6 +51,16 @@ public class Dados {
 		return lojas;
 	}
 
+	public ArrayList<Loja> buscar_lojas(String termo) {
+		ArrayList<Loja> return_list = new ArrayList<Loja>();
+		for (Loja y : lojas) {
+			if ( y.getLocalizacao().contains(termo) || y.getCidade().contains(termo) ) {
+				return_list.add(y);
+			}
+		}
+		return return_list;
+	}
+
 	public ArrayList<Produto> buscar_tudo(String termo) {
 		ArrayList<Produto> return_list = new ArrayList<Produto>();
 		for (Loja y : lojas) {

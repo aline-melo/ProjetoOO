@@ -130,18 +130,28 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			Object src = e.getSource();
 			if ( src == buttonLojas ) {
 				changeModo(1);
-				String[] listaAExibir = controleDados.listarLojas();
-				jlistMenu.setListData(listaAExibir);
+				jlistMenu.setListData(controleDados.listarLojas());
 				jlistMenu.updateUI();
 			}
 			if ( src == buttonCidades ) {
 				changeModo(2);
-				String[] listaAExibir = controleDados.listarCidades();
-				jlistMenu.setListData(listaAExibir);
+				jlistMenu.setListData(controleDados.listarCidades());
 				jlistMenu.updateUI();
 			}
+			if ( src == buttonProdutos ) {
+				changeModo(0);
+				atualizarJlistProdutos(dados.buscar_tudo(""));
+			}
 			if ( src == buttonBusca ) {
-				this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+				switch (listMode) {
+					case 0 -> atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+					case 1 -> {
+						System.out.println("Buscando lojas");
+						changeModo(1);
+						jlistMenu.setListData(ControleDados.listarEmString(dados.buscar_lojas(textfieldBusca.getText())));
+						jlistMenu.updateUI();
+					}
+				}
 			}
 			if ( src == buttonNovaLoja ) {
 				TelaLoja telaLojaNova = new TelaLoja(new Loja(null, null, null), self);
@@ -179,7 +189,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+		// TODO: função de busca menu
 
 	}
 

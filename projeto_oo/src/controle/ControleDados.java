@@ -14,14 +14,25 @@ public class ControleDados {
 	}
 
 
-	public static String[] listarEmString(ArrayList<Produto> array) {
+	public static String[] listarEmString(ArrayList array) {
 		String[] lista_retorno = new String[array.size()];
-		for (int i = 0; i < array.size(); i++) {
-			lista_retorno[i] = array.get(i).getNome();
-		}
 		if ( array.isEmpty() ) {
 			lista_retorno = new String[0];
-
+		} else {
+			if ( array.get(0) instanceof Produto ) {
+				for (int i = 0; i < array.size(); i++) {
+					lista_retorno[i] = ((Produto) array.get(i)).getNome();
+				}
+			} else if ( array.get(0).getClass().equals(Loja.class) ) {
+				for (int i = 0; i < array.size(); i++) {
+					lista_retorno[i] = (((Loja) array.get(i)).getLocalizacao() + ", "
+							+ ((Loja) array.get(i)).getCidade());
+				}
+			} else {
+				for (int i = 0; i < array.size(); i++) {
+					lista_retorno[i] = ((Produto) array.get(i)).getNome();
+				}
+			}
 		}
 		return lista_retorno;
 	}
