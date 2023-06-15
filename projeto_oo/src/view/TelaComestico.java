@@ -17,6 +17,7 @@ import static java.lang.Integer.parseInt;
 public class TelaComestico implements ActionListener, ListSelectionListener {
     private static final JFrame janelaComestico = new JFrame("");
     private static JButton button_salvar = new JButton("Salvar");
+    private static JButton button_apagar = new JButton("Apagar Produto");
     private static final JTextField field_nome = new JTextField("Nome do comestico");
     private static final JTextArea field_descricao = new JTextArea("field_descricao");
     private static final JTextField field_preco = new JTextField("field_preco");
@@ -46,9 +47,11 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
 
 
         button_salvar.addActionListener(this);
+        button_apagar.addActionListener(this);
 
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
+        button_apagar.setBounds(350, 300, 145, 30);
         field_descricao.setBounds(40, 120, 300, 90);
         field_preco.setBounds(350, 120, 145, 30);
         field_estoque.setBounds(350, 180, 145, 30);
@@ -79,6 +82,7 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
         janelaComestico.add(field_fragancia);
         janelaComestico.add(checkbox_hipoalergenico);
         janelaComestico.add(button_salvar);
+        janelaComestico.add(button_apagar);
 
         janelaComestico.add(label_nome);
         janelaComestico.add(label_descricao);
@@ -165,6 +169,12 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
                     ((TelaLoja) telaPai).atualizarJlistProdutos();
                     ((TelaLoja) telaPai).getTelaPai().atualizarJlistProdutos();
                 }
+            }
+        } else if ( src == button_apagar ) {
+            int option = JOptionPane.showConfirmDialog(null,
+                    "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
+            if ( option == 0 ) {
+                janelaComestico.dispose();
             }
         }
     }
