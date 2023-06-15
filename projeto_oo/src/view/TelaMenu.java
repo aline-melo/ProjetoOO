@@ -14,11 +14,13 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private static final ControleDados controleDados = new ControleDados();
 	private static final Dados dados = controleDados.getDados();
 	private static final JFrame janela = new JFrame("Drogarias OO");
-	private static final JButton buttonBusca = new JButton("Buscar Produto");
+	private static final JButton buttonBusca = new JButton("Buscar");
 	private static final JButton buttonCidades = new JButton("Cidades");
+	private static final JButton buttonProdutos = new JButton("Produtos");
 	private static final JButton buttonLojas = new JButton("Lojas");
 	private static final JButton buttonNovaLoja = new JButton("Nova Loja");
 	private static final JTextField textfieldBusca = new JTextField("");
+	private JLabel labelModo = new JLabel("Buscando produtos");
 	private static JList<String> jlistMenu = new JList<String>();
 	private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
 	private static int listMode = 0;
@@ -35,10 +37,12 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 		//titulo.setFont(new Font("Arial", Font.BOLD, 20));
 		textfieldBusca.setBounds(120, 50, 300, 30);
+		labelModo.setBounds(120, 25, 300, 30);
 		buttonBusca.setBounds(450, 50, 150, 30);
-		buttonCidades.setBounds(500, 100, 100, 30);
-		buttonLojas.setBounds(500, 150, 100, 30);
-		buttonNovaLoja.setBounds(500, 200, 100, 30);
+		buttonCidades.setBounds(450, 100, 150, 30);
+		buttonProdutos.setBounds(450, 200, 150, 30);
+		buttonLojas.setBounds(450, 150, 150, 30);
+		buttonNovaLoja.setBounds(450, 250, 150, 30);
 		jlistMenu.setBounds(120, 100, 300, 300);
 		//lista.setVisibleRowCount(10);
 
@@ -52,6 +56,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		janela.add(buttonLojas);
 		janela.add(buttonNovaLoja);
 		janela.add(buttonBusca);
+		janela.add(buttonProdutos);
+		janela.add(labelModo);
 		janela.setSize(700, 500);
 		janela.setVisible(true);
 		MouseListener mouseListener = new MyMouseAdapter();
@@ -60,6 +66,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		buttonBusca.addActionListener(this);
 		buttonCidades.addActionListener(this);
 		buttonLojas.addActionListener(this);
+		buttonProdutos.addActionListener(this);
 		buttonNovaLoja.addActionListener(this);
 		textfieldBusca.addKeyListener(this);
 		jlistMenu.addListSelectionListener(this);
@@ -72,14 +79,14 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 
 	public void atualizarJlistProdutos(ArrayList<Produto> obj_list) {
-		listMode = 0;
+		changeModo(0);
 		listaObjetos = obj_list;
 		jlistMenu.setListData(ControleDados.listarEmString(obj_list));
 		jlistMenu.updateUI();
 	}
 
 	public void atualizarJlistProdutos() {
-		listMode = 0;
+		changeModo(0);
 		jlistMenu.setListData(ControleDados.listarEmString(listaObjetos));
 		jlistMenu.updateUI();
 	}
@@ -97,6 +104,15 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		return returnValue;
 	}
 
+	public void changeModo(int novoModo) {
+		listMode = novoModo;
+		switch (novoModo) {
+			case 0 -> labelModo.setText("Buscando produtos");
+			case 1 -> labelModo.setText("Buscando lojas");
+			case 2 -> labelModo.setText("Buscando cidades");
+		}
+		labelModo.updateUI();
+	}
 
 	public Dados getDados() {
 		return dados;
@@ -113,13 +129,13 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		if ( clickable(e.getWhen()) ) {
 			Object src = e.getSource();
 			if ( src == buttonLojas ) {
-				listMode = 1;
+				changeModo(1);
 				String[] listaAExibir = controleDados.listarLojas();
 				jlistMenu.setListData(listaAExibir);
 				jlistMenu.updateUI();
 			}
 			if ( src == buttonCidades ) {
-				listMode = 2;
+				changeModo(2);
 				String[] listaAExibir = controleDados.listarCidades();
 				jlistMenu.setListData(listaAExibir);
 				jlistMenu.updateUI();
