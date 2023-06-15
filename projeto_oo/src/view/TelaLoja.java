@@ -122,9 +122,13 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     public void windowClose(int mode) {
+        atualizarJlistProdutos(lojaPai.getEstoque());
         int option = 0;
-        if ( mode != 1 ) {
+        if ( mode != 1 && !(textfieldEndereco.getText().equals("") && textfieldCidade.getText().equals(""))
+                && !listaObjetos.isEmpty() ) {
             option = JOptionPane.showConfirmDialog(null, "Deseja salvar as alterações?");
+        } else if ( textfieldEndereco.getText().equals("") && textfieldCidade.getText().equals("") ) {
+            option = 1;
         }
 
         if ( option == 0 ) {
