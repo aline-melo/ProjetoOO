@@ -23,6 +23,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
 	private static int listMode = 0;
 	private static TelaMenu self;
+	private long lastClick = 0;
 
 
 	public TelaMenu() {
@@ -43,6 +44,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 		janela.setLayout(null);
 		janela.addWindowListener(this);
+		janela.addKeyListener(this);
 
 		janela.add(textfieldBusca);
 		janela.add(jlistMenu);
@@ -59,6 +61,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		buttonCidades.addActionListener(this);
 		buttonLojas.addActionListener(this);
 		buttonNovaLoja.addActionListener(this);
+		textfieldBusca.addKeyListener(this);
 		jlistMenu.addListSelectionListener(this);
 	}
 
@@ -107,32 +110,33 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object src = e.getSource();
-		if (src == buttonLojas) {
-			listMode = 1;
-			String[] listaAExibir = controleDados.listarLojas();
-			jlistMenu.setListData(listaAExibir);
-			jlistMenu.updateUI();
-		}
-		if ( src == buttonCidades ) {
-			listMode = 2;
-			String[] listaAExibir = controleDados.listarCidades();
-			jlistMenu.setListData(listaAExibir);
-			jlistMenu.updateUI();
-		}
-		if ( src == buttonBusca ) {
-			this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
-		}
-		if ( src == buttonNovaLoja ) {
-			TelaLoja telaLojaNova = new TelaLoja(new Loja(null, null, null), self);
-
+		if ( clickable(e.getWhen()) ) {
+			Object src = e.getSource();
+			if ( src == buttonLojas ) {
+				listMode = 1;
+				String[] listaAExibir = controleDados.listarLojas();
+				jlistMenu.setListData(listaAExibir);
+				jlistMenu.updateUI();
+			}
+			if ( src == buttonCidades ) {
+				listMode = 2;
+				String[] listaAExibir = controleDados.listarCidades();
+				jlistMenu.setListData(listaAExibir);
+				jlistMenu.updateUI();
+			}
+			if ( src == buttonBusca ) {
+				this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+			}
+			if ( src == buttonNovaLoja ) {
+				TelaLoja telaLojaNova = new TelaLoja(new Loja(null, null, null), self);
+			}
 		}
 	}
 
 	static class MyMouseAdapter extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if ( e.getClickCount() == 2 ) {
+			if ( self.clickable(e.getWhen()) ) {
 				var itemClicked = getObjectClicked();
 				if ( itemClicked != null ) {
 					if ( getObjectClicked().getClass() == Cosmetico.class ) {
@@ -147,9 +151,19 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		}
 	}
 
+	public boolean clickable(long currentClick) {
+		if ( currentClick - lastClick > 350 ) {
+			lastClick = currentClick;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
 
 	}
 
@@ -190,12 +204,13 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		self.atualizarJlistProdutos(dados.buscar_tudo(""));
+		if ( listMode == 0 ) {
+			self.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+		}
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-		self.atualizarJlistProdutos(dados.buscar_tudo(""));
 	}
 
 	@Override

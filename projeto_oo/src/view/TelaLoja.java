@@ -30,6 +30,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     private static Loja lojaPai;
     private TelaMenu telaPai;
+    private long lastClick = 0;
 
 
     public TelaLoja(Loja loja, TelaMenu pai) {
@@ -105,29 +106,30 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     public void itemClicked(MouseEvent e) {
-        try {
-            if ( e.getClickCount() == 1 ) {
-                int index = jlistLoja.locationToIndex(e.getPoint());
-                jlistLoja.clearSelection();
-                Produto produto = listaObjetos.get(index);
-                if ( produto instanceof Medicamento ) {
-                    new TelaMedicamento((Medicamento) produto);
-                } else if ( produto instanceof Cosmetico ) {
-                    new TelaComestico((Cosmetico) produto, self);
+        if ( clickable(e.getWhen()) ) {
+            try {
+                if ( e.getClickCount() == 1 ) {
+                    int index = jlistLoja.locationToIndex(e.getPoint());
+                    jlistLoja.clearSelection();
+                    Produto produto = listaObjetos.get(index);
+                    if ( produto instanceof Medicamento ) {
+                        new TelaMedicamento((Medicamento) produto);
+                    } else if ( produto instanceof Cosmetico ) {
+                        new TelaComestico((Cosmetico) produto, self);
+                    }
                 }
+            } catch (IndexOutOfBoundsException exception) {
+                return;
             }
-        } catch (IndexOutOfBoundsException exception) {
-            return;
         }
     }
 
     public void windowClose(int mode) {
         atualizarJlistProdutos(lojaPai.getEstoque());
         int option = 0;
-        if ( mode != 1 && !(textfieldEndereco.getText().equals("") && textfieldCidade.getText().equals(""))
-                && !listaObjetos.isEmpty() ) {
+        if ( mode == 1 ) {
             option = JOptionPane.showConfirmDialog(null, "Deseja salvar as alterações?");
-        } else if ( textfieldEndereco.getText().equals("") && textfieldCidade.getText().equals("") ) {
+        } else if ( mode == 2 ) {
             option = 1;
         }
 
@@ -149,6 +151,24 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
+    public boolean clickable(long currentClick) {
+        if ( currentClick - lastClick > 500 ) {
+            lastClick = currentClick;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean clickable(long currentClick, double cooldown) {
+        if ( currentClick - lastClick > cooldown * 1000 ) {
+            lastClick = currentClick;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     static class LojaMouseAdapter extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -156,22 +176,33 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
+
     static class LojaWindowAdapter extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
-            self.windowClose(0);
+            if ( (textfieldEndereco.getText().equals("") || textfieldCidade.getText().equals(""))
+                    && !textfieldEndereco.getText().equals(textfieldCidade.getText()) ) {
+                self.windowClose(1);
+            } else if ( (textfieldEndereco.getText().equals("") || textfieldCidade.getText().equals(""))
+                    && textfieldEndereco.getText().equals(textfieldCidade.getText()) ) {
+                self.windowClose(2);
+            } else {
+                self.windowClose(0);
+            }
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if ( src == buttonCriarProduto ) {
-            cosmeticoVazio();
-        } else if ( src == buttonBusca ) {
-            atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
-        } else if ( src == buttonSalvar ) {
-            windowClose(1);
+        if ( clickable(e.getWhen(), 0.7) ) {
+            Object src = e.getSource();
+            if ( src == buttonCriarProduto ) {
+                cosmeticoVazio();
+            } else if ( src == buttonBusca ) {
+                atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
+            } else if ( src == buttonSalvar ) {
+                windowClose(0);
+            }
         }
     }
 

@@ -85,9 +85,13 @@ public class ControleDados {
 		loja.setLocalizacao((String) infoList.get(1));
 		loja.setCidade((String) infoList.get(2));
 		loja.setEstoque((ArrayList<Produto>) infoList.get(3));
-		ArrayList<Loja> lista = dados.getLojas();
-		lista.add(loja);
-		dados.setLojas(lista);
+		if ( !dados.getLojas().contains(loja) ) {
+			dados.getLojas().set(dados.getLojas().indexOf(loja), loja);
+			ArrayList<Loja> lista = dados.getLojas();
+			lista.add(loja);
+			dados.setLojas(lista);
+		}
+
 	}
 
 	public String[] listarLojas() {
