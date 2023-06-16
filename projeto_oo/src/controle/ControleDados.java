@@ -93,15 +93,15 @@ public class ControleDados {
 
 	public static void salvarLoja(ArrayList infoList) {
 		Loja loja = (Loja) infoList.get(0);
+		loja.setLocalizacao((String) infoList.get(1));
+		loja.setCidade((String) infoList.get(2));
+		loja.setEstoque((ArrayList<Produto>) infoList.get(3));
 		if ( !dados.getLojas().contains(loja) ) {
-			dados.getLojas().set(dados.getLojas().indexOf(loja), loja);
 			ArrayList<Loja> lista = dados.getLojas();
 			lista.add(loja);
 			dados.setLojas(lista);
 		} else {
-			loja.setLocalizacao((String) infoList.get(1));
-			loja.setCidade((String) infoList.get(2));
-			loja.setEstoque((ArrayList<Produto>) infoList.get(3));
+			dados.getLojas().set(dados.getLojas().indexOf(loja), loja);
 		}
 
 	}
