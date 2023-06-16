@@ -190,6 +190,13 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                 self.windowClose(0);
             }
         }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+            System.out.println(self.listaObjetos);
+            self.atualizarJlistProdutos();
+        }
+
     }
 
     @Override

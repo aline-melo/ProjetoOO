@@ -16,11 +16,11 @@ import static java.lang.Integer.parseInt;
 
 public class TelaComestico implements ActionListener, ListSelectionListener {
     private static final JFrame janelaComestico = new JFrame("");
-    private static JButton button_salvar = new JButton("Salvar");
-    private static JButton button_apagar = new JButton("Apagar Produto");
+    private static final JButton button_salvar = new JButton("Salvar");
+    private static final JButton button_apagar = new JButton("Apagar Produto");
     private static final JTextField field_nome = new JTextField("Nome do comestico");
     private static final JTextArea field_descricao = new JTextArea("field_descricao");
-    private static final JTextField field_preco = new JTextField("field_preco");
+    private static final JFormattedTextField field_preco = new JFormattedTextField("field_preco");
     private static final JTextField field_estoque = new JTextField("field_estoque");
     private static final JTextField field_fabricante = new JTextField("field_fabricante");
     private static final JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
@@ -107,6 +107,8 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
         field_cor.setText(item.getCor());
         field_fragancia.setText(item.getFragrancia());
         checkbox_hipoalergenico.setSelected(item.isHipoalergenico());
+
+
     }
 
     public ArrayList<Object> getInfo() {
