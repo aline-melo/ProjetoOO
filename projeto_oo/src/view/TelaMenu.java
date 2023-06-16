@@ -259,8 +259,13 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		if ( listMode == 0 ) {
-			self.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+		switch (listMode) {
+			case 0:
+				self.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+			case 1:
+				self.atualizarJListLojas(dados.buscar_lojas(textfieldBusca.getText()));
+			case 2:
+				self.atualizarJListCidades();
 		}
 	}
 

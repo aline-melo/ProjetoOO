@@ -20,6 +20,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     private static final JButton buttonBusca = new JButton("Buscar Produto");
     private static final JButton buttonCriarProduto = new JButton("Criar Produto");
     private static final JButton buttonSalvar = new JButton("Salvar Loja");
+    private static final JButton buttonApagar = new JButton("Apagar loja");
     private static final JTextField textfieldBusca = new JTextField("");
     private static final JTextField textfieldEndereco = new JTextField("Endereço");
     private static final JTextField textfieldCidade = new JTextField("Cidade");
@@ -52,6 +53,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         textfieldEndereco.setBounds(450, 200, 150, 30);
         textfieldCidade.setBounds(450, 250, 150, 30);
         jlistLoja.setBounds(120, 100, 300, 300);
+        buttonApagar.setBounds(450, 400, 150, 30);
         //lista.setVisibleRowCount(10);
 
         janelaLoja.setLayout(null);
@@ -61,6 +63,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.add(buttonCriarProduto);
         janelaLoja.add(buttonBusca);
         janelaLoja.add(buttonSalvar);
+        janelaLoja.add(buttonApagar);
         janelaLoja.add(textfieldEndereco);
         janelaLoja.add(textfieldCidade);
         janelaLoja.setSize(700, 500);
@@ -70,8 +73,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         jlistLoja.addMouseListener(mouseListener);
         buttonBusca.addActionListener(this);
         buttonSalvar.addActionListener(this);
+        buttonApagar.addActionListener(this);
         buttonCriarProduto.addActionListener(this);
-        janelaLoja.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        //janelaLoja.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         textfieldCidade.setText(loja.getCidade());
         textfieldEndereco.setText(loja.getLocalizacao());
         if ( loja.getLocalizacao() == null || listaObjetos.isEmpty() ) {
@@ -209,6 +213,12 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                 atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
             } else if ( src == buttonSalvar ) {
                 windowClose(0);
+            } else if ( src == buttonApagar ) {
+                if ( 0 == JOptionPane.showConfirmDialog(null, "Deseja Apagar a loja?",
+                        "Apagar", JOptionPane.YES_NO_OPTION) ) {
+                    ControleDados.deletarLoja(lojaPai);
+                    janelaLoja.dispose();
+                }
             }
         }
     }

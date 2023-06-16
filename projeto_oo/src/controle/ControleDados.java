@@ -107,6 +107,13 @@ public class ControleDados {
 
 	}
 
+	public static void deletarLoja(Loja loja) {
+		for (Produto produto : loja.getEstoque()) {
+			loja.getEstoque().remove(produto);
+		}
+		dados.getLojas().remove(loja);
+	}
+
 	public String[] listarLojas() {
 		ArrayList<Loja> lojas = dados.getLojas();
 		String[] listaLojas = new String[lojas.size()];
