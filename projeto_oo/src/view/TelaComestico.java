@@ -36,13 +36,14 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     private static final JLabel label_cor = new JLabel("Cor:");
     private static final JLabel label_fragancia = new JLabel("Fragância:");
     private static final JLabel label_hipoalergenico = new JLabel("É hipoalergênico?");
+    private Cosmetico cosmeticoPai;
     private static String nomeAnterior;
     private static Object telaPai;
 
     public TelaComestico(Cosmetico item, Object pai) {
 
         nomeAnterior = item.getNome();
-
+        cosmeticoPai = item;
         telaPai = pai;
 
 
@@ -176,6 +177,7 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
             int option = JOptionPane.showConfirmDialog(null,
                     "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
             if ( option == 0 ) {
+                ControleDados.deletarCosmetico(cosmeticoPai);
                 janelaComestico.dispose();
             }
         }

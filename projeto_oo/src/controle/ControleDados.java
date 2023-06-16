@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 
 import modelo.*;
-import view.TelaComestico;
 
 public class ControleDados {
 	private static Dados dados = new Dados();
@@ -37,11 +36,13 @@ public class ControleDados {
 		return lista_retorno;
 	}
 
-	public void deletarCosmetico(Cosmetico item) {
+	public static void deletarCosmetico(Cosmetico item) {
 		for (Loja loja : dados.getLojas()) {
 			if ( loja.getEstoque().contains(item) ) {
 				ArrayList<Produto> novoEstoque = loja.getEstoque();
-				novoEstoque.remove(item);
+				while (novoEstoque.contains(item)) {
+					novoEstoque.remove(item);
+				}
 				loja.setEstoque(novoEstoque);
 			}
 		}
