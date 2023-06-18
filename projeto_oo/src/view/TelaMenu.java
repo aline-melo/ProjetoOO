@@ -14,7 +14,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	private static final ControleDados controleDados = new ControleDados();
 	private static final Dados dados = controleDados.getDados();
-	private static final JFrame janela = new JFrame("Drogarias OO");
+	private final JFrame janela = new JFrame("Drogarias OO");
 	private static final JButton buttonBusca = new JButton("Buscar");
 	private static final JButton buttonCidades = new JButton("Cidades");
 	private static final JButton buttonProdutos = new JButton("Produtos");
@@ -22,8 +22,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private static final JButton buttonNovaLoja = new JButton("Nova Loja");
 	private final JTextField textfieldBusca = new JTextField("");
 	private JLabel labelModo = new JLabel("Buscando produtos");
-	private static JList<String> jlistMenu = new JList<String>();
-	private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
+	private JList<String> jlistMenu = new JList<String>();
+	private ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
 	private int listMode = 0;
 	private static TelaMenu self;
 	private long lastClick = 0;
@@ -117,10 +117,10 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	public static Object getObjectClicked() {
-		int index = jlistMenu.getSelectedIndex();
+		int index = self.jlistMenu.getSelectedIndex();
 		Object returnValue = null;
 		if ( self.listMode == 0 ) {
-			returnValue = listaObjetos.get(index);
+			returnValue = self.listaObjetos.get(index);
 		} else if ( self.listMode == 1 ) {
 			returnValue = dados.getLojas().get(index);
 		} else if ( self.listMode == 2 ) {
