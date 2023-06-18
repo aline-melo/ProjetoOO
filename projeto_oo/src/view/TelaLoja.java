@@ -16,8 +16,8 @@ import modelo.Produto;
 
 
 public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
-    private static final JFrame janelaLoja = new JFrame("Loja");
-    private static final JButton buttonBusca = new JButton("Buscar Produto");
+    private final JFrame janelaLoja = new JFrame("Loja");
+    private final JButton buttonBusca = new JButton("Buscar Produto");
     private static final JButton buttonCriarProduto = new JButton("Criar Produto");
     private static final JButton buttonSalvar = new JButton("Salvar Loja");
     private static final JButton buttonApagar = new JButton("Apagar loja");
@@ -179,7 +179,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     static class LojaWindowAdapter extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
-            janelaLoja.dispose();
+            self.janelaLoja.dispose();
 
         }
 

@@ -24,7 +24,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private JLabel labelModo = new JLabel("Buscando produtos");
 	private static JList<String> jlistMenu = new JList<String>();
 	private static ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
-	private static int listMode = 0;
+	private int listMode = 0;
 	private static TelaMenu self;
 	private long lastClick = 0;
 
@@ -104,9 +104,9 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.updateUI();
 	}
 
-	public void atualizarJListCidades(String[] obj_list) {
-		changeModo(2);
-		jlistMenu.setListData(obj_list);
+	public void atualizarJListCidades(ArrayList<Loja> obj_list) {
+		changeModo(1);
+		jlistMenu.setListData(ControleDados.listarEmString(obj_list));
 		jlistMenu.updateUI();
 	}
 
@@ -119,11 +119,11 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	public static Object getObjectClicked() {
 		int index = jlistMenu.getSelectedIndex();
 		Object returnValue = null;
-		if ( listMode == 0 ) {
+		if ( self.listMode == 0 ) {
 			returnValue = listaObjetos.get(index);
-		} else if ( listMode == 1 ) {
+		} else if ( self.listMode == 1 ) {
 			returnValue = dados.getLojas().get(index);
-		} else if ( listMode == 2 ) {
+		} else if ( self.listMode == 2 ) {
 			returnValue = controleDados.listarCidades()[index];
 		}
 		return returnValue;
@@ -168,20 +168,16 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			} else if ( src == buttonBusca && listMode != 2 ) {
 				buscar();
 			} else if ( src == buttonNovaLoja ) {
-				TelaLoja telaLojaNova = new TelaLoja(new Loja(null, null, null), self);
+				new TelaLoja(new Loja(null, null, null), self);
 			}
 		}
 	}
 
 	public static void buscar() {
-		switch (listMode) {
+		switch (self.listMode) {
 			case 0 -> self.atualizarJlistProdutos(dados.buscar_tudo(self.textfieldBusca.getText()));
-			case 1 -> {
-				System.out.println("Buscando lojas");
-				self.changeModo(1);
-				jlistMenu.setListData(ControleDados.listarEmString(dados.buscar_lojas(self.textfieldBusca.getText())));
-				jlistMenu.updateUI();
-			}
+			case 1 -> self.atualizarJListLojas(dados.buscar_lojas(self.textfieldBusca.getText()));
+
 		}
 	}
 
@@ -198,9 +194,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 					} else if ( itemClicked.getClass() == Loja.class ) {
 						new TelaLoja((Loja) itemClicked, self);
 					} else if ( itemClicked.getClass() == String.class ) {
-						self.changeModo(1);
-						jlistMenu.setListData(ControleDados.listarEmString(dados.buscar_lojas((String) itemClicked)));
-						jlistMenu.updateUI();
+						self.atualizarJListCidades(dados.buscar_lojas((String) itemClicked));
 					}
 				}
 			}
@@ -260,13 +254,12 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		switch (listMode) {
-			case 0:
-				self.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
-			case 1:
-				self.atualizarJListLojas(dados.buscar_lojas(textfieldBusca.getText()));
-			case 2:
-				self.atualizarJListCidades();
+		if ( listMode == 0 ) {
+			self.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+		} else if ( listMode == 1 ) {
+			self.atualizarJListLojas(dados.buscar_lojas(textfieldBusca.getText()));
+		} else if ( listMode == 2 ) {
+			self.atualizarJListCidades();
 		}
 	}
 

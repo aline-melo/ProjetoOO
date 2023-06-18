@@ -164,7 +164,6 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
                     ControleDados.criarCosmetico(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
                 }
 
-
                 janelaComestico.dispose();
 
                 if ( telaPai instanceof TelaMenu ) {
