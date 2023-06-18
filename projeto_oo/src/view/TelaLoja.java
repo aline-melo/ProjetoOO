@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.ListUI;
 
 import controle.ControleDados;
 import modelo.Cosmetico;
@@ -17,13 +16,18 @@ import modelo.Produto;
 
 public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
     private final JFrame janelaLoja = new JFrame("Loja");
-    private final JButton buttonBusca = new JButton("Buscar Produto");
+    private final JButton buttonBusca = new JButton("Buscar");
     private static final JButton buttonCriarProduto = new JButton("Criar Produto");
     private static final JButton buttonSalvar = new JButton("Salvar Loja");
     private static final JButton buttonApagar = new JButton("Apagar loja");
     private final JTextField textfieldBusca = new JTextField("");
     private final JTextField textfieldEndereco = new JTextField("Endereço");
     private final JTextField textfieldCidade = new JTextField("Cidade");
+    private static final JLabel labelBusca = new JLabel("Buscar Produto");
+    private static final JLabel labelEndereco = new JLabel("Endereço");
+
+    private static final JLabel labelCidade = new JLabel("Cidade");
+    private final JLabel labelList = new JLabel("Produtos nessa loja:");
 
     private JList<String> jlistLoja;
     private ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
@@ -46,14 +50,18 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
 
         //titulo.setFont(new Font("Arial", Font.BOLD, 20));
-        textfieldBusca.setBounds(120, 50, 300, 30);
-        buttonBusca.setBounds(450, 50, 150, 30);
-        buttonCriarProduto.setBounds(450, 100, 150, 30);
-        buttonSalvar.setBounds(450, 150, 150, 30);
-        textfieldEndereco.setBounds(450, 200, 150, 30);
-        textfieldCidade.setBounds(450, 250, 150, 30);
-        jlistLoja.setBounds(120, 100, 300, 300);
-        buttonApagar.setBounds(450, 400, 150, 30);
+        textfieldBusca.setBounds(50, 50, 300, 30);
+        labelBusca.setBounds(50, 30, 200, 25);
+        buttonBusca.setBounds(380, 50, 150, 30);
+        buttonCriarProduto.setBounds(380, 100, 150, 30);
+        buttonSalvar.setBounds(380, 150, 150, 30);
+        textfieldEndereco.setBounds(380, 250, 150, 30);
+        textfieldCidade.setBounds(380, 300, 150, 30);
+        labelEndereco.setBounds(380, 230, 150, 25);
+        labelCidade.setBounds(380, 280, 150, 25);
+        labelList.setBounds(50, 80, 200, 25);
+        jlistLoja.setBounds(50, 100, 300, 300);
+        buttonApagar.setBounds(380, 370, 150, 30);
         //lista.setVisibleRowCount(10);
 
         janelaLoja.setLayout(null);
@@ -66,7 +74,11 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.add(buttonApagar);
         janelaLoja.add(textfieldEndereco);
         janelaLoja.add(textfieldCidade);
-        janelaLoja.setSize(700, 500);
+        janelaLoja.add(labelBusca);
+        janelaLoja.add(labelEndereco);
+        janelaLoja.add(labelCidade);
+        janelaLoja.add(labelList);
+        janelaLoja.setSize(585, 485);
         janelaLoja.addWindowListener(new LojaWindowAdapter());
         janelaLoja.setVisible(true);
         MouseListener mouseListener = new LojaMouseAdapter();
@@ -123,30 +135,15 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
-    public void windowClose(int mode) {
+    public void salvarLoja() {
         atualizarJlistProdutos(lojaPai.getEstoque());
-        int option = 0;
-        if ( mode == 1 ) {
-            option = JOptionPane.showConfirmDialog(null, "Deseja salvar as alterações?");
-        } else if ( mode == 2 ) {
-            option = 1;
-        }
-
-        if ( option == 0 ) {
-            if ( textfieldEndereco.getText().equals("") || textfieldCidade.getText().equals("") ) {
-                JOptionPane.showMessageDialog(null, "A loja precisa de um endereço e " +
-                        "uma cidade!");
-            } else {
-                ControleDados.salvarLoja(getInfo());
-                JOptionPane.showMessageDialog(null, "Loja salva com sucesso!");
-                janelaLoja.dispose();
-            }
-        } else if ( option == 1 ) {
+        if ( textfieldEndereco.getText().equals("") || textfieldCidade.getText().equals("") ) {
+            JOptionPane.showMessageDialog(null, "A loja precisa de um endereço e " +
+                    "uma cidade!");
+        } else {
+            ControleDados.salvarLoja(getInfo());
+            JOptionPane.showMessageDialog(null, "Loja salva com sucesso!");
             janelaLoja.dispose();
-
-        } else if ( option == 2 || option == -1 ) {
-            janelaLoja.setState(Frame.NORMAL);
-            janelaLoja.setVisible(true);
         }
     }
 
@@ -199,7 +196,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             } else if ( src == buttonBusca ) {
                 atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
             } else if ( src == buttonSalvar ) {
-                windowClose(0);
+                salvarLoja();
             } else if ( src == buttonApagar ) {
                 if ( 0 == JOptionPane.showConfirmDialog(null, "Deseja Apagar a loja?",
                         "Apagar", JOptionPane.YES_NO_OPTION) ) {
@@ -211,7 +208,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     public ArrayList getInfo() {
-        ArrayList info = new ArrayList<>();
+        ArrayList<Object> info = new ArrayList<>();
         info.add(lojaPai);
         info.add(textfieldEndereco.getText());
         info.add(textfieldCidade.getText());
@@ -226,11 +223,10 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         return tela;
     }
 
-    public TelaComestico cosmeticoVazio() {
-        TelaComestico tela = new TelaComestico(new Cosmetico(null,
+    public void cosmeticoVazio() {
+        new TelaComestico(new Cosmetico(null,
                 null, null, 0, 0,
                 null, null, null, true), this);
-        return tela;
     }
 
 
