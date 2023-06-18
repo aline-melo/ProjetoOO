@@ -75,14 +75,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         buttonSalvar.addActionListener(this);
         buttonApagar.addActionListener(this);
         buttonCriarProduto.addActionListener(this);
-        //janelaLoja.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        janelaLoja.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         textfieldCidade.setText(loja.getCidade());
         textfieldEndereco.setText(loja.getLocalizacao());
-        if ( loja.getLocalizacao() == null || listaObjetos.isEmpty() ) {
-            listaObjetos = new ArrayList<Produto>();
-        } else {
-            listaObjetos = loja.getEstoque();
-        }
 
 
         this.atualizarJlistProdutos();

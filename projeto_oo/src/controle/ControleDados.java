@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import modelo.*;
+import view.TelaLoja;
 
 public class ControleDados {
 	private static Dados dados = new Dados();

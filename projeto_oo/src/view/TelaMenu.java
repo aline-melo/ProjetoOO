@@ -208,12 +208,13 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	public boolean clickable(long currentClick) {
+		boolean x = false;
+
 		if ( currentClick - lastClick > 175 ) {
 			lastClick = currentClick;
-			return true;
-		} else {
-			return false;
+			x = true;
 		}
+		return x;
 	}
 
 
