@@ -119,10 +119,12 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
         info.add(field_descricao.getText()); //2
         try {
             info.add(parseDouble(field_preco.getText())); //3
+        } catch (NumberFormatException x) {
+            info.add(3, 0.0);
+        }
+        try {
             info.add(parseInt(field_estoque.getText())); //4
         } catch (NumberFormatException x) {
-            info.remove(4);
-            info.add(3, 0);
             info.add(4, 0);
         }
         info.add(field_fabricante.getText()); //5
