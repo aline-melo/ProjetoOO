@@ -179,20 +179,12 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     static class LojaWindowAdapter extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
-            if ( (textfieldEndereco.getText().equals("") || textfieldCidade.getText().equals(""))
-                    && !textfieldEndereco.getText().equals(textfieldCidade.getText()) ) {
-                self.windowClose(1);
-            } else if ( (textfieldEndereco.getText().equals("") || textfieldCidade.getText().equals(""))
-                    && textfieldEndereco.getText().equals(textfieldCidade.getText()) ) {
-                self.windowClose(2);
-            } else {
-                self.windowClose(0);
-            }
+            janelaLoja.dispose();
+
         }
 
         @Override
         public void windowActivated(WindowEvent e) {
-            System.out.println(self.listaObjetos);
             self.atualizarJlistProdutos();
         }
 
