@@ -21,9 +21,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     private static final JButton buttonCriarProduto = new JButton("Criar Produto");
     private static final JButton buttonSalvar = new JButton("Salvar Loja");
     private static final JButton buttonApagar = new JButton("Apagar loja");
-    private static final JTextField textfieldBusca = new JTextField("");
-    private static final JTextField textfieldEndereco = new JTextField("Endereço");
-    private static final JTextField textfieldCidade = new JTextField("Cidade");
+    private final JTextField textfieldBusca = new JTextField("");
+    private final JTextField textfieldEndereco = new JTextField("Endereço");
+    private final JTextField textfieldCidade = new JTextField("Cidade");
 
     private JList<String> jlistLoja;
     private ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
