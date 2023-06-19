@@ -81,16 +81,12 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.setSize(585, 485);
         janelaLoja.addWindowListener(new LojaWindowAdapter());
         janelaLoja.setVisible(true);
-<<<<<<< HEAD
+
         //MouseListener mouseListener = new LojaMouseAdapter();
         //jlistLoja.addMouseListener(mouseListener);
-=======
+
         janelaLoja.setTitle("Loja:  " + loja.getLocalizacao());
 
-
-        MouseListener mouseListener = new LojaMouseAdapter();
-        jlistLoja.addMouseListener(mouseListener);
->>>>>>> branch 'master' of https://github.com/aline-melo/ProjetoOO.git
         buttonBusca.addActionListener(this);
         buttonSalvar.addActionListener(this);
         buttonApagar.addActionListener(this);
@@ -139,16 +135,13 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                         new TelaComestico((Cosmetico) produto, self);
                     }
                 }
-<<<<<<< HEAD
+
            // } catch (IndexOutOfBoundsException exception) {
              //   return;
             //}
        // }
-=======
-            } catch (IndexOutOfBoundsException ignored) {
-            }
-        }
->>>>>>> branch 'master' of https://github.com/aline-melo/ProjetoOO.git
+
+
     }
 
     public void salvarLoja() {
