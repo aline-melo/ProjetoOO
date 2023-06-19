@@ -62,6 +62,16 @@ public class Dados {
 		return return_list;
 	}
 
+	public ArrayList<Loja> buscar_lojas_cidades(String termo) {
+		ArrayList<Loja> return_list = new ArrayList<Loja>();
+		for (Loja y : lojas) {
+			if ( y.getCidade().toLowerCase().contains(termo.toLowerCase()) ) {
+				return_list.add(y);
+			}
+		}
+		return return_list;
+	}
+
 	public ArrayList<Produto> buscar_tudo(String termo) {
 		ArrayList<Produto> return_list = new ArrayList<Produto>();
 		for (Loja y : lojas) {

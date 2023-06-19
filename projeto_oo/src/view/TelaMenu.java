@@ -230,7 +230,9 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 					} else if ( itemClicked.getClass() == Loja.class ) {
 						new TelaLoja((Loja) itemClicked, self);
 					} else if ( itemClicked.getClass() == String.class ) {
-						self.atualizarJListLojas(dados.buscar_lojas((String) itemClicked));
+						self.atualizarJListLojas(dados.buscar_lojas_cidades((String) itemClicked));
+						self.labelList.setText("Resultados para lojas '" + ((String) itemClicked) + "'");
+						self.labelList.updateUI();
 					}
 				}
 			}
