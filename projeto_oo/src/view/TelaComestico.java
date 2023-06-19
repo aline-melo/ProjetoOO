@@ -5,8 +5,6 @@ import modelo.Cosmetico;
 import modelo.Loja;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -179,7 +177,7 @@ public class TelaComestico implements ActionListener {
             int option = JOptionPane.showConfirmDialog(null,
                     "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
             if ( option == 0 ) {
-                ControleDados.deletarCosmetico(cosmeticoPai);
+                ControleDados.deletarProduto(cosmeticoPai);
                 janelaComestico.dispose();
             }
         }

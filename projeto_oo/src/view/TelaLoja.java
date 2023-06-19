@@ -198,12 +198,12 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         labelList.updateUI();
     }
 
-    public ArrayList getInfo() {
+    public ArrayList<Object> getInfo() {
         ArrayList<Object> info = new ArrayList<>();
-        info.add(lojaPai);
-        info.add(textfieldEndereco.getText());
-        info.add(textfieldCidade.getText());
-        info.add(listaObjetos);
+        info.add((Loja) lojaPai);
+        info.add((String) textfieldEndereco.getText());
+        info.add((String) textfieldCidade.getText());
+        info.add((ArrayList<Produto>) listaObjetos);
         return info;
     }
 

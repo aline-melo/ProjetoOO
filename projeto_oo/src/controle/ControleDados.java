@@ -38,7 +38,7 @@ public class ControleDados {
 		return lista_retorno;
 	}
 
-	public static void deletarCosmetico(Cosmetico item) {
+	public static void deletarProduto(Produto item) {
 		for (Loja loja : dados.getLojas()) {
 			if ( loja.getEstoque().contains(item) ) {
 				ArrayList<Produto> novoEstoque = loja.getEstoque();
@@ -56,9 +56,9 @@ public class ControleDados {
 			if ( Objects.equals(item.getNome(), nomeAnterior) ) {
 				item.setNome((String) listaInfo.get(1));
 				item.setDescricao((String) listaInfo.get(2));
-				item.setPreco((double) listaInfo.get(3));
-				item.setEmEstoque((int) listaInfo.get(4));
-				item.setFabricante((String) listaInfo.get(5));
+				item.setPreco((double) listaInfo.get(4));
+				item.setEmEstoque((int) listaInfo.get(5));
+				item.setFabricante((String) listaInfo.get(3));
 				item.setQuantidade((String) listaInfo.get(6));
 				if ( item.getClass() == Cosmetico.class ) {
 					((Cosmetico) item).setCor((String) listaInfo.get(7));
@@ -87,6 +87,28 @@ public class ControleDados {
 							(String) listaInfo.get(7),
 							(String) listaInfo.get(8),
 							(Boolean) listaInfo.get(9)
+					)
+			);
+		} else {
+			salvarProduto(listaInfo);
+		}
+	}
+
+	public static void criarMedicamento(ArrayList listaInfo, Loja lojaPertecente) {
+		if ( dados.buscar_tudo((String) listaInfo.get(1)).isEmpty() ) {
+			lojaPertecente.addToEstoque(
+					new Medicamento(
+							(String) listaInfo.get(1),
+							(String) listaInfo.get(2),
+							(String) listaInfo.get(5),
+							(Double) listaInfo.get(3),
+							(Integer) listaInfo.get(4),
+							(String) listaInfo.get(6),
+							(String) listaInfo.get(7),
+							(String) listaInfo.get(8),
+							(Boolean) listaInfo.get(10),
+							(String) listaInfo.get(9)
+
 					)
 			);
 		} else {

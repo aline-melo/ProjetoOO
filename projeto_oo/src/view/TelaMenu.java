@@ -132,8 +132,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		} else if ( self.listMode == 1 ) {
 			try {
 				returnValue = dados.getLojas().get(index);
-			} catch (Exception e) {
-				returnValue = null;
+			} catch (Exception ignored) {
+
 			}
 
 		} else if ( self.listMode == 2 ) {
