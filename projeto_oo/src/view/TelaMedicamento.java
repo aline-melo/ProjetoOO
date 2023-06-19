@@ -32,7 +32,7 @@ public class TelaMedicamento implements ActionListener{
     private static final JLabel label_generico = new JLabel("É genérico?");
 
 
-    public TelaMedicamento(Medicamento item) {
+    public TelaMedicamento(Medicamento item, Object pai) {
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
         field_descricao.setBounds(40, 120, 300, 90);

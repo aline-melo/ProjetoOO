@@ -226,7 +226,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 					if ( itemClicked.getClass() == Cosmetico.class ) {
 						new TelaComestico((Cosmetico) itemClicked, self);
 					} else if ( itemClicked.getClass() == Medicamento.class ) {
-						new TelaMedicamento((Medicamento) itemClicked);
+						new TelaMedicamento((Medicamento) itemClicked, self);
 					} else if ( itemClicked.getClass() == Loja.class ) {
 						new TelaLoja((Loja) itemClicked, self);
 					} else if ( itemClicked.getClass() == String.class ) {
@@ -235,6 +235,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 						self.labelList.updateUI();
 					}
 				}
+			} else {
+				jlistMenu.clearSelection();
 			}
 		}
 	}

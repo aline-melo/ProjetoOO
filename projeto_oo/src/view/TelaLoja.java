@@ -17,7 +17,8 @@ import java.util.ArrayList;
 public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
     private final JFrame janelaLoja = new JFrame("Loja");
     private final JButton buttonBusca = new JButton("Buscar");
-    private static final JButton buttonCriarProduto = new JButton("Criar Produto");
+    private static final JButton buttonCriarCosmestico = new JButton("Criar Cosmético");
+    private static final JButton buttonCriarMedicamento = new JButton("Criar Medicamento");
     private static final JButton buttonSalvar = new JButton("Salvar Loja");
     private static final JButton buttonApagar = new JButton("Apagar loja");
     private final JTextField textfieldBusca = new JTextField("");
@@ -51,8 +52,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         textfieldBusca.setBounds(50, 50, 300, 30);
         labelBusca.setBounds(50, 30, 200, 25);
         buttonBusca.setBounds(380, 50, 150, 30);
-        buttonCriarProduto.setBounds(380, 100, 150, 30);
-        buttonSalvar.setBounds(380, 150, 150, 30);
+        buttonCriarCosmestico.setBounds(380, 100, 150, 30);
+        buttonCriarCosmestico.setBounds(380, 150, 150, 30);
+        buttonSalvar.setBounds(380, 200, 150, 30);
         textfieldEndereco.setBounds(380, 250, 150, 30);
         textfieldCidade.setBounds(380, 300, 150, 30);
         labelEndereco.setBounds(380, 230, 150, 25);
@@ -65,7 +67,8 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
         janelaLoja.add(textfieldBusca);
         janelaLoja.add(jlistLoja);
-        janelaLoja.add(buttonCriarProduto);
+        janelaLoja.add(buttonCriarCosmestico);
+        janelaLoja.add(buttonCriarMedicamento);
         janelaLoja.add(buttonBusca);
         janelaLoja.add(buttonSalvar);
         janelaLoja.add(buttonApagar);
@@ -87,7 +90,8 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         buttonBusca.addActionListener(this);
         buttonSalvar.addActionListener(this);
         buttonApagar.addActionListener(this);
-        buttonCriarProduto.addActionListener(this);
+        buttonCriarMedicamento.addActionListener(this);
+        buttonCriarCosmestico.addActionListener(this);
         textfieldBusca.addKeyListener(this);
         janelaLoja.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         textfieldCidade.setText(loja.getCidade());
@@ -125,7 +129,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                     int index = jlistLoja.getSelectedIndex();
                     Produto produto = listaObjetos.get(index);
                     if ( produto instanceof Medicamento ) {
-                        new TelaMedicamento((Medicamento) produto);
+                        new TelaMedicamento((Medicamento) produto, self);
                     } else if ( produto instanceof Cosmetico ) {
                         new TelaComestico((Cosmetico) produto, self);
                     }
@@ -165,19 +169,21 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     @Override
     public void actionPerformed(ActionEvent e) {
             Object src = e.getSource();
-            if ( src == buttonCriarProduto ) {
-                cosmeticoVazio();
-            } else if ( src == buttonBusca ) {
-                buscar();
-            } else if ( src == buttonSalvar ) {
-                salvarLoja();
-            } else if ( src == buttonApagar ) {
-                if ( 0 == JOptionPane.showConfirmDialog(null, "Deseja Apagar a loja?",
-                        "Apagar", JOptionPane.YES_NO_OPTION) ) {
-                    ControleDados.deletarLoja(lojaPai);
-                    janelaLoja.dispose();
-                }
+        if ( src == buttonCriarCosmestico ) {
+            cosmeticoVazio();
+        } else if ( src == buttonCriarMedicamento ) {
+            medicamentoVazio();
+        } else if ( src == buttonBusca ) {
+            buscar();
+        } else if ( src == buttonSalvar ) {
+            salvarLoja();
+        } else if ( src == buttonApagar ) {
+            if ( 0 == JOptionPane.showConfirmDialog(null, "Deseja Apagar a loja?",
+                    "Apagar", JOptionPane.YES_NO_OPTION) ) {
+                ControleDados.deletarLoja(lojaPai);
+                janelaLoja.dispose();
             }
+        }
     }
 
     public void buscar() {
@@ -204,7 +210,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     public TelaMedicamento medicamentoVazio() {
         return new TelaMedicamento(new Medicamento(null, null,
                 null, 0, 0, null, null, null, false,
-                null));
+                null), this);
     }
 
     public void cosmeticoVazio() {
