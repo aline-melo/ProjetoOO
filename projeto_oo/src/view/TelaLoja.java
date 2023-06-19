@@ -1,20 +1,19 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Objects;
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import controle.ControleDados;
 import modelo.Cosmetico;
 import modelo.Loja;
 import modelo.Medicamento;
 import modelo.Produto;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.event.*;
+import java.util.ArrayList;
 
+
+@SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod"})
 public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
     private final JFrame janelaLoja = new JFrame("Loja");
     private final JButton buttonBusca = new JButton("Buscar");
@@ -31,7 +30,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     private final JLabel labelList = new JLabel("Produtos nessa loja:");
 
     private JList<String> jlistLoja;
-    private ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
+    private ArrayList<Produto> listaObjetos;
     private static TelaLoja self;
 
     private static Loja lojaPai;
@@ -43,7 +42,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
         String[] listaAExibir = {};
 
-        jlistLoja = new JList<String>(listaAExibir);
+        jlistLoja = new JList<>(listaAExibir);
         self = this;
         telaPai = pai;
         lojaPai = loja;
@@ -134,8 +133,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                         new TelaComestico((Cosmetico) produto, self);
                     }
                 }
-            } catch (IndexOutOfBoundsException exception) {
-                return;
+            } catch (IndexOutOfBoundsException ignored) {
             }
         }
     }
@@ -153,21 +151,25 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     public boolean clickable(long currentClick) {
+        boolean result;
         if ( currentClick - lastClick > 500 ) {
             lastClick = currentClick;
-            return true;
+            result = true;
         } else {
-            return false;
+            result = false;
         }
+        return result;
     }
 
     public boolean clickable(long currentClick, double cooldown) {
+        boolean result;
         if ( currentClick - lastClick > cooldown * 1000 ) {
             lastClick = currentClick;
-            return true;
+            result = true;
         } else {
-            return false;
+            result = false;
         }
+        return result;
     }
 
     static class LojaMouseAdapter extends MouseAdapter {
@@ -234,10 +236,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     public TelaMedicamento medicamentoVazio() {
-        TelaMedicamento tela = new TelaMedicamento(new Medicamento(null, null,
+        return new TelaMedicamento(new Medicamento(null, null,
                 null, 0, 0, null, null, null, false,
                 null));
-        return tela;
     }
 
     public void cosmeticoVazio() {

@@ -1,11 +1,12 @@
 package controle;
+
+import modelo.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import modelo.*;
-import view.TelaLoja;
-
+@SuppressWarnings("MethodWithMultipleLoops")
 public class ControleDados {
 	private static Dados dados = new Dados();
 
@@ -128,7 +129,7 @@ public class ControleDados {
 
 	public String[] listarCidades() {
 		ArrayList<Loja> lojas = dados.getLojas();
-		List<String> lista = new ArrayList<String>();
+		List<String> lista = new ArrayList<>();
 		for (Loja loja : lojas) {
 			if ( !lista.contains(loja.getCidade()) ) {
 				lista.add(loja.getCidade());
@@ -141,7 +142,7 @@ public class ControleDados {
 
 	public static String[] buscarCidades(String termoDeBusca) {
 		ArrayList<Loja> lojas = dados.getLojas();
-		List<String> lista = new ArrayList<String>();
+		List<String> lista = new ArrayList<>();
 		for (Loja loja : lojas) {
 			if ( loja.getCidade().toLowerCase().contains(termoDeBusca) ) {
 				if ( !lista.contains(loja.getCidade()) ) {
