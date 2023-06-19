@@ -123,7 +123,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
                 if (e.getValueIsAdjusting()) {
                     int index = jlistLoja.getSelectedIndex();
-                    jlistLoja.clearSelection();
                     Produto produto = listaObjetos.get(index);
                     if ( produto instanceof Medicamento ) {
                         new TelaMedicamento((Medicamento) produto);
