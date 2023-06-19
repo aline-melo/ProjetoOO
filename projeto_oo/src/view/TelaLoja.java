@@ -81,8 +81,8 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.setSize(585, 485);
         janelaLoja.addWindowListener(new LojaWindowAdapter());
         janelaLoja.setVisible(true);
-        MouseListener mouseListener = new LojaMouseAdapter();
-        jlistLoja.addMouseListener(mouseListener);
+        //MouseListener mouseListener = new LojaMouseAdapter();
+        //jlistLoja.addMouseListener(mouseListener);
         buttonBusca.addActionListener(this);
         buttonSalvar.addActionListener(this);
         buttonApagar.addActionListener(this);
@@ -116,11 +116,12 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         jlistLoja.updateUI();
     }
 
-    public void itemClicked(MouseEvent e) {
-        if ( clickable(e.getWhen()) ) {
-            try {
-                if ( e.getClickCount() == 1 ) {
-                    int index = jlistLoja.locationToIndex(e.getPoint());
+	public void valueChanged(ListSelectionEvent e) {
+		Object src = e.getSource();
+  //  if ( clickable(e.getWhen()) ) {
+           // try {
+                if (e.getValueIsAdjusting()) {
+                    int index = jlistLoja.getSelectedIndex();
                     jlistLoja.clearSelection();
                     Produto produto = listaObjetos.get(index);
                     if ( produto instanceof Medicamento ) {
@@ -129,10 +130,10 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                         new TelaComestico((Cosmetico) produto, self);
                     }
                 }
-            } catch (IndexOutOfBoundsException exception) {
-                return;
-            }
-        }
+           // } catch (IndexOutOfBoundsException exception) {
+             //   return;
+            //}
+       // }
     }
 
     public void salvarLoja() {
@@ -146,7 +147,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             janelaLoja.dispose();
         }
     }
-
+/*
     public boolean clickable(long currentClick) {
         if ( currentClick - lastClick > 500 ) {
             lastClick = currentClick;
@@ -155,7 +156,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             return false;
         }
     }
-
+*/
     public boolean clickable(long currentClick, double cooldown) {
         if ( currentClick - lastClick > cooldown * 1000 ) {
             lastClick = currentClick;
@@ -164,14 +165,14 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             return false;
         }
     }
-
+/*
     static class LojaMouseAdapter extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
             self.itemClicked(e);
         }
     }
-
+*/
 
     static class LojaWindowAdapter extends WindowAdapter {
         @Override
@@ -244,11 +245,11 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     public void keyReleased(KeyEvent e) {
 
     }
-
+/*
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
     }
-
+*/
 
 }

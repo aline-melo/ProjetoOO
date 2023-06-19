@@ -26,7 +26,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
 	private int listMode = 0;
 	private static TelaMenu self;
-	private long lastClick = 0;
+//	private long lastClick = 0;
 
 
 	public TelaMenu() {
@@ -61,8 +61,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		janela.add(labelModo);
 		janela.setSize(700, 500);
 		janela.setVisible(true);
-		MouseListener mouseListener = new MyMouseAdapter();
-		jlistMenu.addMouseListener(mouseListener);
+		//MouseListener mouseListener = new MyMouseAdapter();
+		//jlistMenu.addMouseListener(mouseListener);
 
 		buttonBusca.addActionListener(this);
 		buttonCidades.addActionListener(this);
@@ -144,14 +144,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	@Override
-	public void valueChanged(ListSelectionEvent e) {
-		Object src = e.getSource();
-
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
-		if ( clickable(e.getWhen()) ) {
+		//if ( clickable(e.getWhen()) ) {
 			Object src = e.getSource();
 			if ( src == buttonLojas && listMode != 1 ) {
 				atualizarJListLojas();
@@ -170,7 +164,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			} else if ( src == buttonNovaLoja ) {
 				new TelaLoja(new Loja(null, null, null), self);
 			}
-		}
+		//}
 	}
 
 	public static void buscar() {
@@ -181,10 +175,9 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		}
 	}
 
-	static class MyMouseAdapter extends MouseAdapter {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			if ( self.clickable(e.getWhen()) ) {
+	public void valueChanged(ListSelectionEvent e) {
+		Object src = e.getSource();
+		if (e.getValueIsAdjusting()) {
 				var itemClicked = getObjectClicked();
 				if ( itemClicked != null ) {
 					if ( itemClicked.getClass() == Cosmetico.class ) {
@@ -199,8 +192,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				}
 			}
 		}
-	}
-
+	
+/*
 	public boolean clickable(long currentClick) {
 		boolean x = false;
 
@@ -210,7 +203,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		}
 		return x;
 	}
-
+*/
 
 	@Override
 	public void keyTyped(KeyEvent e) {
