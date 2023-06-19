@@ -3,6 +3,7 @@ package view;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -59,7 +60,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         textfieldCidade.setBounds(380, 300, 150, 30);
         labelEndereco.setBounds(380, 230, 150, 25);
         labelCidade.setBounds(380, 280, 150, 25);
-        labelList.setBounds(50, 80, 200, 25);
+        labelList.setBounds(50, 75, 330, 25);
         jlistLoja.setBounds(50, 100, 300, 300);
         buttonApagar.setBounds(380, 370, 150, 30);
         //lista.setVisibleRowCount(10);
@@ -81,12 +82,16 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.setSize(585, 485);
         janelaLoja.addWindowListener(new LojaWindowAdapter());
         janelaLoja.setVisible(true);
+        janelaLoja.setTitle("Loja:  " + loja.getLocalizacao());
+
+
         MouseListener mouseListener = new LojaMouseAdapter();
         jlistLoja.addMouseListener(mouseListener);
         buttonBusca.addActionListener(this);
         buttonSalvar.addActionListener(this);
         buttonApagar.addActionListener(this);
         buttonCriarProduto.addActionListener(this);
+        textfieldBusca.addKeyListener(this);
         janelaLoja.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         textfieldCidade.setText(loja.getCidade());
         textfieldEndereco.setText(loja.getLocalizacao());
@@ -194,7 +199,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             if ( src == buttonCriarProduto ) {
                 cosmeticoVazio();
             } else if ( src == buttonBusca ) {
-                atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
+                buscar();
             } else if ( src == buttonSalvar ) {
                 salvarLoja();
             } else if ( src == buttonApagar ) {
@@ -205,6 +210,18 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                 }
             }
         }
+    }
+
+    public void buscar() {
+        atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
+        if ( !listaObjetos.isEmpty() && !textfieldBusca.getText().isBlank() ) {
+            labelList.setText("Resultados para '" + textfieldBusca.getText() + "'");
+        } else if ( textfieldBusca.getText().isEmpty() || !listaObjetos.isEmpty() ) {
+            labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+        } else {
+            labelList.setText("Nenhum resultado encontrado para '" + textfieldBusca.getText() + "'");
+        }
+        labelList.updateUI();
     }
 
     public ArrayList getInfo() {
@@ -242,7 +259,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        buscar();
     }
 
     @Override

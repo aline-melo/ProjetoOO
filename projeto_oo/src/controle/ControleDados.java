@@ -109,6 +109,7 @@ public class ControleDados {
 	}
 
 	public static void deletarLoja(Loja loja) {
+
 		for (Produto produto : loja.getEstoque()) {
 			loja.getEstoque().remove(produto);
 		}
@@ -131,6 +132,21 @@ public class ControleDados {
 		for (Loja loja : lojas) {
 			if ( !lista.contains(loja.getCidade()) ) {
 				lista.add(loja.getCidade());
+			}
+		}
+		String[] listaCidades = new String[lista.size()];
+		listaCidades = lista.toArray(listaCidades);
+		return listaCidades;
+	}
+
+	public static String[] buscarCidades(String termoDeBusca) {
+		ArrayList<Loja> lojas = dados.getLojas();
+		List<String> lista = new ArrayList<String>();
+		for (Loja loja : lojas) {
+			if ( loja.getCidade().toLowerCase().contains(termoDeBusca) ) {
+				if ( !lista.contains(loja.getCidade()) ) {
+					lista.add(loja.getCidade());
+				}
 			}
 		}
 		String[] listaCidades = new String[lista.size()];
