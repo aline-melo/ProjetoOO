@@ -22,7 +22,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private static final JButton buttonNovaLoja = new JButton("Nova Loja");
 	private final JTextField textfieldBusca = new JTextField("");
 	private JLabel labelModo = new JLabel("Buscando produtos");
-	private JLabel labelList = new JLabel("Produtos listados:");
+	private JLabel labelList = new JLabel("Todos os produtos listados:");
 	private JList<String> jlistMenu = new JList<String>();
 	private ArrayList<Object> listaObjetos = new ArrayList<Object>();
 	private int listMode = 0;
@@ -165,19 +165,19 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			Object src = e.getSource();
 			if ( src == buttonLojas && listMode != 1 ) {
 				atualizarJListLojas();
-				labelList.setText("Todas as lojas listadas");
+				labelList.setText("Todas as lojas listadas:");
 				labelList.updateUI();
 				textfieldBusca.setText("");
 				textfieldBusca.updateUI();
 			} else if ( src == buttonCidades && listMode != 2 ) {
 				atualizarJListCidades();
-				labelList.setText("Todas as cidades listadas");
+				labelList.setText("Todas as cidades listadas:");
 				labelList.updateUI();
 				textfieldBusca.setText("");
 				textfieldBusca.updateUI();
 			} else if ( src == buttonProdutos && listMode != 0 ) {
 				atualizarJlistProdutos(dados.buscar_tudo(""));
-				labelList.setText("Todos os produtos listados");
+				labelList.setText("Todos os produtos listados:");
 				labelList.updateUI();
 				textfieldBusca.setText("");
 				textfieldBusca.updateUI();
@@ -196,7 +196,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			if ( !self.listaObjetos.isEmpty() && !self.textfieldBusca.getText().isBlank() ) {
 				self.labelList.setText("Resultados para produtos '" + self.textfieldBusca.getText() + "'");
 			} else if ( self.textfieldBusca.getText().isEmpty() || !self.listaObjetos.isEmpty() ) {
-				self.labelList.setText("Todos os produtos listados");
+				self.labelList.setText("Todos os produtos listados:");
 			} else {
 				self.labelList.setText("Nenhum produto encontrado para '" + self.textfieldBusca.getText() + "'");
 			}
@@ -205,7 +205,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			if ( !self.listaObjetos.isEmpty() && !self.textfieldBusca.getText().isBlank() ) {
 				self.labelList.setText("Resultados para lojas '" + self.textfieldBusca.getText() + "'");
 			} else if ( self.textfieldBusca.getText().isEmpty() || !self.listaObjetos.isEmpty() ) {
-				self.labelList.setText("Todas as lojas listadas");
+				self.labelList.setText("Todas as lojas listadas:");
 			} else {
 				self.labelList.setText("Nenhuma loja encontrada para '" + self.textfieldBusca.getText() + "'");
 			}
@@ -214,7 +214,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			if ( !self.listaObjetos.isEmpty() && !self.textfieldBusca.getText().isBlank() ) {
 				self.labelList.setText("Resultados para cidades '" + self.textfieldBusca.getText() + "'");
 			} else if ( self.textfieldBusca.getText().isEmpty() || !self.listaObjetos.isEmpty() ) {
-				self.labelList.setText("Todas as cidades listadas");
+				self.labelList.setText("Todas as cidades listadas:");
 			} else {
 				self.labelList.setText("Nenhuma cidade encontrada para '" + self.textfieldBusca.getText() + "'");
 			}
