@@ -130,7 +130,12 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		if ( self.listMode == 0 ) {
 			returnValue = self.listaObjetos.get(index);
 		} else if ( self.listMode == 1 ) {
-			returnValue = dados.getLojas().get(index);
+			try {
+				returnValue = dados.getLojas().get(index);
+			} catch (Exception e) {
+				returnValue = null;
+			}
+
 		} else if ( self.listMode == 2 ) {
 			returnValue = controleDados.listarCidades()[index];
 		}
@@ -214,7 +219,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	public void valueChanged(ListSelectionEvent e) {
 		Object src = e.getSource();
-		if (e.getValueIsAdjusting()) {
+		if ( e.getValueIsAdjusting() ) {
+			if ( clickable(System.currentTimeMillis()) ) {
 				var itemClicked = getObjectClicked();
 				if ( itemClicked != null ) {
 					if ( itemClicked.getClass() == Cosmetico.class ) {
@@ -229,7 +235,17 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				}
 			}
 		}
+	}
 
+	public boolean clickable(long currentClick) {
+		boolean x = false;
+
+		if ( currentClick - lastClick > 175 ) {
+			lastClick = currentClick;
+			x = true;
+		}
+		return x;
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -296,3 +312,5 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	}
 }
+
+
