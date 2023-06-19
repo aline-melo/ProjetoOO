@@ -82,6 +82,8 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
         janelaLoja.setTitle("Loja:  " + loja.getLocalizacao());
 
+
+        jlistLoja.addListSelectionListener(this);
         buttonBusca.addActionListener(this);
         buttonSalvar.addActionListener(this);
         buttonApagar.addActionListener(this);
