@@ -26,7 +26,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
 	private int listMode = 0;
 	private static TelaMenu self;
-//	private long lastClick = 0;
 
 
 	public TelaMenu() {
@@ -36,7 +35,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu = new JList<String>(listaAExibir);
 		self = this;
 
-		//titulo.setFont(new Font("Arial", Font.BOLD, 20));
 		textfieldBusca.setBounds(120, 50, 300, 30);
 		labelModo.setBounds(120, 25, 300, 30);
 		buttonBusca.setBounds(450, 50, 150, 30);
@@ -45,7 +43,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		buttonLojas.setBounds(450, 150, 150, 30);
 		buttonNovaLoja.setBounds(450, 250, 150, 30);
 		jlistMenu.setBounds(120, 100, 300, 300);
-		//lista.setVisibleRowCount(10);
 
 		janela.setLayout(null);
 		janela.addWindowListener(this);
@@ -61,8 +58,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		janela.add(labelModo);
 		janela.setSize(700, 500);
 		janela.setVisible(true);
-		//MouseListener mouseListener = new MyMouseAdapter();
-		//jlistMenu.addMouseListener(mouseListener);
 
 		buttonBusca.addActionListener(this);
 		buttonCidades.addActionListener(this);
@@ -146,7 +141,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//if ( clickable(e.getWhen()) ) {
 			Object src = e.getSource();
 			if ( src == buttonLojas && listMode != 1 ) {
 				atualizarJListLojas();
@@ -165,7 +159,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			} else if ( src == buttonNovaLoja ) {
 				new TelaLoja(new Loja(null, null, null), self);
 			}
-		//}
 	}
 
 	public static void buscar() {
@@ -194,17 +187,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			}
 		}
 	
-/*
-	public boolean clickable(long currentClick) {
-		boolean x = false;
-
-		if ( currentClick - lastClick > 175 ) {
-			lastClick = currentClick;
-			x = true;
-		}
-		return x;
-	}
-*/
 
 	@Override
 	public void keyTyped(KeyEvent e) {

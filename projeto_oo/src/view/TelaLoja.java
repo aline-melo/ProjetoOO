@@ -35,7 +35,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     private static Loja lojaPai;
     private TelaMenu telaPai;
-    private long lastClick = 0;
 
 
     public TelaLoja(Loja loja, TelaMenu pai) {
@@ -49,7 +48,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         listaObjetos = loja.getEstoque();
 
 
-        //titulo.setFont(new Font("Arial", Font.BOLD, 20));
         textfieldBusca.setBounds(50, 50, 300, 30);
         labelBusca.setBounds(50, 30, 200, 25);
         buttonBusca.setBounds(380, 50, 150, 30);
@@ -62,7 +60,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         labelList.setBounds(50, 75, 330, 25);
         jlistLoja.setBounds(50, 100, 300, 300);
         buttonApagar.setBounds(380, 370, 150, 30);
-        //lista.setVisibleRowCount(10);
 
         janelaLoja.setLayout(null);
 
@@ -82,8 +79,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.addWindowListener(new LojaWindowAdapter());
         janelaLoja.setVisible(true);
 
-        //MouseListener mouseListener = new LojaMouseAdapter();
-        //jlistLoja.addMouseListener(mouseListener);
 
         janelaLoja.setTitle("Loja:  " + loja.getLocalizacao());
 
@@ -123,8 +118,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
 	public void valueChanged(ListSelectionEvent e) {
 		Object src = e.getSource();
-  //  if ( clickable(e.getWhen()) ) {
-           // try {
+
                 if (e.getValueIsAdjusting()) {
                     int index = jlistLoja.getSelectedIndex();
                     jlistLoja.clearSelection();
@@ -136,10 +130,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                     }
                 }
 
-           // } catch (IndexOutOfBoundsException exception) {
-             //   return;
-            //}
-       // }
 
 
     }
@@ -155,36 +145,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             janelaLoja.dispose();
         }
     }
-/*
-    public boolean clickable(long currentClick) {
-        boolean result;
-        if ( currentClick - lastClick > 500 ) {
-            lastClick = currentClick;
-            result = true;
-        } else {
-            result = false;
-        }
-        return result;
-    }
-*/
-    public boolean clickable(long currentClick, double cooldown) {
-        boolean result;
-        if ( currentClick - lastClick > cooldown * 1000 ) {
-            lastClick = currentClick;
-            result = true;
-        } else {
-            result = false;
-        }
-        return result;
-    }
-/*
-    static class LojaMouseAdapter extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            self.itemClicked(e);
-        }
-    }
-*/
+
 
     static class LojaWindowAdapter extends WindowAdapter {
         @Override
@@ -202,7 +163,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ( clickable(e.getWhen(), 0.7) ) {
             Object src = e.getSource();
             if ( src == buttonCriarProduto ) {
                 cosmeticoVazio();
@@ -217,7 +177,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                     janelaLoja.dispose();
                 }
             }
-        }
     }
 
     public void buscar() {
@@ -268,11 +227,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     public void keyReleased(KeyEvent e) {
         buscar();
     }
-/*
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
 
-    }
-*/
 
 }
