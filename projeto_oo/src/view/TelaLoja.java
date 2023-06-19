@@ -1,19 +1,19 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import controle.ControleDados;
 import modelo.Cosmetico;
 import modelo.Loja;
 import modelo.Medicamento;
 import modelo.Produto;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.event.*;
+import java.util.ArrayList;
 
+
+@SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod"})
 public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
     private final JFrame janelaLoja = new JFrame("Loja");
     private final JButton buttonBusca = new JButton("Buscar");
@@ -30,7 +30,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     private final JLabel labelList = new JLabel("Produtos nessa loja:");
 
     private JList<String> jlistLoja;
-    private ArrayList<Produto> listaObjetos = new ArrayList<Produto>();
+    private ArrayList<Produto> listaObjetos;
     private static TelaLoja self;
 
     private static Loja lojaPai;
@@ -42,7 +42,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
         String[] listaAExibir = {};
 
-        jlistLoja = new JList<String>(listaAExibir);
+        jlistLoja = new JList<>(listaAExibir);
         self = this;
         telaPai = pai;
         lojaPai = loja;
@@ -59,7 +59,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         textfieldCidade.setBounds(380, 300, 150, 30);
         labelEndereco.setBounds(380, 230, 150, 25);
         labelCidade.setBounds(380, 280, 150, 25);
-        labelList.setBounds(50, 80, 200, 25);
+        labelList.setBounds(50, 75, 330, 25);
         jlistLoja.setBounds(50, 100, 300, 300);
         buttonApagar.setBounds(380, 370, 150, 30);
         //lista.setVisibleRowCount(10);
@@ -81,12 +81,21 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         janelaLoja.setSize(585, 485);
         janelaLoja.addWindowListener(new LojaWindowAdapter());
         janelaLoja.setVisible(true);
+<<<<<<< HEAD
         //MouseListener mouseListener = new LojaMouseAdapter();
         //jlistLoja.addMouseListener(mouseListener);
+=======
+        janelaLoja.setTitle("Loja:  " + loja.getLocalizacao());
+
+
+        MouseListener mouseListener = new LojaMouseAdapter();
+        jlistLoja.addMouseListener(mouseListener);
+>>>>>>> branch 'master' of https://github.com/aline-melo/ProjetoOO.git
         buttonBusca.addActionListener(this);
         buttonSalvar.addActionListener(this);
         buttonApagar.addActionListener(this);
         buttonCriarProduto.addActionListener(this);
+        textfieldBusca.addKeyListener(this);
         janelaLoja.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         textfieldCidade.setText(loja.getCidade());
         textfieldEndereco.setText(loja.getLocalizacao());
@@ -130,10 +139,16 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
                         new TelaComestico((Cosmetico) produto, self);
                     }
                 }
+<<<<<<< HEAD
            // } catch (IndexOutOfBoundsException exception) {
              //   return;
             //}
        // }
+=======
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+        }
+>>>>>>> branch 'master' of https://github.com/aline-melo/ProjetoOO.git
     }
 
     public void salvarLoja() {
@@ -149,21 +164,25 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 /*
     public boolean clickable(long currentClick) {
+        boolean result;
         if ( currentClick - lastClick > 500 ) {
             lastClick = currentClick;
-            return true;
+            result = true;
         } else {
-            return false;
+            result = false;
         }
+        return result;
     }
 */
     public boolean clickable(long currentClick, double cooldown) {
+        boolean result;
         if ( currentClick - lastClick > cooldown * 1000 ) {
             lastClick = currentClick;
-            return true;
+            result = true;
         } else {
-            return false;
+            result = false;
         }
+        return result;
     }
 /*
     static class LojaMouseAdapter extends MouseAdapter {
@@ -195,7 +214,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             if ( src == buttonCriarProduto ) {
                 cosmeticoVazio();
             } else if ( src == buttonBusca ) {
-                atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
+                buscar();
             } else if ( src == buttonSalvar ) {
                 salvarLoja();
             } else if ( src == buttonApagar ) {
@@ -208,6 +227,18 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
+    public void buscar() {
+        atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
+        if ( !listaObjetos.isEmpty() && !textfieldBusca.getText().isBlank() ) {
+            labelList.setText("Resultados para '" + textfieldBusca.getText() + "'");
+        } else if ( textfieldBusca.getText().isEmpty() || !listaObjetos.isEmpty() ) {
+            labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+        } else {
+            labelList.setText("Nenhum resultado encontrado para '" + textfieldBusca.getText() + "'");
+        }
+        labelList.updateUI();
+    }
+
     public ArrayList getInfo() {
         ArrayList<Object> info = new ArrayList<>();
         info.add(lojaPai);
@@ -218,10 +249,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     public TelaMedicamento medicamentoVazio() {
-        TelaMedicamento tela = new TelaMedicamento(new Medicamento(null, null,
+        return new TelaMedicamento(new Medicamento(null, null,
                 null, 0, 0, null, null, null, false,
                 null));
-        return tela;
     }
 
     public void cosmeticoVazio() {
@@ -243,7 +273,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        buscar();
     }
 /*
     @Override

@@ -139,6 +139,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		labelModo.updateUI();
 	}
 
+	
 	public Dados getDados() {
 		return dados;
 	}
