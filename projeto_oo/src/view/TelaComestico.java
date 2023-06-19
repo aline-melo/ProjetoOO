@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class TelaComestico implements ActionListener, ListSelectionListener {
+public class TelaComestico implements ActionListener {
     private static final JFrame janelaComestico = new JFrame("");
     private static final JButton button_salvar = new JButton("Salvar");
     private static final JButton button_apagar = new JButton("Apagar Produto");
@@ -146,13 +146,13 @@ public class TelaComestico implements ActionListener, ListSelectionListener {
     public static TelaLoja getTelaPaiLoja() {
         return (TelaLoja) telaPai;
     }
-
+/*
     @Override
     public void valueChanged(ListSelectionEvent e) {
         // TODO Auto-generated method stub
 
     }
-
+*/
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();

@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class TelaMedicamento implements ActionListener, ListSelectionListener {
+public class TelaMedicamento implements ActionListener{
     private static final JFrame janelaMedicamento = new JFrame("Medicamento");
     private static final JButton button_salvar = new JButton("Salvar");
     private static final JTextField field_nome = new JTextField("Nome do medicamento");
@@ -96,11 +96,7 @@ public class TelaMedicamento implements ActionListener, ListSelectionListener {
     }
 
 
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        // TODO Auto-generated method stub
-
-    }
+ 
 
     @Override
     public void actionPerformed(ActionEvent e) {
