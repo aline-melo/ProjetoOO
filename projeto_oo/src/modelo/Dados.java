@@ -3,11 +3,16 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Aline Melo
+ * @version 1.0
+ * @since 05/2023
+ */
 public class Dados {
 	private ArrayList<Loja> lojas = new ArrayList<Loja>();
 	//private int qtdLojas = lojas.size();
-	
-	
+
+
 	public void criarDados() {
 
 		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília", new ArrayList<>());

@@ -11,23 +11,40 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 import java.util.ArrayList;
+/*
+@author Caio Pacheco
+@since 06/2023
 
+ */
 
+/**
+ * Classe TelaLoja - Interface gráfica para a classe Loja
+ *
+ * @author Caio Pacheco
+ * @version 1.0
+ * @see Loja
+ * @see TelaMenu
+ * @see ControleDados
+ * @since 06/2023
+ */
 @SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod"})
 public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
+
     private final JFrame janelaLoja = new JFrame("Loja");
+
     private final JButton buttonBusca = new JButton("Buscar");
-    private static final JButton buttonCriarCosmestico = new JButton("Criar Cosmético");
-    private static final JButton buttonCriarMedicamento = new JButton("Criar Medicamento");
-    private static final JButton buttonSalvar = new JButton("Salvar Loja");
-    private static final JButton buttonApagar = new JButton("Apagar loja");
+
+    private final JButton buttonCriarCosmestico = new JButton("Criar Cosmético");
+    private final JButton buttonCriarMedicamento = new JButton("Criar Medicamento");
+    private final JButton buttonSalvar = new JButton("Salvar Loja");
+    private final JButton buttonApagar = new JButton("Apagar loja");
     private final JTextField textfieldBusca = new JTextField("");
     private final JTextField textfieldEndereco = new JTextField("Endereço");
     private final JTextField textfieldCidade = new JTextField("Cidade");
-    private static final JLabel labelBusca = new JLabel("Buscar Produto");
-    private static final JLabel labelEndereco = new JLabel("Endereço");
+    private final JLabel labelBusca = new JLabel("Buscar Produto");
+    private final JLabel labelEndereco = new JLabel("Endereço");
 
-    private static final JLabel labelCidade = new JLabel("Cidade");
+    private final JLabel labelCidade = new JLabel("Cidade");
     private final JLabel labelList = new JLabel("Produtos nessa loja:");
 
     private JList<String> jlistLoja;
@@ -38,7 +55,11 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     private TelaMenu telaPai;
     private long lastClick = 0;
 
-
+    /**
+     * Construtor da janela de uma loja
+     * @param loja Loja a ser exibida
+     * @param pai TelaMenu que chamou o construtor da TelaLoja
+     */
     public TelaLoja(Loja loja, TelaMenu pai) {
 
         String[] listaAExibir = {};
@@ -165,6 +186,15 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     }
 
+    /**
+     * Verifica se um evento de clique pode ser executado. Usado para evitar acionar múltiplos cliques acidentais.
+     *
+     * @param currentClick tempo atual no instante do clique
+     * @return true se o clique for válido para execução, false se não for
+     * @author Caio Pacheco
+     * @see TelaLoja#actionPerformed(ActionEvent)
+     * @since 06/2023
+     */
     public boolean clickable(long currentClick) {
         boolean x = false;
 
@@ -175,6 +205,19 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         return x;
     }
 
+    /**
+     * Método que trata os eventos de clique nos botões. Chama os métodos correspondentes para cada caso.
+     *
+     * @param e evento de clique
+     * @author Caio Pacheco
+     * @see TelaLoja#clickable(long)
+     * @see TelaLoja#medicamentoVazio()
+     * @see TelaLoja#cosmeticoVazio()
+     * @see TelaLoja#buscar()
+     * @see TelaLoja#salvarLoja()
+     * @see ControleDados#deletarLoja(Loja)
+     * @since 06/2023
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
@@ -197,6 +240,16 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
+    /**
+     * Método que trata da busca de produtos na loja.
+     * Atualiza a lista de produtos da loja de acordo com o que foi digitado usando {@link Loja#buscar_loja(String)}
+     * e atualiza o texto do label de acordo com o resultado da busca.
+     *
+     * @author Caio Pacheco
+     * @see TelaLoja#atualizarJlistProdutos(ArrayList)
+     * @see Loja#buscar_loja(String)
+     * @since 06/2023
+     */
     public void buscar() {
         atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
         if ( !listaObjetos.isEmpty() && !textfieldBusca.getText().isBlank() ) {
