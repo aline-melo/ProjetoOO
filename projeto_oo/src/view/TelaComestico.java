@@ -13,30 +13,31 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class TelaComestico implements ActionListener {
-    private static final JFrame janelaComestico = new JFrame("");
-    private static final JButton button_salvar = new JButton("Salvar");
-    private static final JButton button_apagar = new JButton("Apagar Produto");
-    private static final JTextField field_nome = new JTextField("Nome do comestico");
-    private static final JTextArea field_descricao = new JTextArea("field_descricao");
-    private static final JFormattedTextField field_preco = new JFormattedTextField("field_preco");
-    private static final JTextField field_estoque = new JTextField("field_estoque");
-    private static final JTextField field_fabricante = new JTextField("field_fabricante");
-    private static final JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
-    private static final JTextField field_cor = new JTextField("field_cor");
-    private static final JTextField field_fragancia = new JTextField("field_fragancia");
-    private static final JCheckBox checkbox_hipoalergenico = new JCheckBox("Sim");
-    private static final JLabel label_nome = new JLabel("Nome do Cosmético:");
-    private static final JLabel label_descricao = new JLabel("Descrição:");
-    private static final JLabel label_preco = new JLabel("Preço:");
-    private static final JLabel label_estoque = new JLabel("Quantidade em Estoque:");
-    private static final JLabel label_fabricante = new JLabel("Fabricante:");
-    private static final JLabel label_tamanho_embalagem = new JLabel("Tamanho:");
-    private static final JLabel label_cor = new JLabel("Cor:");
-    private static final JLabel label_fragancia = new JLabel("Fragância:");
-    private static final JLabel label_hipoalergenico = new JLabel("É hipoalergênico?");
+    private final JFrame janelaComestico = new JFrame("");
+    private final JButton button_salvar = new JButton("Salvar");
+    private final JButton button_apagar = new JButton("Apagar Produto");
+    private final JTextField field_nome = new JTextField("Nome do comestico");
+    private final JTextArea field_descricao = new JTextArea("field_descricao");
+    private final JFormattedTextField field_preco = new JFormattedTextField("field_preco");
+    private final JTextField field_estoque = new JTextField("field_estoque");
+    private final JTextField field_fabricante = new JTextField("field_fabricante");
+    private final JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
+    private final JTextField field_cor = new JTextField("field_cor");
+    private final JTextField field_fragancia = new JTextField("field_fragancia");
+    private final JCheckBox checkbox_hipoalergenico = new JCheckBox("Sim");
+    private final JLabel label_nome = new JLabel("Nome do Cosmético:");
+    private final JLabel label_descricao = new JLabel("Descrição:");
+    private final JLabel label_preco = new JLabel("Preço:");
+    private final JLabel label_estoque = new JLabel("Quantidade em Estoque:");
+    private final JLabel label_fabricante = new JLabel("Fabricante:");
+    private final JLabel label_tamanho_embalagem = new JLabel("Tamanho:");
+    private final JLabel label_cor = new JLabel("Cor:");
+    private final JLabel label_fragancia = new JLabel("Fragância:");
+    private final JLabel label_hipoalergenico = new JLabel("É hipoalergênico?");
     private Cosmetico cosmeticoPai;
-    private static String nomeAnterior;
-    private static Object telaPai;
+    private String nomeAnterior;
+    private Object telaPai;
+    private long lastClick = 0;
 
     public TelaComestico(Cosmetico item, Object pai) {
 
@@ -107,6 +108,11 @@ public class TelaComestico implements ActionListener {
         field_fragancia.setText(item.getFragrancia());
         checkbox_hipoalergenico.setSelected(item.isHipoalergenico());
 
+        if ( nomeAnterior == null ) {
+            button_apagar.setEnabled(false);
+        } else {
+            button_apagar.setEnabled(true);
+        }
 
     }
 
@@ -115,17 +121,18 @@ public class TelaComestico implements ActionListener {
         info.add(nomeAnterior); //0
         info.add(field_nome.getText());//1
         info.add(field_descricao.getText()); //2
+        info.add(field_fabricante.getText()); //3
         try {
-            info.add(parseDouble(field_preco.getText())); //3
+            info.add(parseDouble(field_preco.getText())); //4
         } catch (NumberFormatException x) {
             info.add(3, 0.0);
         }
         try {
-            info.add(parseInt(field_estoque.getText())); //4
+            info.add(parseInt(field_estoque.getText())); //5
         } catch (NumberFormatException x) {
-            info.add(4, 0);
+            info.add(4, 0.0);
         }
-        info.add(field_fabricante.getText()); //5
+
         info.add(field_tamanho_embalagem.getText()); //6
         info.add(field_cor.getText()); //7
         info.add(field_fragancia.getText()); //8
@@ -137,48 +144,47 @@ public class TelaComestico implements ActionListener {
         return nomeAnterior;
     }
 
-    public static TelaMenu getTelaPai() {
-        return (TelaMenu) telaPai;
+
+    public boolean clickable(long currentClick) {
+        boolean x = false;
+
+        if ( currentClick - lastClick > 750 ) {
+            lastClick = currentClick;
+            x = true;
+        }
+        return x;
     }
 
-    public static TelaLoja getTelaPaiLoja() {
-        return (TelaLoja) telaPai;
-    }
-/*
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-*/
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-        if (src == button_salvar) {
-            if ( field_nome.getText().equals("") ) {
-                JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
-            } else {
-                if ( nomeAnterior != null ) {
-                    ControleDados.salvarProduto(getInfo());
+        if ( clickable(e.getWhen()) ) {
+            if ( src == button_salvar ) {
+                if ( field_nome.getText().equals("") ) {
+                    JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
                 } else {
-                    ControleDados.criarCosmetico(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
-                }
+                    if ( nomeAnterior != null ) {
+                        ControleDados.salvarProduto(getInfo());
+                    } else {
+                        ControleDados.criarCosmetico(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
+                    }
 
-                janelaComestico.dispose();
+                    janelaComestico.dispose();
 
-                if ( telaPai instanceof TelaMenu ) {
-                    ((TelaMenu) telaPai).atualizarJlistProdutos();
-                } else if ( telaPai instanceof TelaLoja ) {
-                    ((TelaLoja) telaPai).atualizarJlistProdutos();
-                    ((TelaLoja) telaPai).getTelaPai().atualizarJlistProdutos();
+                    if ( telaPai instanceof TelaMenu ) {
+                        ((TelaMenu) telaPai).atualizarJlistProdutos();
+                    } else if ( telaPai instanceof TelaLoja ) {
+                        ((TelaLoja) telaPai).atualizarJlistProdutos();
+                        ((TelaLoja) telaPai).getTelaPai().atualizarJlistProdutos();
+                    }
                 }
-            }
-        } else if ( src == button_apagar ) {
-            int option = JOptionPane.showConfirmDialog(null,
-                    "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
-            if ( option == 0 ) {
-                ControleDados.deletarProduto(cosmeticoPai);
-                janelaComestico.dispose();
+            } else if ( src == button_apagar ) {
+                int option = JOptionPane.showConfirmDialog(null,
+                        "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
+                if ( option == 0 ) {
+                    ControleDados.deletarProduto(cosmeticoPai);
+                    janelaComestico.dispose();
+                }
             }
         }
     }

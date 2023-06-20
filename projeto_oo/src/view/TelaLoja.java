@@ -36,6 +36,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     private static Loja lojaPai;
     private TelaMenu telaPai;
+    private long lastClick = 0;
 
 
     public TelaLoja(Loja loja, TelaMenu pai) {
@@ -53,7 +54,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         labelBusca.setBounds(50, 30, 200, 25);
         buttonBusca.setBounds(380, 50, 150, 30);
         buttonCriarCosmestico.setBounds(380, 100, 150, 30);
-        buttonCriarCosmestico.setBounds(380, 150, 150, 30);
+        buttonCriarMedicamento.setBounds(380, 150, 150, 30);
         buttonSalvar.setBounds(380, 200, 150, 30);
         textfieldEndereco.setBounds(380, 250, 150, 30);
         textfieldCidade.setBounds(380, 300, 150, 30);
@@ -84,7 +85,8 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
 
         janelaLoja.setTitle("Loja:  " + loja.getLocalizacao());
-
+        labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+        labelList.updateUI();
 
         jlistLoja.addListSelectionListener(this);
         buttonBusca.addActionListener(this);
@@ -123,20 +125,18 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
 	public void valueChanged(ListSelectionEvent e) {
-		Object src = e.getSource();
-
-                if (e.getValueIsAdjusting()) {
-                    int index = jlistLoja.getSelectedIndex();
-                    Produto produto = listaObjetos.get(index);
-                    if ( produto instanceof Medicamento ) {
-                        new TelaMedicamento((Medicamento) produto, self);
-                    } else if ( produto instanceof Cosmetico ) {
-                        new TelaComestico((Cosmetico) produto, self);
-                    }
+        Object src = e.getSource();
+        if ( clickable(System.currentTimeMillis()) ) {
+            if ( e.getValueIsAdjusting() ) {
+                int index = jlistLoja.getSelectedIndex();
+                Produto produto = listaObjetos.get(index);
+                if ( produto instanceof Medicamento ) {
+                    new TelaMedicamento((Medicamento) produto, self);
+                } else if ( produto instanceof Cosmetico ) {
+                    new TelaComestico((Cosmetico) produto, self);
                 }
-
-
-
+            }
+        }
     }
 
     public void salvarLoja() {
@@ -156,7 +156,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         @Override
         public void windowClosing(WindowEvent e) {
             self.janelaLoja.dispose();
-
         }
 
         @Override
@@ -166,22 +165,34 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     }
 
+    public boolean clickable(long currentClick) {
+        boolean x = false;
+
+        if ( currentClick - lastClick > 750 ) {
+            lastClick = currentClick;
+            x = true;
+        }
+        return x;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-            Object src = e.getSource();
-        if ( src == buttonCriarCosmestico ) {
-            cosmeticoVazio();
-        } else if ( src == buttonCriarMedicamento ) {
-            medicamentoVazio();
-        } else if ( src == buttonBusca ) {
-            buscar();
-        } else if ( src == buttonSalvar ) {
-            salvarLoja();
-        } else if ( src == buttonApagar ) {
-            if ( 0 == JOptionPane.showConfirmDialog(null, "Deseja Apagar a loja?",
-                    "Apagar", JOptionPane.YES_NO_OPTION) ) {
-                ControleDados.deletarLoja(lojaPai);
-                janelaLoja.dispose();
+        Object src = e.getSource();
+        if ( clickable(e.getWhen()) ) {
+            if ( src == buttonCriarCosmestico ) {
+                cosmeticoVazio();
+            } else if ( src == buttonCriarMedicamento ) {
+                medicamentoVazio();
+            } else if ( src == buttonBusca ) {
+                buscar();
+            } else if ( src == buttonSalvar ) {
+                salvarLoja();
+            } else if ( src == buttonApagar ) {
+                if ( 0 == JOptionPane.showConfirmDialog(null, "Deseja Apagar a loja?",
+                        "Apagar", JOptionPane.YES_NO_OPTION) ) {
+                    ControleDados.deletarLoja(lojaPai);
+                    janelaLoja.dispose();
+                }
             }
         }
     }

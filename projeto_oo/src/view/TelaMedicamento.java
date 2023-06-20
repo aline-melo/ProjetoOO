@@ -15,32 +15,33 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class TelaMedicamento implements ActionListener {
-    private static final JFrame janelaMedicamento = new JFrame("");
-    private static final JButton button_salvar = new JButton("Salvar");
-    private static final JButton button_apagar = new JButton("Apagar Produto");
-    private static final JTextField field_nome = new JTextField("Nome do comestico");
-    private static final JTextArea field_descricao = new JTextArea("field_descricao");
-    private static final JFormattedTextField field_preco = new JFormattedTextField("field_preco");
-    private static final JTextField field_estoque = new JTextField("field_estoque");
-    private static final JTextField field_fabricante = new JTextField("field_fabricante");
-    private static final JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
-    private static final JTextField field_tratamento = new JTextField("field_tratamento");
-    private static final JTextField field_principio = new JTextField("field_principio");
-    private static final JTextField field_tarja = new JTextField("field_tarja");
-    private static final JCheckBox checkbox_generico = new JCheckBox("Sim");
-    private static final JLabel label_nome = new JLabel("Nome do Medicamento:");
-    private static final JLabel label_descricao = new JLabel("Descrição:");
-    private static final JLabel label_preco = new JLabel("Preço:");
-    private static final JLabel label_estoque = new JLabel("Quantidade em Estoque:");
-    private static final JLabel label_fabricante = new JLabel("Fabricante:");
-    private static final JLabel label_tamanho_embalagem = new JLabel("Tamanho:");
-    private static final JLabel label_tratamento = new JLabel("Tratamento:");
-    private static final JLabel label_principio = new JLabel("Princípio Ativo:");
-    private static final JLabel label_tarja = new JLabel("Tarja:");
-    private static final JLabel label_generico = new JLabel("É genérico?");
+    private final JFrame janelaMedicamento = new JFrame("");
+    private final JButton button_salvar = new JButton("Salvar");
+    private final JButton button_apagar = new JButton("Apagar Produto");
+    private final JTextField field_nome = new JTextField("Nome do comestico");
+    private final JTextArea field_descricao = new JTextArea("field_descricao");
+    private final JFormattedTextField field_preco = new JFormattedTextField("field_preco");
+    private final JTextField field_estoque = new JTextField("field_estoque");
+    private final JTextField field_fabricante = new JTextField("field_fabricante");
+    private final JTextField field_tamanho_embalagem = new JTextField("field_tamanho_embalagem");
+    private final JTextField field_tratamento = new JTextField("field_tratamento");
+    private final JTextField field_principio = new JTextField("field_principio");
+    private final JTextField field_tarja = new JTextField("field_tarja");
+    private final JCheckBox checkbox_generico = new JCheckBox("Sim");
+    private final JLabel label_nome = new JLabel("Nome do Medicamento:");
+    private final JLabel label_descricao = new JLabel("Descrição:");
+    private final JLabel label_preco = new JLabel("Preço:");
+    private final JLabel label_estoque = new JLabel("Quantidade em Estoque:");
+    private final JLabel label_fabricante = new JLabel("Fabricante:");
+    private final JLabel label_tamanho_embalagem = new JLabel("Tamanho:");
+    private final JLabel label_tratamento = new JLabel("Tratamento:");
+    private final JLabel label_principio = new JLabel("Princípio Ativo:");
+    private final JLabel label_tarja = new JLabel("Tarja:");
+    private final JLabel label_generico = new JLabel("É genérico?");
     private Medicamento medicamentoPai;
-    private static String nomeAnterior;
-    private static Object telaPai;
+    private String nomeAnterior;
+    private Object telaPai;
+    private long lastClick = 0;
 
 
     public TelaMedicamento(Medicamento item, Object pai) {
@@ -124,6 +125,14 @@ public class TelaMedicamento implements ActionListener {
         field_tarja.setText(item.getTarja());
         field_principio.setText(item.getPrincipioAtivo());
         checkbox_generico.setSelected(item.isGenerico());
+
+        if ( nomeAnterior == null ) {
+            button_apagar.setEnabled(false);
+        } else {
+            button_apagar.setEnabled(true);
+        }
+        button_apagar.revalidate();
+        button_apagar.updateUI();
     }
 
     public static void main(String[] args) {
@@ -156,37 +165,49 @@ public class TelaMedicamento implements ActionListener {
         return info;
     }
 
+    public boolean clickable(long currentClick) {
+        boolean x = false;
+
+        if ( currentClick - lastClick > 750 ) {
+            lastClick = currentClick;
+            x = true;
+        }
+        return x;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-        if ( src == button_salvar ) {
-            if ( field_nome.getText().equals("") ) {
-                JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
-            } else {
-                if ( nomeAnterior != null ) {
-                    ControleDados.salvarProduto(getInfo());
+        if ( clickable(e.getWhen()) ) {
+            if ( src == button_salvar ) {
+                if ( field_nome.getText().equals("") ) {
+                    JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
                 } else {
-                    if ( telaPai.getClass() == TelaLoja.class ) {
-                        ControleDados.criarMedicamento(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
+                    if ( nomeAnterior != null ) {
+                        ControleDados.salvarProduto(getInfo());
+                    } else {
+                        if ( telaPai.getClass() == TelaLoja.class ) {
+                            ControleDados.criarMedicamento(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
+                        }
+
                     }
 
-                }
+                    janelaMedicamento.dispose();
 
-                janelaMedicamento.dispose();
-
-                if ( telaPai instanceof TelaMenu ) {
-                    ((TelaMenu) telaPai).atualizarJlistProdutos();
-                } else if ( telaPai instanceof TelaLoja ) {
-                    ((TelaLoja) telaPai).atualizarJlistProdutos();
-                    ((TelaLoja) telaPai).getTelaPai().atualizarJlistProdutos();
+                    if ( telaPai instanceof TelaMenu ) {
+                        ((TelaMenu) telaPai).atualizarJlistProdutos();
+                    } else if ( telaPai instanceof TelaLoja ) {
+                        ((TelaLoja) telaPai).atualizarJlistProdutos();
+                        ((TelaLoja) telaPai).getTelaPai().atualizarJlistProdutos();
+                    }
                 }
-            }
-        } else if ( src == button_apagar ) {
-            int option = JOptionPane.showConfirmDialog(null,
-                    "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
-            if ( option == 0 ) {
-                ControleDados.deletarProduto(medicamentoPai);
-                janelaMedicamento.dispose();
+            } else if ( src == button_apagar ) {
+                int option = JOptionPane.showConfirmDialog(null,
+                        "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
+                if ( option == 0 ) {
+                    ControleDados.deletarProduto(medicamentoPai);
+                    janelaMedicamento.dispose();
+                }
             }
         }
     }
