@@ -1,15 +1,12 @@
 package view;
 
-import controle.ControleDados;
-import modelo.Cosmetico;
+import modelo.Controle;
 import modelo.Loja;
 import modelo.Medicamento;
 
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -184,10 +181,10 @@ public class TelaMedicamento implements ActionListener {
                     JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
                 } else {
                     if ( nomeAnterior != null ) {
-                        ControleDados.salvarProduto(getInfo());
+                        Controle.salvarProduto(getInfo());
                     } else {
                         if ( telaPai.getClass() == TelaLoja.class ) {
-                            ControleDados.criarMedicamento(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
+                            Controle.criarMedicamento(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
                         }
 
                     }
@@ -205,7 +202,7 @@ public class TelaMedicamento implements ActionListener {
                 int option = JOptionPane.showConfirmDialog(null,
                         "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
                 if ( option == 0 ) {
-                    ControleDados.deletarProduto(medicamentoPai);
+                    Controle.deletarProduto(medicamentoPai);
                     janelaMedicamento.dispose();
                 }
             }

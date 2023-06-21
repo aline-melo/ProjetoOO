@@ -1,16 +1,14 @@
-package controle;
-
-import modelo.*;
+package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("MethodWithMultipleLoops")
-public class ControleDados {
+public class Controle {
 	private static Dados dados = new Dados();
 
-	public ControleDados() {
+	public Controle() {
 		dados.criarDados();
 	}
 

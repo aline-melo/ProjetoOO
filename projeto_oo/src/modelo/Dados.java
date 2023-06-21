@@ -1,14 +1,13 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Classe que simula um banco de dados. Todos os dados do progama são armazenados dentro dessa classe.
  *
  * @author Aline Melo
  * @version 1.0
- * @see controle.ControleDados
+ * @see Controle
  * @since 05/2023
  */
 public class Dados {

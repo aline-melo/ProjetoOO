@@ -1,6 +1,6 @@
 package view;
 
-import controle.ControleDados;
+import modelo.Controle;
 import modelo.Cosmetico;
 import modelo.Loja;
 import modelo.Medicamento;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @see Loja
  * @see TelaMenu
- * @see ControleDados
+ * @see Controle
  * @since 06/2023
  */
 @SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod"})
@@ -135,13 +135,13 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     public void atualizarJlistProdutos() {
         listaObjetos = lojaPai.buscar_loja("");
-        jlistLoja.setListData(ControleDados.listarEmString(listaObjetos));
+        jlistLoja.setListData(Controle.listarEmString(listaObjetos));
         jlistLoja.updateUI();
     }
 
     public void atualizarJlistProdutos(ArrayList<Produto> lista) {
         listaObjetos = lista;
-        jlistLoja.setListData(ControleDados.listarEmString(lista));
+        jlistLoja.setListData(Controle.listarEmString(lista));
         jlistLoja.updateUI();
     }
 
@@ -166,7 +166,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             JOptionPane.showMessageDialog(null, "A loja precisa de um endereço e " +
                     "uma cidade!");
         } else {
-            ControleDados.salvarLoja(lojaPai,textfieldEndereco.getText(),textfieldCidade.getText(),listaObjetos);
+            Controle.salvarLoja(lojaPai, textfieldEndereco.getText(), textfieldCidade.getText(), listaObjetos);
             JOptionPane.showMessageDialog(null, "Loja salva com sucesso!");
             janelaLoja.dispose();
         }
@@ -215,7 +215,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * @see TelaLoja#cosmeticoVazio()
      * @see TelaLoja#buscar()
      * @see TelaLoja#salvarLoja()
-     * @see ControleDados#deletarLoja(Loja)
+     * @see Controle#deletarLoja(Loja)
      * @since 06/2023
      */
     @Override
@@ -233,7 +233,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             } else if ( src == buttonApagar ) {
                 if ( 0 == JOptionPane.showConfirmDialog(null, "Deseja Apagar a loja?",
                         "Apagar", JOptionPane.YES_NO_OPTION) ) {
-                    ControleDados.deletarLoja(lojaPai);
+                    Controle.deletarLoja(lojaPai);
                     janelaLoja.dispose();
                 }
             }

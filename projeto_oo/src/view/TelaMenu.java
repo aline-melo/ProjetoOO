@@ -7,16 +7,15 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import controle.*;
 import modelo.*;
 
-import static controle.ControleDados.*;
+import static modelo.Controle.*;
 
 
 @SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod", "OverlyComplexMethod"})
 public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener, WindowListener, FocusListener {
 
-	private static final ControleDados controleDados = new ControleDados();
+	private static final Controle controleDados = new Controle();
 	private static final Dados dados = controleDados.getDados();
 	private static final JButton buttonBusca = new JButton("Buscar");
 	private static final JButton buttonCidades = new JButton("Cidades");

@@ -1,6 +1,6 @@
 package view;
 
-import controle.ControleDados;
+import modelo.Controle;
 import modelo.Cosmetico;
 import modelo.Loja;
 
@@ -164,9 +164,9 @@ public class TelaComestico implements ActionListener {
                     JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
                 } else {
                     if ( nomeAnterior != null ) {
-                        ControleDados.salvarProduto(getInfo());
+                        Controle.salvarProduto(getInfo());
                     } else {
-                        ControleDados.criarCosmetico(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
+                        Controle.criarCosmetico(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
                     }
 
                     janelaComestico.dispose();
@@ -182,7 +182,7 @@ public class TelaComestico implements ActionListener {
                 int option = JOptionPane.showConfirmDialog(null,
                         "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
                 if ( option == 0 ) {
-                    ControleDados.deletarProduto(cosmeticoPai);
+                    Controle.deletarProduto(cosmeticoPai);
                     janelaComestico.dispose();
                 }
             }
