@@ -166,7 +166,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             JOptionPane.showMessageDialog(null, "A loja precisa de um endereço e " +
                     "uma cidade!");
         } else {
-            ControleDados.salvarLoja(getInfo());
+            ControleDados.salvarLoja(lojaPai,textfieldEndereco.getText(),textfieldCidade.getText(),listaObjetos);
             JOptionPane.showMessageDialog(null, "Loja salva com sucesso!");
             janelaLoja.dispose();
         }
@@ -262,14 +262,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         labelList.updateUI();
     }
 
-    public ArrayList<Object> getInfo() {
-        ArrayList<Object> info = new ArrayList<>();
-        info.add((Loja) lojaPai);
-        info.add((String) textfieldEndereco.getText());
-        info.add((String) textfieldCidade.getText());
-        info.add((ArrayList<Produto>) listaObjetos);
-        return info;
-    }
 
     public TelaMedicamento medicamentoVazio() {
         return new TelaMedicamento(new Medicamento(null, null,

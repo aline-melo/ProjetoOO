@@ -116,11 +116,10 @@ public class ControleDados {
 		}
 	}
 
-	public static void salvarLoja(ArrayList infoList) {
-		Loja loja = (Loja) infoList.get(0);
-		loja.setLocalizacao((String) infoList.get(1));
-		loja.setCidade((String) infoList.get(2));
-		loja.setEstoque((ArrayList<Produto>) infoList.get(3));
+	public static void salvarLoja(Loja loja,String localizacao,String cidade, ArrayList<Produto> estoque) {
+		loja.setLocalizacao(localizacao);
+		loja.setCidade(cidade);
+		loja.setEstoque(estoque);
 		if ( !dados.getLojas().contains(loja) ) {
 			ArrayList<Loja> lista = dados.getLojas();
 			lista.add(loja);
