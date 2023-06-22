@@ -187,10 +187,14 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     /**
-     * Verifica se um evento de clique pode ser executado. Usado para evitar acionar múltiplos cliques acidentais.
+     * Verifica se um {@link TelaLoja#actionPerformed(ActionEvent) evento} de clique pode ser executado.
+     * <br>
+     * Checa se tempo suficiente passou desde o último clique para validar se o novo pode ser executado.
+     * <br>
+     * Usado para evitar acionar múltiplos cliques acidentais.
      *
-     * @param currentClick tempo atual no instante do clique
-     * @return true se o clique for válido para execução, false se não for
+     * @param currentClick tempo atual no instante do clique.
+     * @return true se o clique for válido para execução, false se não for.
      * @author Caio Pacheco
      * @see TelaLoja#actionPerformed(ActionEvent)
      * @since 06/2023
@@ -206,7 +210,15 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     /**
-     * Método que trata os eventos de clique nos botões. Chama os métodos correspondentes para cada caso.
+     * Método que trata os eventos de clique nos botões. <br>Chama os métodos correspondentes para cada caso, somente se
+     * {@link TelaLoja#clickable(long)} retornar true.
+     *  <br><br>
+     * {@link TelaLoja#cosmeticoVazio()} para o botão criar cosmético.<br>
+     * {@link TelaLoja#medicamentoVazio()} para o botão criar medicamento.<br>
+     * {@link TelaLoja#buscar()} para o botão buscar.<br>
+     * {@link TelaLoja#salvarLoja()} para o botão salvar.<br>
+     * {@link Controle#deletarLoja(Loja)} para o botão apagar loja.<br>
+     * <br>
      *
      * @param e evento de clique
      * @author Caio Pacheco
@@ -241,9 +253,11 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     /**
-     * Método que trata da busca de produtos na loja.
-     * Atualiza a lista de produtos da loja de acordo com o que foi digitado usando {@link Loja#buscar_loja(String)}
-     * e atualiza o texto do label de acordo com o resultado da busca.
+     * Trata da busca de produtos em Tela Loja.
+     * <br>
+     * Atualiza a lista de produtos da loja de acordo com o que foi digitado usando {@link Loja#buscar_loja(String)}.
+     * <br>
+     * Também atualiza a label de acordo com o resultado da busca.
      *
      * @author Caio Pacheco
      * @see TelaLoja#atualizarJlistProdutos(ArrayList)
