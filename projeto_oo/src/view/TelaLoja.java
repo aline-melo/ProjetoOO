@@ -22,6 +22,7 @@ import java.util.ArrayList;
  *
  * @author Caio Pacheco
  * @version 1.0
+ * @see TelaLoja#TelaLoja(Loja, TelaMenu)  new hibTelaLoja
  * @see TelaLoja#actionPerformed(ActionEvent)
  * @see TelaLoja#valueChanged(ListSelectionEvent)
  * @see Controle
@@ -56,9 +57,15 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     private long lastClick = 0;
 
     /**
-     * Construtor da janela de uma loja
+     * Construtor de uma {@link TelaLoja}.
+     *
      * @param loja Loja a ser exibida
-     * @param pai TelaMenu que chamou o construtor da TelaLoja
+     * @param pai  TelaMenu que chamou o construtor da TelaLoja
+     * @see Loja
+     * @see TelaMenu
+     * @see TelaLoja#buscar()
+     * @see TelaLoja#valueChanged(ListSelectionEvent)
+     * @see TelaLoja#actionPerformed(ActionEvent)
      */
     public TelaLoja(Loja loja, TelaMenu pai) {
 
@@ -146,7 +153,21 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         jlistLoja.updateUI();
     }
 
-	public void valueChanged(ListSelectionEvent e) {
+    /**
+     * Método que trata os eventos de clique na lista. <br>
+     * Abre uma {@link TelaMedicamento#TelaMedicamento(Medicamento, Object) TelaMedicamento}  TelaMedicamento} ou uma
+     * {@link TelaComestico#TelaComestico(Cosmetico, Object) TelaCosmetico}  dependendo do produto selecionado, somente se
+     * {@link TelaLoja#clickable(long)} retornar true.
+     * <br>
+     *
+     * @param e evento de clique
+     * @author Caio Pacheco
+     * @see TelaLoja#clickable(long)
+     * @see TelaMedicamento
+     * @see TelaComestico
+     * @since 06/2023
+     */
+    public void valueChanged(ListSelectionEvent e) {
         Object src = e.getSource();
         if ( clickable(System.currentTimeMillis()) ) {
             if ( e.getValueIsAdjusting() ) {
@@ -186,7 +207,15 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
-
+    /**
+     * {@link WindowListener} de {@link TelaLoja}.
+     *
+     * @author Caio Pacheco
+     * @version 1.0
+     * @see LojaWindowAdapter#windowClosing(WindowEvent)
+     * @see LojaWindowAdapter#windowActivated(WindowEvent)
+     * @since 06/2023
+     */
     static class LojaWindowAdapter extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
