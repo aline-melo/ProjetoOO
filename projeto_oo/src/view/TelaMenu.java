@@ -17,7 +17,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	private static final Controle controleDados = new Controle();
 	private static final Dados dados = controleDados.getDados();
-	private static final JButton buttonBusca = new JButton("Buscar");
+	private final JButton buttonBusca = new JButton("Atualizar");
 	private static final JButton buttonCidades = new JButton("Cidades");
 	private static final JButton buttonProdutos = new JButton("Produtos");
 	private static final JButton buttonLojas = new JButton("Lojas");
@@ -144,9 +144,9 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	public void changeModo(int novoModo) {
 		listMode = novoModo;
 		switch (novoModo) {
-			case 0 -> labelModo.setText("Buscando produtos");
-			case 1 -> labelModo.setText("Buscando lojas");
-			case 2 -> labelModo.setText("Buscando cidades");
+			case 0 -> labelModo.setText("Buscando em produtos");
+			case 1 -> labelModo.setText("Buscando em lojas");
+			case 2 -> labelModo.setText("Buscando em cidades");
 		}
 		labelModo.updateUI();
 	}
@@ -185,6 +185,11 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	public static void buscar() {
+		if ( self.textfieldBusca.getText().isBlank() ) {
+			self.buttonBusca.setText("Atualizar");
+		} else {
+			self.buttonBusca.setText("Buscar");
+		}
 		if ( self.listMode == 0 ) {
 			self.atualizarJlistProdutos(dados.buscar_tudo(self.textfieldBusca.getText()));
 			if ( !self.listaObjetos.isEmpty() && !self.textfieldBusca.getText().isBlank() ) {
@@ -230,7 +235,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 						new TelaLoja((Loja) itemClicked, self);
 					} else if ( itemClicked.getClass() == String.class ) {
 						self.atualizarJListLojas(dados.buscar_lojas_cidades((String) itemClicked));
-						self.labelList.setText("Resultados para lojas '" + ((String) itemClicked) + "'");
+						self.labelList.setText("Resultados para lojas na cidade '" + ((String) itemClicked) + "'");
 						self.labelList.updateUI();
 					}
 				}
