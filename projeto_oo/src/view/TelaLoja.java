@@ -122,6 +122,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
 
         this.atualizarJlistProdutos();
+        buttonApagar.setEnabled(lojaPai.getLocalizacao() != null);
 
     }
 
