@@ -18,12 +18,12 @@ import java.util.ArrayList;
  */
 
 /**
- * Classe TelaLoja - Interface gráfica para a classe Loja
+ * Interface gráfica para a classe {@link Loja}.
  *
  * @author Caio Pacheco
  * @version 1.0
- * @see Loja
- * @see TelaMenu
+ * @see TelaLoja#actionPerformed(ActionEvent)
+ * @see TelaLoja#valueChanged(ListSelectionEvent)
  * @see Controle
  * @since 06/2023
  */
@@ -160,6 +160,19 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         }
     }
 
+    /**
+     * Verifica se {@link  TelaLoja} possui os dados suficientes para ser salva como uma {@link Loja}.
+     * <br>
+     * Exibe uma caixa de diálogo caso algum dos campos estejam incompletos.
+     * <br>
+     * Chama {@link Controle#salvarLoja(Loja, String, String, ArrayList)} e fecha a janela se os campos estiverem
+     * preenchidos.
+     *
+     * @author Caio Pacheco
+     * @see TelaLoja#atualizarJlistProdutos()
+     * @see Controle#salvarLoja(Loja, String, String, ArrayList)
+     * @since 06/2023
+     */
     public void salvarLoja() {
         atualizarJlistProdutos(lojaPai.getEstoque());
         if ( textfieldEndereco.getText().equals("") || textfieldCidade.getText().equals("") ) {
@@ -187,7 +200,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     /**
-     * Verifica se um {@link TelaLoja#actionPerformed(ActionEvent) evento} de clique pode ser executado.
+     * Verifica se um evento de clique em um {@link TelaLoja#actionPerformed(ActionEvent) botão} ou em uma
+     * {@link TelaLoja#valueChanged(ListSelectionEvent) lista}
+     * pode ser executado.
      * <br>
      * Checa se tempo suficiente passou desde o último clique para validar se o novo pode ser executado.
      * <br>
@@ -197,6 +212,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * @return true se o clique for válido para execução, false se não for.
      * @author Caio Pacheco
      * @see TelaLoja#actionPerformed(ActionEvent)
+     * @see TelaLoja#valueChanged(ListSelectionEvent)
      * @since 06/2023
      */
     public boolean clickable(long currentClick) {
@@ -253,9 +269,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     }
 
     /**
-     * Trata da busca de produtos em Tela Loja.
+     * Trata da busca de {@link Produto produtos} em Tela Loja.
      * <br>
-     * Atualiza a lista de produtos da loja de acordo com o que foi digitado usando {@link Loja#buscar_loja(String)}.
+     * Atualiza a lista de produtos da loja de acordo com o que foi digitado, chamando  {@link Loja#buscar_loja(String)}.
      * <br>
      * Também atualiza a label de acordo com o resultado da busca.
      *
