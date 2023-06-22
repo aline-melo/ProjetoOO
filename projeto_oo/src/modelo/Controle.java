@@ -48,15 +48,43 @@ public class Controle {
 		}
 	}
 
+	/*
+	public static void salvarCosmetico(String nomeAnterior, String nome,
+			String descricao, String fabricante, double preco,
+			int emEstoque, String quantidade, String cor, 
+			String fragrancia,boolean hipoalergenico) {
+	
+		for (Produto item : dados.listar_tudo()) {
+			if (item.getNome().matches(nomeAnterior) ) {
+				item.setNome((String) listaInfo.get(1));
+				item.setDescricao((String) listaInfo.get(2));
+				item.setFabricante((String) listaInfo.get(3));
+				item.setPreco((double) listaInfo.get(4));
+				item.setEmEstoque((int) listaInfo.get(5));
+				item.setQuantidade((String) listaInfo.get(6));
+				if ( item.getClass() == Cosmetico.class ) {
+					((Cosmetico) item).setCor((String) listaInfo.get(7));
+					((Cosmetico) item).setFragrancia((String) listaInfo.get(8));
+					((Cosmetico) item).setHipoalergenico((boolean) listaInfo.get(9));
+				} else if ( item.getClass() == Medicamento.class ) {
+					((Medicamento) item).setTratamento((String) listaInfo.get(7));
+					((Medicamento) item).setTarja((String) listaInfo.get(8));
+					((Medicamento) item).setGenerico((boolean) listaInfo.get(9));
+					((Medicamento) item).setPrincipioAtivo((String) listaInfo.get(10));
+				}
+			}
+		}
+	}
+	*/
 	public static void salvarProduto(ArrayList listaInfo) {
 		String nomeAnterior = (String) listaInfo.get(0);
 		for (Produto item : dados.listar_tudo()) {
 			if ( Objects.equals(item.getNome(), nomeAnterior) ) {
 				item.setNome((String) listaInfo.get(1));
 				item.setDescricao((String) listaInfo.get(2));
+				item.setFabricante((String) listaInfo.get(3));
 				item.setPreco((double) listaInfo.get(4));
 				item.setEmEstoque((int) listaInfo.get(5));
-				item.setFabricante((String) listaInfo.get(3));
 				item.setQuantidade((String) listaInfo.get(6));
 				if ( item.getClass() == Cosmetico.class ) {
 					((Cosmetico) item).setCor((String) listaInfo.get(7));
@@ -78,9 +106,9 @@ public class Controle {
 					new Cosmetico(
 							(String) listaInfo.get(1),
 							(String) listaInfo.get(2),
-							(String) listaInfo.get(5),
-							(Double) listaInfo.get(3),
-							(Integer) listaInfo.get(4),
+							(String) listaInfo.get(3),
+							(Double) listaInfo.get(4),
+							(Integer) listaInfo.get(5),
 							(String) listaInfo.get(6),
 							(String) listaInfo.get(7),
 							(String) listaInfo.get(8),
@@ -98,14 +126,14 @@ public class Controle {
 					new Medicamento(
 							(String) listaInfo.get(1),
 							(String) listaInfo.get(2),
-							(String) listaInfo.get(5),
-							(Double) listaInfo.get(3),
-							(Integer) listaInfo.get(4),
+							(String) listaInfo.get(3),
+							(Double) listaInfo.get(4),
+							(Integer) listaInfo.get(5),
 							(String) listaInfo.get(6),
 							(String) listaInfo.get(7),
 							(String) listaInfo.get(8),
-							(Boolean) listaInfo.get(10),
-							(String) listaInfo.get(9)
+							(Boolean) listaInfo.get(9),
+							(String) listaInfo.get(10)
 
 					)
 			);
