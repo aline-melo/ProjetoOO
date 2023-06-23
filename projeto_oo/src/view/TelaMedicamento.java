@@ -152,34 +152,34 @@ public class TelaMedicamento implements ActionListener {
                     if ( nomeAnterior != null ) {
                         Controle.salvarMedicamento(
                         		
-                        		nomeAnterior, //0
-                                field_nome.getText(),//1
-                                field_descricao.getText(), //2
-                                field_fabricante.getText(), //3
-                                Double.parseDouble(field_preco.getText()), //4
-                                Integer.parseInt(field_estoque.getText()), //5
-                                field_tamanho_embalagem.getText(), //6
-                                field_tratamento.getText(),//7
-                                field_tarja.getText(), //8
-                                checkbox_generico.isSelected(), //9
-                                field_principio.getText() //10
+                        		nomeAnterior, 
+                                field_nome.getText(),
+                                field_descricao.getText(), 
+                                field_fabricante.getText(), 
+                                Double.parseDouble(field_preco.getText()), 
+                                Integer.parseInt(field_estoque.getText()), 
+                                field_tamanho_embalagem.getText(), 
+                                field_tratamento.getText(),
+                                field_tarja.getText(), 
+                                checkbox_generico.isSelected(), 
+                                field_principio.getText() 
                         		
                         		);
                     } else {
                         if ( telaPai.getClass() == TelaLoja.class ) {
                             Controle.criarMedicamento(
                             		
-                            		nomeAnterior, //0
-                                    field_nome.getText(),//1
-                                    field_descricao.getText(), //2
-                                    field_fabricante.getText(), //3
-                                    Double.parseDouble(field_preco.getText()), //4
-                                    Integer.parseInt(field_estoque.getText()), //5
-                                    field_tamanho_embalagem.getText(), //6
-                                    field_tratamento.getText(),//7
-                                    field_tarja.getText(), //8
-                                    checkbox_generico.isSelected(), //9
-                                    field_principio.getText() //10
+                            		nomeAnterior, 
+                                    field_nome.getText(),
+                                    field_descricao.getText(), 
+                                    field_fabricante.getText(), 
+                                    Double.parseDouble(field_preco.getText()), 
+                                    Integer.parseInt(field_estoque.getText()), 
+                                    field_tamanho_embalagem.getText(), 
+                                    field_tratamento.getText(),
+                                    field_tarja.getText(), 
+                                    checkbox_generico.isSelected(), 
+                                    field_principio.getText() 
                             		
                             		, (Loja) ((TelaLoja) telaPai).getLojaPai());
                         }

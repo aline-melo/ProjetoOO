@@ -164,6 +164,7 @@ public class TelaComestico implements ActionListener {
                                 field_cor.getText(),
                                 field_fragancia.getText(),
                                 checkbox_hipoalergenico.isSelected()
+                                
                         		, (Loja) ((TelaLoja) telaPai).getLojaPai());
                     }
 
