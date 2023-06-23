@@ -48,97 +48,77 @@ public class Controle {
 		}
 	}
 
-	/*
+	
 	public static void salvarCosmetico(String nomeAnterior, String nome,
 			String descricao, String fabricante, double preco,
 			int emEstoque, String quantidade, String cor, 
 			String fragrancia,boolean hipoalergenico) {
-	
 		for (Produto item : dados.listar_tudo()) {
-			if (item.getNome().matches(nomeAnterior) ) {
-				item.setNome((String) listaInfo.get(1));
-				item.setDescricao((String) listaInfo.get(2));
-				item.setFabricante((String) listaInfo.get(3));
-				item.setPreco((double) listaInfo.get(4));
-				item.setEmEstoque((int) listaInfo.get(5));
-				item.setQuantidade((String) listaInfo.get(6));
-				if ( item.getClass() == Cosmetico.class ) {
-					((Cosmetico) item).setCor((String) listaInfo.get(7));
-					((Cosmetico) item).setFragrancia((String) listaInfo.get(8));
-					((Cosmetico) item).setHipoalergenico((boolean) listaInfo.get(9));
-				} else if ( item.getClass() == Medicamento.class ) {
-					((Medicamento) item).setTratamento((String) listaInfo.get(7));
-					((Medicamento) item).setTarja((String) listaInfo.get(8));
-					((Medicamento) item).setGenerico((boolean) listaInfo.get(9));
-					((Medicamento) item).setPrincipioAtivo((String) listaInfo.get(10));
-				}
+			if (item.getNome().matches(nomeAnterior) && item.getClass() == Cosmetico.class ) {
+				item.setNome(nome);
+				item.setDescricao(descricao);
+				item.setFabricante(fabricante);
+				item.setPreco(preco);
+				item.setEmEstoque(emEstoque);
+				item.setQuantidade(quantidade);
+				((Cosmetico) item).setCor(cor);
+				((Cosmetico) item).setFragrancia(fragrancia);
+				((Cosmetico) item).setHipoalergenico(hipoalergenico);
 			}
 		}
 	}
-	*/
-	public static void salvarProduto(ArrayList listaInfo) {
-		String nomeAnterior = (String) listaInfo.get(0);
+	public static void salvarMedicamento(String nomeAnterior, String nome,
+			String descricao, String fabricante, double preco,
+			int emEstoque, String quantidade, String tratamento, String tarja,
+			Boolean generico, String principioAtivo) {
 		for (Produto item : dados.listar_tudo()) {
-			if ( Objects.equals(item.getNome(), nomeAnterior) ) {
-				item.setNome((String) listaInfo.get(1));
-				item.setDescricao((String) listaInfo.get(2));
-				item.setFabricante((String) listaInfo.get(3));
-				item.setPreco((double) listaInfo.get(4));
-				item.setEmEstoque((int) listaInfo.get(5));
-				item.setQuantidade((String) listaInfo.get(6));
-				if ( item.getClass() == Cosmetico.class ) {
-					((Cosmetico) item).setCor((String) listaInfo.get(7));
-					((Cosmetico) item).setFragrancia((String) listaInfo.get(8));
-					((Cosmetico) item).setHipoalergenico((boolean) listaInfo.get(9));
-				} else if ( item.getClass() == Medicamento.class ) {
-					((Medicamento) item).setTratamento((String) listaInfo.get(7));
-					((Medicamento) item).setTarja((String) listaInfo.get(8));
-					((Medicamento) item).setGenerico((boolean) listaInfo.get(9));
-					((Medicamento) item).setPrincipioAtivo((String) listaInfo.get(10));
-				}
+			if (item.getNome().matches(nomeAnterior) &&  item.getClass() == Medicamento.class ) {
+				item.setNome(nome);
+				item.setDescricao(descricao);
+				item.setFabricante(fabricante);
+				item.setPreco(preco);
+				item.setEmEstoque(emEstoque);
+				item.setQuantidade(quantidade);
+				((Medicamento) item).setTratamento(tratamento);
+				((Medicamento) item).setTarja(tarja);
+				((Medicamento) item).setGenerico(generico);
+				((Medicamento) item).setPrincipioAtivo(principioAtivo);
 			}
 		}
 	}
-
-	public static void criarCosmetico(ArrayList listaInfo, Loja lojaPertecente) {
-		if ( dados.buscar_tudo((String) listaInfo.get(1)).isEmpty() ) {
-			lojaPertecente.addToEstoque(
-					new Cosmetico(
-							(String) listaInfo.get(1),
-							(String) listaInfo.get(2),
-							(String) listaInfo.get(3),
-							(Double) listaInfo.get(4),
-							(Integer) listaInfo.get(5),
-							(String) listaInfo.get(6),
-							(String) listaInfo.get(7),
-							(String) listaInfo.get(8),
-							(Boolean) listaInfo.get(9)
-					)
-			);
+	public static void criarCosmetico(String nomeAnterior, String nome,
+			String descricao, String fabricante, double preco,
+			int emEstoque, String quantidade, String cor, 
+			String fragrancia,boolean hipoalergenico, Loja lojaPertecente) {
+		if ( dados.buscar_tudo(nome).isEmpty() ) {
+			lojaPertecente.addToEstoque(new Cosmetico(nome,
+							descricao,fabricante,preco,
+							emEstoque,quantidade,cor, 
+							fragrancia,hipoalergenico));
 		} else {
-			salvarProduto(listaInfo);
+			salvarCosmetico(nomeAnterior,nome,
+					descricao,fabricante,preco,
+					emEstoque,quantidade,cor, 
+					fragrancia,hipoalergenico);
 		}
 	}
 
-	public static void criarMedicamento(ArrayList listaInfo, Loja lojaPertecente) {
-		if ( dados.buscar_tudo((String) listaInfo.get(1)).isEmpty() ) {
+	public static void criarMedicamento(String nomeAnterior, String nome,
+			String descricao, String fabricante, double preco,
+			int emEstoque, String quantidade, String tratamento, String tarja,
+			Boolean generico, String principioAtivo, Loja lojaPertecente) {
+		if ( dados.buscar_tudo(nome).isEmpty() ) {
 			lojaPertecente.addToEstoque(
-					new Medicamento(
-							(String) listaInfo.get(1),
-							(String) listaInfo.get(2),
-							(String) listaInfo.get(3),
-							(Double) listaInfo.get(4),
-							(Integer) listaInfo.get(5),
-							(String) listaInfo.get(6),
-							(String) listaInfo.get(7),
-							(String) listaInfo.get(8),
-							(Boolean) listaInfo.get(9),
-							(String) listaInfo.get(10)
-
-					)
+					new Medicamento(nome,
+							descricao,fabricante,preco,
+							emEstoque, quantidade, tratamento,tarja,
+							generico,principioAtivo)
 			);
 		} else {
-			salvarProduto(listaInfo);
+			salvarMedicamento(nomeAnterior,nome,
+					descricao,fabricante,preco,
+					emEstoque, quantidade, tratamento,tarja,
+					generico,principioAtivo);
 		}
 	}
 

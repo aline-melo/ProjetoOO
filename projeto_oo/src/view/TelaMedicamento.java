@@ -131,37 +131,6 @@ public class TelaMedicamento implements ActionListener {
         button_apagar.revalidate();
         button_apagar.updateUI();
     }
-
-    public static void main(String[] args) {
-        new TelaMedicamento(new Medicamento(null, null, null, 0, 0, null, null,
-                null, false, null), new Object());
-    }
-
-    public ArrayList<Object> getInfo() {
-        ArrayList<Object> info = new ArrayList<>();
-        info.add(nomeAnterior); //0
-        info.add(field_nome.getText());//1
-        info.add(field_descricao.getText()); //2
-        info.add(field_fabricante.getText()); //3
-        try {
-            info.add(parseDouble(field_preco.getText())); //4
-        } catch (NumberFormatException x) {
-            info.add(3, 0.0);
-        }
-        try {
-            info.add(parseInt(field_estoque.getText())); //5
-        } catch (NumberFormatException x) {
-            info.add(4, 0);
-        }
-
-        info.add(field_tamanho_embalagem.getText()); //6
-        info.add(field_tratamento.getText()); //7
-        info.add(field_tarja.getText()); //8
-        info.add(checkbox_generico.isSelected()); //9
-        info.add(field_principio.getText()); //10
-        return info;
-    }
-
     public boolean clickable(long currentClick) {
         boolean x = false;
 
@@ -181,10 +150,38 @@ public class TelaMedicamento implements ActionListener {
                     JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
                 } else {
                     if ( nomeAnterior != null ) {
-                        Controle.salvarProduto(getInfo());
+                        Controle.salvarMedicamento(
+                        		
+                        		nomeAnterior, //0
+                                field_nome.getText(),//1
+                                field_descricao.getText(), //2
+                                field_fabricante.getText(), //3
+                                Double.parseDouble(field_preco.getText()), //4
+                                Integer.parseInt(field_estoque.getText()), //5
+                                field_tamanho_embalagem.getText(), //6
+                                field_tratamento.getText(),//7
+                                field_tarja.getText(), //8
+                                checkbox_generico.isSelected(), //9
+                                field_principio.getText() //10
+                        		
+                        		);
                     } else {
                         if ( telaPai.getClass() == TelaLoja.class ) {
-                            Controle.criarMedicamento(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
+                            Controle.criarMedicamento(
+                            		
+                            		nomeAnterior, //0
+                                    field_nome.getText(),//1
+                                    field_descricao.getText(), //2
+                                    field_fabricante.getText(), //3
+                                    Double.parseDouble(field_preco.getText()), //4
+                                    Integer.parseInt(field_estoque.getText()), //5
+                                    field_tamanho_embalagem.getText(), //6
+                                    field_tratamento.getText(),//7
+                                    field_tarja.getText(), //8
+                                    checkbox_generico.isSelected(), //9
+                                    field_principio.getText() //10
+                            		
+                            		, (Loja) ((TelaLoja) telaPai).getLojaPai());
                         }
 
                     }

@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.lang.*;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -115,31 +116,6 @@ public class TelaComestico implements ActionListener {
         }
 
     }
-
-    public ArrayList<Object> getInfo() {
-        ArrayList<Object> info = new ArrayList<>();
-        info.add(nomeAnterior); //0
-        info.add(field_nome.getText());//1
-        info.add(field_descricao.getText()); //2
-        info.add(field_fabricante.getText()); //3
-        try {
-            info.add(parseDouble(field_preco.getText())); //4
-        } catch (NumberFormatException x) {
-            info.add(3, 0.0);
-        }
-        try {
-            info.add(parseInt(field_estoque.getText())); //5
-        } catch (NumberFormatException x) {
-            info.add(4, 0.0);
-        }
-
-        info.add(field_tamanho_embalagem.getText()); //6
-        info.add(field_cor.getText()); //7
-        info.add(field_fragancia.getText()); //8
-        info.add(checkbox_hipoalergenico.isSelected()); //9
-        return info;
-    }
-
     public String getNomeAnterior() {
         return nomeAnterior;
     }
@@ -164,9 +140,31 @@ public class TelaComestico implements ActionListener {
                     JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
                 } else {
                     if ( nomeAnterior != null ) {
-                        Controle.salvarProduto(getInfo());
+                        Controle.salvarCosmetico(
+                        		nomeAnterior,
+                                field_nome.getText(),
+                                field_descricao.getText(),
+                                field_fabricante.getText(),
+                                Double.parseDouble(field_preco.getText()) ,
+                        		Integer.parseInt(field_estoque.getText()),
+                                field_tamanho_embalagem.getText(),
+                                field_cor.getText(),
+                                field_fragancia.getText(),
+                                checkbox_hipoalergenico.isSelected()
+                        		);
                     } else {
-                        Controle.criarCosmetico(getInfo(), (Loja) ((TelaLoja) telaPai).getLojaPai());
+                        Controle.criarCosmetico(
+                        		nomeAnterior,
+                                field_nome.getText(),
+                                field_descricao.getText(),
+                                field_fabricante.getText(),
+                                Double.parseDouble(field_preco.getText()) ,
+                        		Integer.parseInt(field_estoque.getText()),
+                                field_tamanho_embalagem.getText(),
+                                field_cor.getText(),
+                                field_fragancia.getText(),
+                                checkbox_hipoalergenico.isSelected()
+                        		, (Loja) ((TelaLoja) telaPai).getLojaPai());
                     }
 
                     janelaComestico.dispose();
