@@ -39,15 +39,15 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu = new JList<>(listaAExibir);
 		self = this;
 
-		textfieldBusca.setBounds(120, 50, 300, 30);
-		labelList.setBounds(120, 75, 330, 25);
-		labelModo.setBounds(120, 25, 300, 30);
-		buttonBusca.setBounds(450, 50, 150, 30);
-		buttonCidades.setBounds(450, 100, 150, 30);
-		buttonProdutos.setBounds(450, 200, 150, 30);
-		buttonLojas.setBounds(450, 150, 150, 30);
-		buttonNovaLoja.setBounds(450, 250, 150, 30);
-		jlistMenu.setBounds(120, 100, 300, 300);
+		textfieldBusca.setBounds(75, 50, 300, 30);
+		labelList.setBounds(75, 75, 330, 25);
+		labelModo.setBounds(75, 25, 300, 30);
+		buttonBusca.setBounds(400, 50, 150, 30);
+		buttonCidades.setBounds(400, 100, 150, 30);
+		buttonProdutos.setBounds(400, 200, 150, 30);
+		buttonLojas.setBounds(400, 150, 150, 30);
+		buttonNovaLoja.setBounds(400, 250, 150, 30);
+		jlistMenu.setBounds(75, 100, 300, 300);
 
 		JFrame janela = new JFrame("Drogarias OO");
 		janela.setLayout(null);
@@ -63,7 +63,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		janela.add(buttonBusca);
 		janela.add(buttonProdutos);
 		janela.add(labelModo);
-		janela.setSize(700, 500);
+		janela.setSize(625, 500);
 		janela.setVisible(true);
 
 		buttonBusca.addActionListener(this);
@@ -247,7 +247,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	public boolean clickable(long currentClick) {
 		boolean x = false;
-
 		if ( currentClick - lastClick > 175 ) {
 			lastClick = currentClick;
 			x = true;
@@ -297,13 +296,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		if ( listMode == 0 ) {
-			self.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
-		} else if ( listMode == 1 ) {
-			self.atualizarJListLojas(dados.buscar_lojas(textfieldBusca.getText()));
-		} else if ( listMode == 2 ) {
-			self.atualizarJListCidades();
-		}
+		buscar();
 	}
 
 	@Override
