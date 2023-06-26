@@ -22,7 +22,7 @@ import java.util.ArrayList;
  *
  * @author Caio Pacheco
  * @version 1.0
- * @see TelaLoja#TelaLoja(Loja, TelaMenu)  new hibTelaLoja
+ * @see TelaLoja#TelaLoja(Loja, TelaMenu)  new TelaLoja
  * @see TelaLoja#actionPerformed(ActionEvent)
  * @see TelaLoja#valueChanged(ListSelectionEvent)
  * @see Controle
@@ -150,7 +150,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * Atualiza a HUD e o parêmetro listaObjetos com todos os {@link Produto Produtos} cadastrados em uma {@link  Loja}.
      * <br>
      *
-     * @author Caio Pacheco
      * @see TelaLoja#atualizarJlistProdutos(ArrayList)
      * @see Loja#getEstoque()
      * @see Loja#buscar_loja(String)
@@ -170,13 +169,12 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     /**
      * Método que trata os eventos de clique na lista. <br>
-     * Abre uma {@link TelaMedicamento#TelaMedicamento(Medicamento, Object) TelaMedicamento}  TelaMedicamento} ou uma
-     * {@link TelaComestico#TelaComestico(Cosmetico, Object) TelaCosmetico}  dependendo do produto selecionado, somente se
+     * Abre uma {@link TelaMedicamento}  ou uma
+     * {@link TelaComestico}  dependendo do produto selecionado, somente se
      * {@link TelaLoja#clickable(long)} retornar true.
      * <br>
      *
      * @param e evento de clique
-     * @author Caio Pacheco
      * @see TelaLoja#clickable(long)
      * @see TelaMedicamento
      * @see TelaComestico
@@ -205,7 +203,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * Chama {@link Controle#salvarLoja(Loja, String, String, ArrayList)} e fecha a janela se os campos estiverem
      * preenchidos.
      *
-     * @author Caio Pacheco
      * @see TelaLoja#atualizarJlistProdutos()
      * @see Controle#salvarLoja(Loja, String, String, ArrayList)
      * @since 06/2023
@@ -225,7 +222,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     /**
      * {@link WindowListener} de {@link TelaLoja}.
      *
-     * @author Caio Pacheco
      * @version 1.0
      * @see LojaWindowAdapter#windowClosing(WindowEvent)
      * @see LojaWindowAdapter#windowActivated(WindowEvent)
@@ -255,7 +251,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      *
      * @param currentClick tempo atual no instante do clique.
      * @return true se o clique for válido para execução, false se não for.
-     * @author Caio Pacheco
      * @see TelaLoja#actionPerformed(ActionEvent)
      * @see TelaLoja#valueChanged(ListSelectionEvent)
      * @since 06/2023
@@ -281,8 +276,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * {@link Controle#deletarLoja(Loja)} para o botão apagar loja.<br>
      * <br>
      *
-     * @param e evento de clique
-     * @author Caio Pacheco
+     * @param e {@link ActionEvent evento de clique}
      * @see TelaLoja#clickable(long)
      * @see TelaLoja#medicamentoVazio()
      * @see TelaLoja#cosmeticoVazio()
