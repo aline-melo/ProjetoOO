@@ -96,8 +96,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * @author Caio Pacheco
 	 * @see TelaMenu#changeModo(int)
 	 * @see TelaMenu#atualizarJlistProdutos()
-	 * @see TelaMenu#atualizarJListLojas()
-	 * @see TelaMenu#atualizarJListCidades()
+	 * @see TelaMenu#atualizarJListLojas(ArrayList)
+	 * @see TelaMenu#atualizarJListCidades(String[])
 	 * @since 06/2023
 	 */
 	public void atualizarJlistProdutos(ArrayList<Produto> obj_list) {
@@ -106,15 +106,15 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.setListData(listarEmString(obj_list));
 		jlistMenu.updateUI();
 	}
+
 	/**
 	 * Atualiza a HUD usando o parâmetro listaObjetos de {@link Produto Produtos} e chama
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
 	 * @author Caio Pacheco
 	 * @see TelaMenu#changeModo(int)
-	 * @see TelaMenu#atualizarJlistProdutos(ArrayList)
-	 * @see TelaMenu#atualizarJListLojas()
-	 * @see TelaMenu#atualizarJListCidades()
+	 * @see TelaMenu#atualizarJListLojas(ArrayList)
+	 * @see TelaMenu#atualizarJListCidades(String[])
 	 * @since 06/2023
 	 */
 	public void atualizarJlistProdutos() {
@@ -131,8 +131,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * @author Caio Pacheco
 	 * @see TelaMenu#changeModo(int)
 	 * @see TelaMenu#atualizarJlistProdutos()
-	 * @see TelaMenu#atualizarJListLojas()
-	 * @see TelaMenu#atualizarJListCidades()
+	 * @see TelaMenu#atualizarJListCidades(String[])
 	 * @since 06/2023
 	 */
 	public void atualizarJListLojas(ArrayList<Loja> obj_list) {
@@ -141,24 +140,19 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.setListData(listarEmString(obj_list));
 		jlistMenu.updateUI();
 	}
+
+
 	/**
-	 * Atualiza a HUD usando o parâmetro listaObjetos de {@link Loja Lojas} e chama
+	 * Atualiza a HUD e o parâmetro listaObjetos com uma nova {@link ArrayList lista} de {@link String cidades} e chama
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
+	 * @param obj_list {@link java.util.List String[]} com as cidades a serem mostradas na {@link JList}
 	 * @author Caio Pacheco
 	 * @see TelaMenu#changeModo(int)
-	 * @see TelaMenu#atualizarJlistProdutos(ArrayList)
-	 * @see TelaMenu#atualizarJListLojas()
-	 * @see TelaMenu#atualizarJListCidades()
+	 * @see TelaMenu#atualizarJlistProdutos()
+	 * @see TelaMenu#atualizarJListLojas(ArrayList)
 	 * @since 06/2023
 	 */
-	public void atualizarJListLojas() {
-		changeModo(1);
-		jlistMenu.setListData(Controle.listarEmString(listaObjetos));
-		jlistMenu.updateUI();
-	}
-
-
 	public void atualizarJListCidades(String[] obj_list) {
 		changeModo(2);
 		ArrayList<String> lista = new ArrayList<>();
@@ -168,11 +162,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.updateUI();
 	}
 
-	public void atualizarJListCidades() {
-		changeModo(2);
-		jlistMenu.setListData(controleDados.listarCidades());
-		jlistMenu.updateUI();
-	}
 
 	public static Object getObjectClicked() {
 		int index = self.jlistMenu.getSelectedIndex();
@@ -182,7 +171,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		} else if ( self.listMode == 1 ) {
 			returnValue = self.listaObjetos.get(index);
 		} else if ( self.listMode == 2 ) {
-			returnValue = self.controleDados.listarCidades()[index];
+			returnValue = self.listaObjetos.get(index);
+			//returnValue = self.controleDados.listarCidades()[index];
 		}
 		return returnValue;
 	}
@@ -212,13 +202,13 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				textfieldBusca.setText("");
 				textfieldBusca.updateUI();
 			} else if ( src == buttonCidades ) {
-				atualizarJListCidades();
+				atualizarJListCidades(controleDados.listarCidades());
 				labelList.setText("Todas as cidades listadas:");
 				labelList.updateUI();
 				textfieldBusca.setText("");
 				textfieldBusca.updateUI();
 			} else if ( src == buttonProdutos ) {
-				atualizarJlistProdutos(dados.buscar_tudo(""));
+				atualizarJlistProdutos(dados.listar_tudo());
 				labelList.setText("Todos os produtos listados:");
 				labelList.updateUI();
 				textfieldBusca.setText("");

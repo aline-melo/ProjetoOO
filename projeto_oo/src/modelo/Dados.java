@@ -176,8 +176,8 @@ public class Dados {
 	public ArrayList<Produto> listar_tudo() {
 		ArrayList<Produto> return_list = new ArrayList<Produto>();
 		for (Loja y : lojas) {
-			ArrayList<Produto> achados = y.listarEstoque();
-			return_list.addAll(achados);
+			ArrayList<Produto> produtos = y.listarEstoque();
+			return_list.addAll(produtos);
 		}
 		return return_list;
 	}
