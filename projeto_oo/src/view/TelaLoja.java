@@ -242,7 +242,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         @Override
         public void windowActivated(WindowEvent e) {
 
-            atualizarJlistProdutos();
+            buscar();
 
         }
 

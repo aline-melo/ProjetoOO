@@ -190,7 +190,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	
 	public String getCidadeClicked(int index) {
 		String returnValue = controleDados.listarCidades()[index];
-		
+
 		return returnValue;
 	}
 	
@@ -242,7 +242,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			}
 	}
 
-	public  void buscar() {
+	public void buscar() {
 		if ( this.textfieldBusca.getText().isBlank() ) {
 			this.buttonBusca.setText("Atualizar");
 		} else {
@@ -279,6 +279,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			}
 			this.labelList.updateUI();
 		}
+		jlistMenu.clearSelection();
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
@@ -316,6 +317,8 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		if ( currentClick - lastClick > 175 ) {
 			lastClick = currentClick;
 			x = true;
+		} else {
+			jlistMenu.clearSelection();
 		}
 		return x;
 	}

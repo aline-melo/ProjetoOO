@@ -63,7 +63,7 @@ public class Controle {
 			int emEstoque, String quantidade, String cor, 
 			String fragrancia,boolean hipoalergenico) {
 		for (Produto item : dados.listar_tudo()) {
-			if (item.getNome().matches(nomeAnterior) && item.getClass() == Cosmetico.class ) {
+			if ( item.getNome().equals(nomeAnterior) && item.getClass() == Cosmetico.class ) {
 				item.setNome(nome);
 				item.setDescricao(descricao);
 				item.setFabricante(fabricante);

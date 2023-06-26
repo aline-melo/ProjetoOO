@@ -154,12 +154,12 @@ public class TelaComestico implements ActionListener {
                         		);
                     } else {
                         Controle.criarCosmetico(
-                        		nomeAnterior,
+                                nomeAnterior,
                                 field_nome.getText(),
                                 field_descricao.getText(),
                                 field_fabricante.getText(),
-                                Double.parseDouble(field_preco.getText()) ,
-                        		Integer.parseInt(field_estoque.getText()),
+                                Double.parseDouble(field_preco.getText()),
+                                Integer.parseInt(field_estoque.getText()),
                                 field_tamanho_embalagem.getText(),
                                 field_cor.getText(),
                                 field_fragancia.getText(),
