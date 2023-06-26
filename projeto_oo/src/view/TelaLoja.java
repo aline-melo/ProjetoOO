@@ -1,6 +1,6 @@
 package view;
 
-import modelo.Controle;
+import modelo.Dados;
 import modelo.Cosmetico;
 import modelo.Loja;
 import modelo.Medicamento;
@@ -30,6 +30,7 @@ import java.util.ArrayList;
  */
 @SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod"})
 public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
+	private final Dados dados;
 
     private final JFrame janelaLoja = new JFrame("Loja");
 
@@ -68,7 +69,8 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      */
     public TelaLoja(Loja loja, TelaMenu pai) {
 
-        String[] listaAExibir = {};
+		this.dados = Dados.getDados();
+		String[] listaAExibir = {};
 
         jlistLoja = new JList<>(listaAExibir);
 
@@ -157,7 +159,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     public void atualizarJlistProdutos() {
 
         listaObjetos = lojaPai.buscar_loja("");
-        jlistLoja.setListData(Controle.listarProdutoEmString(listaObjetos));
+        jlistLoja.setListData(dados.listarProdutoEmString(listaObjetos));
 
 
         jlistLoja.updateUI();
@@ -165,7 +167,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     public void atualizarJlistProdutos(ArrayList<Produto> lista) {
         listaObjetos = lista;
-        jlistLoja.setListData(Controle.listarProdutoEmString(lista));
+        jlistLoja.setListData(dados.listarProdutoEmString(lista));
         jlistLoja.updateUI();
     }
 
@@ -215,7 +217,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             JOptionPane.showMessageDialog(null, "A loja precisa de um endereço e " +
                     "uma cidade!");
         } else {
-            Controle.salvarLoja(lojaPai, textfieldEndereco.getText(), textfieldCidade.getText(), listaObjetos);
+            dados.salvarLoja(lojaPai, textfieldEndereco.getText(), textfieldCidade.getText(), listaObjetos);
             JOptionPane.showMessageDialog(null, "Loja salva com sucesso!");
             janelaLoja.dispose();
         }
@@ -304,7 +306,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
             } else if ( src == buttonApagar ) {
                 if ( 0 == JOptionPane.showConfirmDialog(null, "Deseja Apagar a loja?",
                         "Apagar", JOptionPane.YES_NO_OPTION) ) {
-                    Controle.deletarLoja(lojaPai);
+                    dados.deletarLoja(lojaPai);
                     janelaLoja.dispose();
                 }
             }
