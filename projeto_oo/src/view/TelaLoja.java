@@ -50,7 +50,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     private JList<String> jlistLoja;
     private ArrayList<Produto> listaObjetos;
-    private static TelaLoja self;
 
     private static Loja lojaPai;
     private TelaMenu telaPai;
@@ -72,7 +71,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         String[] listaAExibir = {};
 
         jlistLoja = new JList<>(listaAExibir);
-        self = this;
+
         telaPai = pai;
         lojaPai = loja;
         listaObjetos = loja.getEstoque();
@@ -156,14 +155,17 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * @since 06/2023
      */
     public void atualizarJlistProdutos() {
-        listaObjetos = lojaPai.getEstoque();
-        jlistLoja.setListData(Controle.listarEmString(listaObjetos));
+
+        listaObjetos = lojaPai.buscar_loja("");
+        jlistLoja.setListData(Controle.listarProdutoEmString(listaObjetos));
+
+
         jlistLoja.updateUI();
     }
 
     public void atualizarJlistProdutos(ArrayList<Produto> lista) {
         listaObjetos = lista;
-        jlistLoja.setListData(Controle.listarEmString(lista));
+        jlistLoja.setListData(Controle.listarProdutoEmString(lista));
         jlistLoja.updateUI();
     }
 
@@ -181,15 +183,15 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * @since 06/2023
      */
     public void valueChanged(ListSelectionEvent e) {
-        Object src = e.getSource();
+ 
         if ( clickable(System.currentTimeMillis()) ) {
             if ( e.getValueIsAdjusting() ) {
                 int index = jlistLoja.getSelectedIndex();
                 Produto produto = listaObjetos.get(index);
                 if ( produto instanceof Medicamento ) {
-                    new TelaMedicamento((Medicamento) produto, self);
+                    new TelaMedicamento((Medicamento) produto, this);
                 } else if ( produto instanceof Cosmetico ) {
-                    new TelaComestico((Cosmetico) produto, self);
+                    new TelaComestico((Cosmetico) produto, this);
                 }
             }
         }
@@ -227,15 +229,17 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * @see LojaWindowAdapter#windowActivated(WindowEvent)
      * @since 06/2023
      */
-    static class LojaWindowAdapter extends WindowAdapter {
+     class LojaWindowAdapter extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
-            self.janelaLoja.dispose();
+            janelaLoja.dispose();
         }
 
         @Override
         public void windowActivated(WindowEvent e) {
-            self.buscar();
+
+            buscar();
+
         }
 
     }

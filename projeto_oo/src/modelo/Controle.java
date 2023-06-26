@@ -2,7 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @SuppressWarnings("MethodWithMultipleLoops")
 public class Controle {
@@ -12,24 +11,34 @@ public class Controle {
 		dados.criarDados();
 	}
 
-
-	public static String[] listarEmString(ArrayList array) {
-		String[] lista_retorno = new String[array.size()];
-		if ( array.isEmpty() ) {
+	public static String[] listarLojaEmString(ArrayList<Loja> lista) {
+		String[] lista_retorno = new String[lista.size()];
+		if ( lista.isEmpty() ) {
+			lista_retorno = new String[0];
+		} 
+		else {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = (((Loja) lista.get(i)).getLocalizacao() + ", "
+							+ ((Loja) lista.get(i)).getCidade());
+				}
+		}
+		return lista_retorno;
+	}
+	
+	public static String[] listarProdutoEmString(ArrayList<Produto> lista) {
+		String[] lista_retorno = new String[lista.size()];
+		if ( lista.isEmpty() ) {
 			lista_retorno = new String[0];
 		} else {
-			if ( array.get(0) instanceof Produto ) {
-				for (int i = 0; i < array.size(); i++) {
-					lista_retorno[i] = ((Produto) array.get(i)).getNome();
+			if ( lista.get(0) instanceof Produto ) {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
 				}
-			} else if ( array.get(0).getClass().equals(Loja.class) ) {
-				for (int i = 0; i < array.size(); i++) {
-					lista_retorno[i] = (((Loja) array.get(i)).getLocalizacao() + ", "
-							+ ((Loja) array.get(i)).getCidade());
-				}
-			} else {
-				for (int i = 0; i < array.size(); i++) {
-					lista_retorno[i] = ((Produto) array.get(i)).getNome();
+			} 
+			
+		else {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
 				}
 			}
 		}
@@ -54,7 +63,7 @@ public class Controle {
 			int emEstoque, String quantidade, String cor, 
 			String fragrancia,boolean hipoalergenico) {
 		for (Produto item : dados.listar_tudo()) {
-			if (item.getNome().matches(nomeAnterior) && item.getClass() == Cosmetico.class ) {
+			if ( item.getNome().equals(nomeAnterior) && item.getClass() == Cosmetico.class ) {
 				item.setNome(nome);
 				item.setDescricao(descricao);
 				item.setFabricante(fabricante);
