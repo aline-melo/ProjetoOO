@@ -1,7 +1,8 @@
 package view;
 
-import modelo.Controle;
+//import modelo.Controle;
 import modelo.Cosmetico;
+import modelo.Dados;
 import modelo.Loja;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class TelaComestico implements ActionListener {
+	private final Dados dados;
     private final JFrame janelaComestico = new JFrame("");
     private final JButton button_salvar = new JButton("Salvar");
     private final JButton button_apagar = new JButton("Apagar Produto");
@@ -42,6 +44,7 @@ public class TelaComestico implements ActionListener {
 
     public TelaComestico(Cosmetico item, Object pai) {
 
+		this.dados = Dados.getDados();
         nomeAnterior = item.getNome();
         cosmeticoPai = item;
         telaPai = pai;
@@ -140,7 +143,7 @@ public class TelaComestico implements ActionListener {
                     JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
                 } else {
                     if ( nomeAnterior != null ) {
-                        Controle.salvarCosmetico(
+                        dados.salvarCosmetico(
                         		nomeAnterior,
                                 field_nome.getText(),
                                 field_descricao.getText(),
@@ -153,7 +156,7 @@ public class TelaComestico implements ActionListener {
                                 checkbox_hipoalergenico.isSelected()
                         		);
                     } else {
-                        Controle.criarCosmetico(
+                        dados.criarCosmetico(
                         		nomeAnterior,
                                 field_nome.getText(),
                                 field_descricao.getText(),
@@ -181,7 +184,7 @@ public class TelaComestico implements ActionListener {
                 int option = JOptionPane.showConfirmDialog(null,
                         "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
                 if ( option == 0 ) {
-                    Controle.deletarProduto(cosmeticoPai);
+                    dados.deletarProduto(cosmeticoPai);
                     janelaComestico.dispose();
                 }
             }

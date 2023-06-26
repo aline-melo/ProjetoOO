@@ -9,8 +9,6 @@ import javax.swing.event.ListSelectionListener;
 
 import modelo.*;
 
-import static modelo.Controle.*;
-
 
 @SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod", "OverlyComplexMethod"})
 /** Classe que cria a tela principal do programa.
@@ -24,8 +22,8 @@ import static modelo.Controle.*;
 //obj
 public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener, WindowListener, FocusListener {
 
-	private final Controle controleDados = new Controle();
-	private final Dados dados = controleDados.getDados();
+//	private final Controle controleDados = new Controle();
+	private final Dados dados;
 	private final JButton buttonBusca = new JButton("Atualizar");
 	private static final JButton buttonCidades = new JButton("Cidades");
 	private static final JButton buttonProdutos = new JButton("Produtos");
@@ -38,7 +36,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private ArrayList<Produto> listaProdutos;
 	private ArrayList<Loja> listaLojas;
 	private ArrayList<String> listaCidades;
-
 	private String cidadeClicada;
 	private int listMode = 0;
 	private long lastClick = 0;
@@ -46,6 +43,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	public TelaMenu() {
 
+		this.dados = Dados.getDados();
 		String[] listaAExibir = {};
 
 		jlistMenu = new JList<>(listaAExibir);
@@ -106,7 +104,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	public void atualizarJlistProdutos(ArrayList<Produto> obj_list) {
 		changeModo(0);
 		listaProdutos = obj_list;
-		jlistMenu.setListData(listarProdutoEmString(obj_list));
+		jlistMenu.setListData(dados.listarProdutoEmString(obj_list));
 		jlistMenu.updateUI();
 	}
 
@@ -122,7 +120,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 */
 	public void atualizarJlistProdutos() {
 		changeModo(0);
-		jlistMenu.setListData(listarProdutoEmString(listaProdutos));
+		jlistMenu.setListData(dados.listarProdutoEmString(listaProdutos));
 		jlistMenu.updateUI();
 	}
 
@@ -140,7 +138,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	public void atualizarJListLojas(ArrayList<Loja> obj_list) {
 		changeModo(1);
 		listaLojas = obj_list;
-		jlistMenu.setListData(listarLojaEmString(obj_list));
+		jlistMenu.setListData(dados.listarLojaEmString(obj_list));
 		jlistMenu.updateUI();
 	}
 
@@ -189,7 +187,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 	
 	public String getCidadeClicked(int index) {
-		String returnValue = controleDados.listarCidades()[index];
+		String returnValue = dados.listarCidades()[index];
 		
 		return returnValue;
 	}
@@ -224,7 +222,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				textfieldBusca.setText("");
 				textfieldBusca.updateUI();
 			} else if ( src == buttonCidades ) {
-				atualizarJListCidades(controleDados.listarCidades());
+				atualizarJListCidades(dados.listarCidades());
 				labelList.setText("Todas as cidades listadas:");
 				labelList.updateUI();
 				textfieldBusca.setText("");
@@ -269,7 +267,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				this.labelList.setText("Nenhuma loja encontrada para '" + this.textfieldBusca.getText() + "'");
 			}
 		} else if ( this.listMode == 2 ) {
-			this.atualizarJListCidades(buscarCidades(this.textfieldBusca.getText()));
+			this.atualizarJListCidades(dados.buscarCidades(this.textfieldBusca.getText()));
 			if ( !this.listaCidades.isEmpty() && !this.textfieldBusca.getText().isBlank() ) {
 				this.labelList.setText("Resultados para cidades '" + this.textfieldBusca.getText() + "'");
 			} else if ( this.textfieldBusca.getText().isEmpty() || !this.listaCidades.isEmpty() ) {
@@ -368,7 +366,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		} else if ( listMode == 1 ) {
 			this.atualizarJListLojas(dados.buscar_lojas(textfieldBusca.getText()));
 		} else if ( listMode == 2 ) {
-			this.atualizarJListCidades(controleDados.listarCidades());
+			this.atualizarJListCidades(dados.listarCidades());
 		}
 
 	}

@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe que simula um banco de dados. Todos os dados do progama são armazenados dentro dessa classe.
@@ -12,6 +13,8 @@ import java.util.ArrayList;
  */
 public class Dados {
 	private ArrayList<Loja> lojas = new ArrayList<Loja>();
+	private static Dados dados = new Dados();
+
 	//private int qtdLojas = lojas.size();
 
 
@@ -20,6 +23,203 @@ public class Dados {
 	 * @author Aline Melo
 	 * @since 05/2023
 	 */
+	public Dados() {
+		this.criarDados();
+	}
+	public String[] listarLojaEmString(ArrayList<Loja> lista) {
+		String[] lista_retorno = new String[lista.size()];
+		if ( lista.isEmpty() ) {
+			lista_retorno = new String[0];
+		} 
+		else {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = (((Loja) lista.get(i)).getLocalizacao() + ", "
+							+ ((Loja) lista.get(i)).getCidade());
+				}
+		}
+		return lista_retorno;
+	}
+
+	public String[] listarProdutoEmString(ArrayList<Produto> lista) {
+		String[] lista_retorno = new String[lista.size()];
+		if ( lista.isEmpty() ) {
+			lista_retorno = new String[0];
+		} else {
+			if ( lista.get(0) instanceof Produto ) {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
+				}
+			} 
+			
+		else {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
+				}
+			}
+		}
+		return lista_retorno;
+	}
+
+	public void deletarProduto(Produto item) {
+		for (Loja loja : getLojas()) {
+			if ( loja.getEstoque().contains(item) ) {
+				ArrayList<Produto> novoEstoque = loja.getEstoque();
+				while (novoEstoque.contains(item)) {
+					novoEstoque.remove(item);
+				}
+				loja.setEstoque(novoEstoque);
+			}
+		}
+	}
+
+	
+	public  void salvarCosmetico(String nomeAnterior, String nome,
+			String descricao, String fabricante, double preco,
+			int emEstoque, String quantidade, String cor, 
+			String fragrancia,boolean hipoalergenico) {
+		for (Produto item : listar_tudo()) {
+			if (item.getNome().matches(nomeAnterior) && item.getClass() == Cosmetico.class ) {
+				item.setNome(nome);
+				item.setDescricao(descricao);
+				item.setFabricante(fabricante);
+				item.setPreco(preco);
+				item.setEmEstoque(emEstoque);
+				item.setQuantidade(quantidade);
+				((Cosmetico) item).setCor(cor);
+				((Cosmetico) item).setFragrancia(fragrancia);
+				((Cosmetico) item).setHipoalergenico(hipoalergenico);
+			}
+		}
+	}
+	public void salvarMedicamento(String nomeAnterior, String nome,
+			String descricao, String fabricante, double preco,
+			int emEstoque, String quantidade, String tratamento, String tarja,
+			Boolean generico, String principioAtivo) {
+		for (Produto item : listar_tudo()) {
+			if (item.getNome().matches(nomeAnterior) &&  item.getClass() == Medicamento.class ) {
+				item.setNome(nome);
+				item.setDescricao(descricao);
+				item.setFabricante(fabricante);
+				item.setPreco(preco);
+				item.setEmEstoque(emEstoque);
+				item.setQuantidade(quantidade);
+				((Medicamento) item).setTratamento(tratamento);
+				((Medicamento) item).setTarja(tarja);
+				((Medicamento) item).setGenerico(generico);
+				((Medicamento) item).setPrincipioAtivo(principioAtivo);
+			}
+		}
+	}
+	public void criarCosmetico(String nomeAnterior, String nome,
+			String descricao, String fabricante, double preco,
+			int emEstoque, String quantidade, String cor, 
+			String fragrancia,boolean hipoalergenico, Loja lojaPertecente) {
+		if ( buscar_tudo(nome).isEmpty() ) {
+			lojaPertecente.addToEstoque(new Cosmetico(nome,
+							descricao,fabricante,preco,
+							emEstoque,quantidade,cor, 
+							fragrancia,hipoalergenico));
+		} else {
+			salvarCosmetico(nomeAnterior,nome,
+					descricao,fabricante,preco,
+					emEstoque,quantidade,cor, 
+					fragrancia,hipoalergenico);
+		}
+	}
+
+	public void criarMedicamento(String nomeAnterior, String nome,
+			String descricao, String fabricante, double preco,
+			int emEstoque, String quantidade, String tratamento, String tarja,
+			Boolean generico, String principioAtivo, Loja lojaPertecente) {
+		if ( buscar_tudo(nome).isEmpty() ) {
+			lojaPertecente.addToEstoque(
+					new Medicamento(nome,
+							descricao,fabricante,preco,
+							emEstoque, quantidade, tratamento,tarja,
+							generico,principioAtivo)
+			);
+		} else {
+			salvarMedicamento(nomeAnterior,nome,
+					descricao,fabricante,preco,
+					emEstoque, quantidade, tratamento,tarja,
+					generico,principioAtivo);
+		}
+	}
+
+	public void salvarLoja(Loja loja,String localizacao,String cidade, ArrayList<Produto> estoque) {
+		loja.setLocalizacao(localizacao);
+		loja.setCidade(cidade);
+		loja.setEstoque(estoque);
+		if ( !getLojas().contains(loja) ) {
+			ArrayList<Loja> lista = getLojas();
+			lista.add(loja);
+			setLojas(lista);
+		} else {
+			getLojas().set(getLojas().indexOf(loja), loja);
+		}
+
+	}
+
+	public void deletarLoja(Loja loja) {
+		loja.setEstoque(new ArrayList<Produto>());
+		getLojas().remove(loja);
+	}
+
+	public String[] listarLojas() {
+		ArrayList<Loja> lojas = getLojas();
+		String[] listaLojas = new String[lojas.size()];
+
+		for (int i = 0; i < lojas.size(); i++) {
+			listaLojas[i] = lojas.get(i).getLocalizacao() + ", " + lojas.get(i).getCidade();
+		}
+		return listaLojas;
+	}
+
+	public String[] listarCidades() {
+		ArrayList<Loja> lojas = getLojas();
+		List<String> lista = new ArrayList<>();
+		for (Loja loja : lojas) {
+			if ( !lista.contains(loja.getCidade()) ) {
+				lista.add(loja.getCidade());
+			}
+		}
+		String[] listaCidades = new String[lista.size()];
+		listaCidades = lista.toArray(listaCidades);
+		return listaCidades;
+	}
+
+	public String[] buscarCidades(String termoDeBusca) {
+		ArrayList<Loja> lojas = getLojas();
+		List<String> lista = new ArrayList<>();
+		for (Loja loja : lojas) {
+			if ( loja.getCidade().toLowerCase().contains(termoDeBusca) ) {
+				if ( !lista.contains(loja.getCidade()) ) {
+					lista.add(loja.getCidade());
+				}
+			}
+		}
+		String[] listaCidades = new String[lista.size()];
+		listaCidades = lista.toArray(listaCidades);
+		return listaCidades;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void criarDados() {
 
 		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília", new ArrayList<>());
@@ -181,5 +381,11 @@ public class Dados {
 			return_list.addAll(produtos);
 		}
 		return return_list;
+	}
+	public static Dados getDados() {
+		return dados;
+	}
+	public static void setDados(Dados dados) {
+		Dados.dados = dados;
 	}
 }

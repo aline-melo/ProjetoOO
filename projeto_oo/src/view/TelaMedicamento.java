@@ -1,6 +1,7 @@
 package view;
 
-import modelo.Controle;
+//import modelo.Controle;
+import modelo.Dados;
 import modelo.Loja;
 import modelo.Medicamento;
 
@@ -12,6 +13,7 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class TelaMedicamento implements ActionListener {
+	private final Dados dados;
     private final JFrame janelaMedicamento = new JFrame("");
     private final JButton button_salvar = new JButton("Salvar");
     private final JButton button_apagar = new JButton("Apagar Produto");
@@ -42,6 +44,8 @@ public class TelaMedicamento implements ActionListener {
 
 
     public TelaMedicamento(Medicamento item, Object pai) {
+
+		this.dados = Dados.getDados();
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
         field_descricao.setBounds(40, 120, 300, 90);
@@ -150,7 +154,7 @@ public class TelaMedicamento implements ActionListener {
                     JOptionPane.showMessageDialog(null, "O produto precisa de um nome!");
                 } else {
                     if ( nomeAnterior != null ) {
-                        Controle.salvarMedicamento(
+                        dados.salvarMedicamento(
                         		
                         		nomeAnterior, 
                                 field_nome.getText(),
@@ -167,7 +171,7 @@ public class TelaMedicamento implements ActionListener {
                         		);
                     } else {
                         if ( telaPai.getClass() == TelaLoja.class ) {
-                            Controle.criarMedicamento(
+                            dados.criarMedicamento(
                             		
                             		nomeAnterior, 
                                     field_nome.getText(),
@@ -199,7 +203,7 @@ public class TelaMedicamento implements ActionListener {
                 int option = JOptionPane.showConfirmDialog(null,
                         "Apagar Produto?", "Apagar", JOptionPane.YES_NO_OPTION);
                 if ( option == 0 ) {
-                    Controle.deletarProduto(medicamentoPai);
+                    dados.deletarProduto(medicamentoPai);
                     janelaMedicamento.dispose();
                 }
             }
