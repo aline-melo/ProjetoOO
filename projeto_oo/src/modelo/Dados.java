@@ -118,7 +118,6 @@ public class Dados {
 	 * @return {@link ArrayList} com as lojas encontradas. Retorna uma {@link ArrayList} vazia se nenhuma {@link Loja} foi
 	 * encontrada.
 	 * @author Caio Pacheco
-	 * @see Dados#buscar_lojas_cidades(String)
 	 * @see Dados#buscar_tudo(String)
 	 * @since 06/2023
 	 */
@@ -133,30 +132,6 @@ public class Dados {
 		return return_list;
 	}
 
-	/**
-	 * Busca de {@link Loja lojas} em uma cidade. <br>
-	 * Percorre a lista com todas as {@link Loja lojas} e seleciona as que possuem o
-	 * termo de busca no seu atributo cidade.
-	 * <br>
-	 * Diferente de {@link Dados#buscar_lojas(String)} pois usa somente o atributo
-	 * cidade para procurar lojas válidas.
-	 *
-	 * @param termo O termo a ser utilizado para a busca.
-	 * @return {@link ArrayList} com as Lojas encontradas. Retorna uma {@link ArrayList} vazia se nenhuma {@link Loja} foi encontrada.
-	 * @author Caio Pacheco
-	 * @see Dados#buscar_lojas(String)
-	 * @see Dados#buscar_tudo(String)
-	 * @since 06/2023
-	 */
-	public ArrayList<Loja> buscar_lojas_cidades(String termo) {
-		ArrayList<Loja> return_list = new ArrayList<Loja>();
-		for (Loja y : lojas) {
-			if ( y.getCidade().toLowerCase().contains(termo.toLowerCase()) ) {
-				return_list.add(y);
-			}
-		}
-		return return_list;
-	}
 
 	/**
 	 * Busca geral de {@link Produto produtos}. <br>
