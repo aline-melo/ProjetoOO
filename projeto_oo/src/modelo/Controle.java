@@ -11,32 +11,6 @@ public class Controle {
 		dados.criarDados();
 	}
 
-
-	/*
-	
-	  public static String[] listarEmString(ArrayList array) {
-		String[] lista_retorno = new String[array.size()];
-		if ( array.isEmpty() ) {
-			lista_retorno = new String[0];
-		} else {
-			if ( array.get(0) instanceof Produto ) {
-				for (int i = 0; i < array.size(); i++) {
-					lista_retorno[i] = ((Produto) array.get(i)).getNome();
-				}
-			} else if ( array.get(0).getClass().equals(Loja.class) ) {
-				for (int i = 0; i < array.size(); i++) {
-					lista_retorno[i] = (((Loja) array.get(i)).getLocalizacao() + ", "
-							+ ((Loja) array.get(i)).getCidade());
-				}
-			} else {
-				for (int i = 0; i < array.size(); i++) {
-					lista_retorno[i] = ((Produto) array.get(i)).getNome();
-				}
-			}
-		}
-		return lista_retorno;
-	}
-	 */
 	public static String[] listarLojaEmString(ArrayList<Loja> lista) {
 		String[] lista_retorno = new String[lista.size()];
 		if ( lista.isEmpty() ) {
@@ -172,9 +146,7 @@ public class Controle {
 	}
 
 	public static void deletarLoja(Loja loja) {
-		for (Produto produto : loja.getEstoque()) {
-			loja.getEstoque().remove(produto);
-		}
+		loja.setEstoque(new ArrayList<Produto>());
 		dados.getLojas().remove(loja);
 	}
 

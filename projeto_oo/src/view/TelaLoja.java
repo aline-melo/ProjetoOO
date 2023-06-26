@@ -50,7 +50,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     private JList<String> jlistLoja;
     private ArrayList<Produto> listaObjetos;
-   // private static TelaLoja this;
 
     private static Loja lojaPai;
     private TelaMenu telaPai;
@@ -72,7 +71,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         String[] listaAExibir = {};
 
         jlistLoja = new JList<>(listaAExibir);
-     //   this = this;
+
         telaPai = pai;
         lojaPai = loja;
         listaObjetos = loja.getEstoque();
@@ -113,8 +112,13 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
 
         janelaLoja.setTitle("Loja:  " + loja.getLocalizacao());
-        labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
-        labelList.updateUI();
+        if ( lojaPai.getLocalizacao() == null ) {
+            janelaLoja.setTitle("Criar Loja");
+        } else {
+            labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+            labelList.updateUI();
+        }
+
 
         jlistLoja.addListSelectionListener(this);
         buttonBusca.addActionListener(this);
@@ -141,9 +145,22 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         return telaPai;
     }
 
+    /**
+     * Atualiza a HUD e o parêmetro listaObjetos com todos os {@link Produto Produtos} cadastrados em uma {@link  Loja}.
+     * <br>
+     *
+     * @author Caio Pacheco
+     * @see TelaLoja#atualizarJlistProdutos(ArrayList)
+     * @see Loja#getEstoque()
+     * @see Loja#buscar_loja(String)
+     * @since 06/2023
+     */
     public void atualizarJlistProdutos() {
+
         listaObjetos = lojaPai.buscar_loja("");
         jlistLoja.setListData(Controle.listarProdutoEmString(listaObjetos));
+
+
         jlistLoja.updateUI();
     }
 
@@ -224,7 +241,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
         @Override
         public void windowActivated(WindowEvent e) {
+
             atualizarJlistProdutos();
+
         }
 
     }
@@ -301,9 +320,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     /**
      * Trata da busca de {@link Produto produtos} em Tela Loja.
      * <br>
-     * Atualiza a lista de produtos da loja de acordo com o que foi digitado, chamando  {@link Loja#buscar_loja(String)}.
+     * Atualiza a {@link JList lista de produtos} da loja de acordo com o que foi digitado, chamando  {@link Loja#buscar_loja(String)}.
      * <br>
-     * Também atualiza a label de acordo com o resultado da busca.
+     * Também atualiza a {@link  JLabel} de acordo com o resultado da busca.
      *
      * @author Caio Pacheco
      * @see TelaLoja#atualizarJlistProdutos(ArrayList)
@@ -314,8 +333,14 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
         if ( !listaObjetos.isEmpty() && !textfieldBusca.getText().isBlank() ) {
             labelList.setText("Resultados para '" + textfieldBusca.getText() + "'");
-        } else if ( textfieldBusca.getText().isEmpty() || !listaObjetos.isEmpty() ) {
-            labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+        } else if ( listaObjetos.isEmpty() && textfieldBusca.getText().isBlank() ) {
+            labelList.setText("Nenhum Produto nessa loja");
+        } else if ( textfieldBusca.getText().isEmpty() ) {
+            if ( lojaPai.getLocalizacao() != null ) {
+                labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+            } else {
+                labelList.setText("Todos os produtos da loja");
+            }
         } else {
             labelList.setText("Nenhum resultado encontrado para '" + textfieldBusca.getText() + "'");
         }

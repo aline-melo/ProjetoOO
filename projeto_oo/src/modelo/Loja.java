@@ -40,6 +40,7 @@ public class Loja {
 		return estoque;
 	}
 
+
 	public void setEstoque(ArrayList<Produto> estoque) {
 		this.estoque = estoque;
 	}
@@ -56,13 +57,30 @@ public class Loja {
 		return new ArrayList<Produto>(this.estoque);
 	}
 
+	/**
+	 * Busca geral de {@link Produto Produtos} em uma {@link Loja}. <br>
+	 * Percorre a lista com todos as {@link Produto produtos} cadastrados e adiciona em uma {@link ArrayList} os
+	 * produtos que possuem o termo de busca em seu nome.
+	 * <br>
+	 * Funciona de forma indêntica a {@link Loja#getEstoque()} quando o termo de busca é uma
+	 * {@link String} vazia ou {@code null}.
+	 *
+	 * @param termo_busca O termo a ser utilizado para a busca.
+	 * @return {@link ArrayList} com os {@link Produto produtos} encontradas. Retorna uma {@link ArrayList} vazia se
+	 * nenhum Produto foi encontrado.
+	 * @author Caio Pacheco
+	 * @see Loja#listarEstoque()
+	 * @see Loja#getEstoque()
+	 * @see view.TelaLoja
+	 * @since 06/2023
+	 */
 	public ArrayList<Produto> buscar_loja(String termo_busca) {
 		ArrayList<Produto> lista_retorno = new ArrayList<Produto>();
 		ArrayList<Produto> estoque = this.getEstoque();
 
 		for (Produto produto : estoque) {
 			String nome = produto.getNome();
-			if (nome.toLowerCase().contains(termo_busca.toLowerCase())) {
+			if ( nome.toLowerCase().contains(termo_busca.toLowerCase()) ) {
 				lista_retorno.add(produto);
 			}
 		}
