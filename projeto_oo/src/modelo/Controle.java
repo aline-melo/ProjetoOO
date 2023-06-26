@@ -2,7 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @SuppressWarnings("MethodWithMultipleLoops")
 public class Controle {
@@ -13,7 +12,9 @@ public class Controle {
 	}
 
 
-	public static String[] listarEmString(ArrayList array) {
+	/*
+	
+	  public static String[] listarEmString(ArrayList array) {
 		String[] lista_retorno = new String[array.size()];
 		if ( array.isEmpty() ) {
 			lista_retorno = new String[0];
@@ -30,6 +31,40 @@ public class Controle {
 			} else {
 				for (int i = 0; i < array.size(); i++) {
 					lista_retorno[i] = ((Produto) array.get(i)).getNome();
+				}
+			}
+		}
+		return lista_retorno;
+	}
+	 */
+	public static String[] listarLojaEmString(ArrayList<Loja> lista) {
+		String[] lista_retorno = new String[lista.size()];
+		if ( lista.isEmpty() ) {
+			lista_retorno = new String[0];
+		} 
+		else {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = (((Loja) lista.get(i)).getLocalizacao() + ", "
+							+ ((Loja) lista.get(i)).getCidade());
+				}
+		}
+		return lista_retorno;
+	}
+	
+	public static String[] listarProdutoEmString(ArrayList<Produto> lista) {
+		String[] lista_retorno = new String[lista.size()];
+		if ( lista.isEmpty() ) {
+			lista_retorno = new String[0];
+		} else {
+			if ( lista.get(0) instanceof Produto ) {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
+				}
+			} 
+			
+		else {
+				for (int i = 0; i < lista.size(); i++) {
+					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
 				}
 			}
 		}

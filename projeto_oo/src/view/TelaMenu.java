@@ -26,9 +26,12 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private JLabel labelModo = new JLabel("Buscando produtos");
 	private JLabel labelList = new JLabel("Todos os produtos listados:");
 	private JList<String> jlistMenu;
-	private ArrayList listaObjetos = new ArrayList<>();
+	private ArrayList<Produto> listaProdutos;
+	private ArrayList<Loja> listaLojas;
+	private ArrayList<String> listaCidades;
+
+	private String cidadeClicada;
 	private int listMode = 0;
-	private static TelaMenu self;
 	private long lastClick = 0;
 
 
@@ -37,7 +40,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		String[] listaAExibir = {};
 
 		jlistMenu = new JList<>(listaAExibir);
-		self = this;
 
 		textfieldBusca.setBounds(120, 50, 300, 30);
 		labelList.setBounds(120, 75, 330, 25);
@@ -83,21 +85,21 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	public void atualizarJlistProdutos(ArrayList<Produto> obj_list) {
 		changeModo(0);
-		listaObjetos = obj_list;
-		jlistMenu.setListData(listarEmString(obj_list));
+		listaProdutos = obj_list;
+		jlistMenu.setListData(listarProdutoEmString(obj_list));
 		jlistMenu.updateUI();
 	}
 
 	public void atualizarJlistProdutos() {
 		changeModo(0);
-		jlistMenu.setListData(listarEmString(listaObjetos));
+		jlistMenu.setListData(listarProdutoEmString(listaProdutos));
 		jlistMenu.updateUI();
 	}
 
 	public void atualizarJListLojas(ArrayList<Loja> obj_list) {
 		changeModo(1);
-		listaObjetos = obj_list;
-		jlistMenu.setListData(listarEmString(obj_list));
+		listaLojas = obj_list;
+		jlistMenu.setListData(listarLojaEmString(obj_list));
 		jlistMenu.updateUI();
 	}
 
@@ -112,7 +114,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		changeModo(2);
 		ArrayList<String> lista = new ArrayList<>();
 		Collections.addAll(lista, obj_list);
-		listaObjetos = lista;
+		listaCidades = lista;
 		jlistMenu.setListData(obj_list);
 		jlistMenu.updateUI();
 	}
@@ -123,30 +125,43 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.updateUI();
 	}
 
-	public static Object getObjectClicked() {
-		int index = self.jlistMenu.getSelectedIndex();
-		Object returnValue = null;
-		if ( self.listMode == 0 ) {
-			returnValue = self.listaObjetos.get(index);
-		} else if ( self.listMode == 1 ) {
-			try {
-				returnValue = dados.getLojas().get(index);
-			} catch (Exception ignored) {
-
-			}
-
-		} else if ( self.listMode == 2 ) {
-			returnValue = controleDados.listarCidades()[index];
-		}
+	
+	public Produto getProdutoClicked() {
+		int index = this.jlistMenu.getSelectedIndex();
+		Produto returnValue = null;
+			returnValue = this.listaProdutos.get(index);
 		return returnValue;
 	}
 
+	public Loja getLojaClicked(int index, String cidadeClicada) {
+
+		Loja returnValue = dados.getLojas().get(index);
+		
+		if (cidadeClicada != null) {
+			returnValue = dados.buscar_lojas_cidades(cidadeClicada).get(index);
+		}
+		this.cidadeClicada = null;
+
+		return returnValue;
+	}
+	
+	public String getCidadeClicked(int index) {
+		String returnValue = controleDados.listarCidades()[index];
+		
+		return returnValue;
+	}
+	
+	
+	
 	public void changeModo(int novoModo) {
 		listMode = novoModo;
 		switch (novoModo) {
-			case 0 -> labelModo.setText("Buscando em produtos");
-			case 1 -> labelModo.setText("Buscando em lojas");
-			case 2 -> labelModo.setText("Buscando em cidades");
+			case 0 :
+				labelModo.setText("Buscando em produtos");
+			case 1 : 
+				labelModo.setText("Buscando em lojas");
+			case 2 : 
+				labelModo.setText("Buscando em cidades");
 		}
 		labelModo.updateUI();
 	}
@@ -180,70 +195,71 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 			} else if ( src == buttonBusca && listMode != 2 ) {
 				buscar();
 			} else if ( src == buttonNovaLoja ) {
-				new TelaLoja(new Loja(null, null, null), self);
+				new TelaLoja(new Loja(null, null, null), this);
 			}
 	}
 
-	public static void buscar() {
-		if ( self.textfieldBusca.getText().isBlank() ) {
-			self.buttonBusca.setText("Atualizar");
+	public  void buscar() {
+		if ( this.textfieldBusca.getText().isBlank() ) {
+			this.buttonBusca.setText("Atualizar");
 		} else {
-			self.buttonBusca.setText("Buscar");
+			this.buttonBusca.setText("Buscar");
 		}
-		if ( self.listMode == 0 ) {
-			self.atualizarJlistProdutos(dados.buscar_tudo(self.textfieldBusca.getText()));
-			if ( !self.listaObjetos.isEmpty() && !self.textfieldBusca.getText().isBlank() ) {
-				self.labelList.setText("Resultados para produtos '" + self.textfieldBusca.getText() + "'");
-			} else if ( self.textfieldBusca.getText().isEmpty() || !self.listaObjetos.isEmpty() ) {
-				self.labelList.setText("Todos os produtos listados:");
+		if ( this.listMode == 0 ) {
+			this.atualizarJlistProdutos(dados.buscar_tudo(this.textfieldBusca.getText()));
+			if ( !this.listaProdutos.isEmpty() && !this.textfieldBusca.getText().isBlank() ) {
+				this.labelList.setText("Resultados para produtos '" + this.textfieldBusca.getText() + "'");
+			} else if ( this.textfieldBusca.getText().isEmpty() || !this.listaProdutos.isEmpty() ) {
+				this.labelList.setText("Todos os produtos listados:");
 			} else {
-				self.labelList.setText("Nenhum produto encontrado para '" + self.textfieldBusca.getText() + "'");
+				this.labelList.setText("Nenhum produto encontrado para '" + this.textfieldBusca.getText() + "'");
 			}
-		} else if ( self.listMode == 1 ) {
-			self.atualizarJListLojas(dados.buscar_lojas(self.textfieldBusca.getText()));
-			if ( !self.listaObjetos.isEmpty() && !self.textfieldBusca.getText().isBlank() ) {
-				self.labelList.setText("Resultados para lojas '" + self.textfieldBusca.getText() + "'");
-			} else if ( self.textfieldBusca.getText().isEmpty() || !self.listaObjetos.isEmpty() ) {
-				self.labelList.setText("Todas as lojas listadas:");
+		} else if ( this.listMode == 1 ) {
+			this.atualizarJListLojas(dados.buscar_lojas(this.textfieldBusca.getText()));
+			if ( !this.listaLojas.isEmpty() && !this.textfieldBusca.getText().isBlank() ) {
+				this.labelList.setText("Resultados para lojas '" + this.textfieldBusca.getText() + "'");
+			} else if ( this.textfieldBusca.getText().isEmpty() || !this.listaLojas.isEmpty() ) {
+				this.labelList.setText("Todas as lojas listadas:");
 			} else {
-				self.labelList.setText("Nenhuma loja encontrada para '" + self.textfieldBusca.getText() + "'");
+				this.labelList.setText("Nenhuma loja encontrada para '" + this.textfieldBusca.getText() + "'");
 			}
-		} else if ( self.listMode == 2 ) {
-			self.atualizarJListCidades(buscarCidades(self.textfieldBusca.getText()));
-			if ( !self.listaObjetos.isEmpty() && !self.textfieldBusca.getText().isBlank() ) {
-				self.labelList.setText("Resultados para cidades '" + self.textfieldBusca.getText() + "'");
-			} else if ( self.textfieldBusca.getText().isEmpty() || !self.listaObjetos.isEmpty() ) {
-				self.labelList.setText("Todas as cidades listadas:");
+		} else if ( this.listMode == 2 ) {
+			this.atualizarJListCidades(buscarCidades(this.textfieldBusca.getText()));
+			if ( !this.listaCidades.isEmpty() && !this.textfieldBusca.getText().isBlank() ) {
+				this.labelList.setText("Resultados para cidades '" + this.textfieldBusca.getText() + "'");
+			} else if ( this.textfieldBusca.getText().isEmpty() || !this.listaCidades.isEmpty() ) {
+				this.labelList.setText("Todas as cidades listadas:");
 			} else {
-				self.labelList.setText("Nenhuma cidade encontrada para '" + self.textfieldBusca.getText() + "'");
+				this.labelList.setText("Nenhuma cidade encontrada para '" + this.textfieldBusca.getText() + "'");
 			}
-			self.labelList.updateUI();
+			this.labelList.updateUI();
 		}
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
-		Object src = e.getSource();
-		if ( e.getValueIsAdjusting() ) {
-			if ( clickable(System.currentTimeMillis()) ) {
-				var itemClicked = getObjectClicked();
-				if ( itemClicked != null ) {
-					if ( itemClicked.getClass() == Cosmetico.class ) {
-						new TelaComestico((Cosmetico) itemClicked, self);
-					} else if ( itemClicked.getClass() == Medicamento.class ) {
-						new TelaMedicamento((Medicamento) itemClicked, self);
-					} else if ( itemClicked.getClass() == Loja.class ) {
-						new TelaLoja((Loja) itemClicked, self);
-					} else if ( itemClicked.getClass() == String.class ) {
-						self.atualizarJListLojas(dados.buscar_lojas_cidades((String) itemClicked));
-						self.labelList.setText("Resultados para lojas na cidade '" + ((String) itemClicked) + "'");
-						self.labelList.updateUI();
-					}
+		int index = jlistMenu.getSelectedIndex();
+		
+		if ( e.getValueIsAdjusting() &&  clickable(System.currentTimeMillis())  ) {
+				if ( listMode == 0) {
+					if ( this.getProdutoClicked().getClass() == Cosmetico.class ) {
+						new TelaComestico((Cosmetico) this.getProdutoClicked(), this);
+					} 
+					else if ( this.getProdutoClicked().getClass() == Medicamento.class ) {
+						new TelaMedicamento((Medicamento) this.getProdutoClicked(), this);
+					} 
 				}
-			} else {
-				jlistMenu.clearSelection();
-			}
+				else if (listMode == 1) {
+						new TelaLoja((Loja) this.getLojaClicked(index, cidadeClicada), this);
+				} 
+				else if (listMode == 2) {
+						cidadeClicada = getCidadeClicked(index);
+						this.atualizarJListLojas(dados.buscar_lojas_cidades(cidadeClicada));
+						this.labelList.setText("Resultados para lojas na cidade '" + (cidadeClicada) + "'");
+						this.labelList.updateUI();
+				}
 		}
 	}
+	
 
 	public boolean clickable(long currentClick) {
 		boolean x = false;
@@ -298,11 +314,11 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	@Override
 	public void windowActivated(WindowEvent e) {
 		if ( listMode == 0 ) {
-			self.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
+			this.atualizarJlistProdutos(dados.buscar_tudo(textfieldBusca.getText()));
 		} else if ( listMode == 1 ) {
-			self.atualizarJListLojas(dados.buscar_lojas(textfieldBusca.getText()));
+			this.atualizarJListLojas(dados.buscar_lojas(textfieldBusca.getText()));
 		} else if ( listMode == 2 ) {
-			self.atualizarJListCidades();
+			this.atualizarJListCidades();
 		}
 	}
 
