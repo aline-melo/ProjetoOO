@@ -40,6 +40,7 @@ public class Loja {
 		return estoque;
 	}
 
+
 	public void setEstoque(ArrayList<Produto> estoque) {
 		this.estoque = estoque;
 	}

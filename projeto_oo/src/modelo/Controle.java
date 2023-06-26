@@ -137,9 +137,7 @@ public class Controle {
 	}
 
 	public static void deletarLoja(Loja loja) {
-		for (Produto produto : loja.getEstoque()) {
-			loja.getEstoque().remove(produto);
-		}
+		loja.setEstoque(new ArrayList<Produto>());
 		dados.getLojas().remove(loja);
 	}
 

@@ -113,8 +113,13 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
 
         janelaLoja.setTitle("Loja:  " + loja.getLocalizacao());
-        labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
-        labelList.updateUI();
+        if ( lojaPai.getLocalizacao() == null ) {
+            janelaLoja.setTitle("Criar Loja");
+        } else {
+            labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+            labelList.updateUI();
+        }
+
 
         jlistLoja.addListSelectionListener(this);
         buttonBusca.addActionListener(this);
@@ -224,7 +229,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
         @Override
         public void windowActivated(WindowEvent e) {
-            self.atualizarJlistProdutos();
+            self.buscar();
         }
 
     }
@@ -314,8 +319,14 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         atualizarJlistProdutos(lojaPai.buscar_loja(textfieldBusca.getText()));
         if ( !listaObjetos.isEmpty() && !textfieldBusca.getText().isBlank() ) {
             labelList.setText("Resultados para '" + textfieldBusca.getText() + "'");
-        } else if ( textfieldBusca.getText().isEmpty() || !listaObjetos.isEmpty() ) {
-            labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+        } else if ( listaObjetos.isEmpty() && textfieldBusca.getText().isBlank() ) {
+            labelList.setText("Nenhum Produto nessa loja");
+        } else if ( textfieldBusca.getText().isEmpty() ) {
+            if ( lojaPai.getLocalizacao() != null ) {
+                labelList.setText("Todos os produtos da loja " + lojaPai.getLocalizacao());
+            } else {
+                labelList.setText("Todos os produtos da loja");
+            }
         } else {
             labelList.setText("Nenhum resultado encontrado para '" + textfieldBusca.getText() + "'");
         }
