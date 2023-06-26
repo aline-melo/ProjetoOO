@@ -146,8 +146,18 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         return telaPai;
     }
 
+    /**
+     * Atualiza a HUD e o parêmetro listaObjetos com todos os {@link Produto Produtos} cadastrados em uma {@link  Loja}.
+     * <br>
+     *
+     * @author Caio Pacheco
+     * @see TelaLoja#atualizarJlistProdutos(ArrayList)
+     * @see Loja#getEstoque()
+     * @see Loja#buscar_loja(String)
+     * @since 06/2023
+     */
     public void atualizarJlistProdutos() {
-        listaObjetos = lojaPai.buscar_loja("");
+        listaObjetos = lojaPai.getEstoque();
         jlistLoja.setListData(Controle.listarEmString(listaObjetos));
         jlistLoja.updateUI();
     }
@@ -306,9 +316,9 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     /**
      * Trata da busca de {@link Produto produtos} em Tela Loja.
      * <br>
-     * Atualiza a lista de produtos da loja de acordo com o que foi digitado, chamando  {@link Loja#buscar_loja(String)}.
+     * Atualiza a {@link JList lista de produtos} da loja de acordo com o que foi digitado, chamando  {@link Loja#buscar_loja(String)}.
      * <br>
-     * Também atualiza a label de acordo com o resultado da busca.
+     * Também atualiza a {@link  JLabel} de acordo com o resultado da busca.
      *
      * @author Caio Pacheco
      * @see TelaLoja#atualizarJlistProdutos(ArrayList)

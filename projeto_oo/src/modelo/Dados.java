@@ -166,6 +166,7 @@ public class Dados {
 	 * Percorre a lista com todas as {@link Loja lojas} e chama {@link Loja#listarEstoque()}, então
 	 * adiciona o retorno de todas as iterações em uma {@link ArrayList} para alcançar o resultado.
 	 * <br>
+	 * Esse método retorna clones ao invés de retornar referêcias aos objetos originais.
 	 *
 	 * @return {@link ArrayList} com todos os {@link Produto produtos} cadastrados.
 	 * @author Caio Pacheco
