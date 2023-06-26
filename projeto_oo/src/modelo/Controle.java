@@ -81,7 +81,7 @@ public class Controle {
 			int emEstoque, String quantidade, String tratamento, String tarja,
 			Boolean generico, String principioAtivo) {
 		for (Produto item : dados.listar_tudo()) {
-			if (item.getNome().matches(nomeAnterior) &&  item.getClass() == Medicamento.class ) {
+			if ( item.getNome().equals(nomeAnterior) && item.getClass() == Medicamento.class ) {
 				item.setNome(nome);
 				item.setDescricao(descricao);
 				item.setFabricante(fabricante);
