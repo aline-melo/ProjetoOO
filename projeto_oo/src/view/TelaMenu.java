@@ -90,7 +90,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	/**
-	 * Atualiza a HUD e o parâmetro listaObjetos com uma nova {@link ArrayList lista} de {@link Produto Produtos} e chama
+	 * Atualiza a HUD e o parâmetro listaProdutos com uma nova {@link ArrayList lista} de {@link Produto Produtos} e chama
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
 	 * @param obj_list {@link ArrayList} com os Produtos a serem mostradas na {@link JList}
@@ -109,7 +109,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	/**
-	 * Atualiza a HUD usando o parâmetro listaObjetos de {@link Produto Produtos} e chama
+	 * Atualiza a HUD usando o parâmetro listaProdutos de {@link Produto Produtos} e chama
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
 	 * @author Caio Pacheco
@@ -125,7 +125,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	/**
-	 * Atualiza a HUD e o parâmetro listaObjetos com uma nova {@link ArrayList lista} de {@link Loja Lojas} e chama
+	 * Atualiza a HUD e o parâmetro listaLojas com uma nova {@link ArrayList lista} de {@link Loja Lojas} e chama
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
 	 * @param obj_list {@link ArrayList} com as Lojas a serem mostradas na {@link JList}
@@ -163,32 +163,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.updateUI();
 	}
 
-
-	
-	public Produto getProdutoClicked() {
-		int index = this.jlistMenu.getSelectedIndex();
-		Produto returnValue = null;
-			returnValue = this.listaProdutos.get(index);
-
-		return returnValue;
-		
-	}
-
-	public Loja getLojaClicked(int index) {
-
-		Loja returnValue = listaLojas.get(index);
-
-
-		return returnValue;
-	}
-	
-	public String getCidadeClicked(int index) {
-
-		return listaCidades.get(index);
-	}
-	
-	
-	
 	public void changeModo(int novoModo) {
 		listMode = novoModo;
 		switch (novoModo) {
@@ -200,11 +174,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 				labelModo.setText("Buscando em cidades");
 		}
 		labelModo.updateUI();
-	}
-
-
-	public Dados getDados() {
-		return dados;
 	}
 
 	@Override
@@ -276,32 +245,27 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
-	
 
 		int index = jlistMenu.getSelectedIndex();
 		
-		if ( e.getValueIsAdjusting() &&  clickable(System.currentTimeMillis())  ) {
-				if ( listMode == 0) {
-					if ( this.getProdutoClicked().getClass() == Cosmetico.class ) {
-						new TelaComestico((Cosmetico) this.getProdutoClicked(), this);
-					} 
-					else if ( this.getProdutoClicked().getClass() == Medicamento.class ) {
-						new TelaMedicamento((Medicamento) this.getProdutoClicked(), this);
+		if ( e.getValueIsAdjusting() &&  clickable(System.currentTimeMillis()) ) {
+			if ( listMode == 0 ) {
+				if ( this.listaProdutos.get(index).getClass() == Cosmetico.class ) {
+					new TelaComestico((Cosmetico) this.listaProdutos.get(index), this);
+				} else if ( this.listaProdutos.get(index).getClass() == Medicamento.class ) {
+					new TelaMedicamento((Medicamento) this.listaProdutos.get(index), this);
 					}
  
-				}
-				else if (listMode == 1) {
-					new TelaLoja(getLojaClicked(index), this);
-				} 
-				else if (listMode == 2) {
-					cidadeClicada = getCidadeClicked(index);
-					atualizarJListLojas(dados.buscar_lojas(cidadeClicada));
+				} else if ( listMode == 1 ) {
+				new TelaLoja(listaLojas.get(index), this);
+				} else if ( listMode == 2 ) {
+				cidadeClicada = listaCidades.get(index);
+				atualizarJListLojas(dados.buscar_lojas(cidadeClicada));
 					labelList.setText("Resultados para lojas na cidade '" + (cidadeClicada) + "'");
 					labelList.updateUI();
 				}
 		}
 	}
-	
 
 	public boolean clickable(long currentClick) {
 		boolean x = false;
@@ -356,9 +320,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-
 		buscar();
-
 	}
 
 	@Override
