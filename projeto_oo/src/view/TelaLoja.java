@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * @see TelaLoja#TelaLoja(Loja, TelaMenu)  new TelaLoja
  * @see TelaLoja#actionPerformed(ActionEvent)
  * @see TelaLoja#valueChanged(ListSelectionEvent)
- * @see Controle
+ * @see Dados
  * @since 06/2023
  */
 @SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod"})
@@ -204,11 +204,11 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * <br>
      * Exibe uma caixa de diálogo caso algum dos campos estejam incompletos.
      * <br>
-     * Chama {@link Controle#salvarLoja(Loja, String, String, ArrayList)} e fecha a janela se os campos estiverem
+     * Chama {@link Dados#salvarLoja(Loja, String, String, ArrayList)} e fecha a janela se os campos estiverem
      * preenchidos.
      *
      * @see TelaLoja#atualizarJlistProdutos()
-     * @see Controle#salvarLoja(Loja, String, String, ArrayList)
+     * @see Dados#salvarLoja(Loja, String, String, ArrayList)
      * @since 06/2023
      */
     public void salvarLoja() {
@@ -274,12 +274,12 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
     /**
      * Método que trata os eventos de clique nos botões. <br>Chama os métodos correspondentes para cada caso, somente se
      * {@link TelaLoja#clickable(long)} retornar true.
-     *  <br><br>
+     * <br><br>
      * {@link TelaLoja#cosmeticoVazio()} para o botão criar cosmético.<br>
      * {@link TelaLoja#medicamentoVazio()} para o botão criar medicamento.<br>
      * {@link TelaLoja#buscar()} para o botão buscar.<br>
      * {@link TelaLoja#salvarLoja()} para o botão salvar.<br>
-     * {@link Controle#deletarLoja(Loja)} para o botão apagar loja.<br>
+     * {@link Dados#deletarLoja(Loja)} para o botão apagar loja.<br>
      * <br>
      *
      * @param e {@link ActionEvent evento de clique}
@@ -288,7 +288,7 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * @see TelaLoja#cosmeticoVazio()
      * @see TelaLoja#buscar()
      * @see TelaLoja#salvarLoja()
-     * @see Controle#deletarLoja(Loja)
+     * @see Dados#deletarLoja(Loja)
      * @since 06/2023
      */
     @Override

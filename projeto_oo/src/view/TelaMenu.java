@@ -9,17 +9,16 @@ import javax.swing.event.ListSelectionListener;
 
 import modelo.*;
 
-
-@SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod", "OverlyComplexMethod"})
-/** Classe que cria a tela principal do programa.
+/**
+ * Classe que cria a tela principal do programa.
+ *
  * @version 1.0
- * @since 06/2023
- * @autor Caio Pacheco
  * @see TelaComestico
  * @see TelaMedicamento
  * @see TelaLoja
+ * @since 06/2023
  */
-//obj
+@SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod", "OverlyComplexMethod"})
 public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener, WindowListener, FocusListener {
 
 //	private final Controle controleDados = new Controle();
@@ -40,7 +39,14 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	private int listMode = 0;
 	private long lastClick = 0;
 
-
+	/**
+	 * Construtor de uma {@link TelaMenu}.
+	 *
+	 * @see TelaLoja#TelaLoja(Loja, TelaMenu)  TelaLoja
+	 * @see TelaComestico#TelaComestico(Cosmetico, Object)  TelaComestico
+	 * @see TelaMedicamento#TelaMedicamento(Medicamento, Object)  TelaMedicamento
+	 * @see Dados#criarDados()
+	 */
 	public TelaMenu() {
 
 		this.dados = Dados.getDados();
@@ -85,8 +91,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	}
 
 	public static void main(String[] args) {
-		TelaMenu telaMain = new TelaMenu();
-		//telaMain.atualizarJlistProdutos();
+		new TelaMenu();
 	}
 
 	/**
@@ -163,47 +168,89 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.updateUI();
 	}
 
+	/**
+	 * Atualiza o parâmetro listMode e altera o texto da {@link JLabel label} para o caso correspondente: <br>
+	 * 0  ->  Buscando em produtos <br>
+	 * 1  ->  Buscando em lojas <br>
+	 * 2  ->  Buscando em cidades <br>
+	 * <br>
+	 * ListMode é usado para especificar que tipo de objeto está sendo buscado e mostrado na {@link JList lista}. <br>
+	 *
+	 * @param novoModo {@link Integer int} com o valor do modo para ser alterado.
+	 * @author Caio Pacheco
+	 * @see TelaMenu#actionPerformed(ActionEvent)
+	 * @see TelaMenu#buscar()
+	 * @since 06/2023
+	 */
 	public void changeModo(int novoModo) {
 		listMode = novoModo;
 		switch (novoModo) {
-			case 0 :
+			case 0:
 				labelModo.setText("Buscando em produtos");
-			case 1 : 
+			case 1:
 				labelModo.setText("Buscando em lojas");
-			case 2 : 
+			case 2:
 				labelModo.setText("Buscando em cidades");
 		}
 		labelModo.updateUI();
 	}
 
+	/**
+	 * Método que trata os eventos de clique nos botões em TelaMenu. <br>Chama os métodos correspondentes para cada caso, somente se
+	 * {@link TelaMenu#clickable(long)} retornar true.
+	 * <br><br>
+	 * Chama {@link TelaMenu#buscar()} se o botão clicado for o de buscar. <br><br>
+	 * Chama {@link TelaMenu#changeModo(int)} e {@link TelaMenu#buscar()} se o botão clicado for o de
+	 * produtos, lojas ou cidades. <br>
+	 * <br>
+	 *
+	 * @param e {@link ActionEvent evento de clique}
+	 * @see TelaMenu#clickable(long)
+	 * @see TelaMenu#changeModo(int)
+	 * @see TelaMenu#buscar()
+	 * @since 06/2023
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-			Object src = e.getSource();
-			if ( src == buttonLojas) {
-				atualizarJListLojas(dados.getLojas());
-				labelList.setText("Todas as lojas listadas:");
-				labelList.updateUI();
-				textfieldBusca.setText("");
-				textfieldBusca.updateUI();
-			} else if ( src == buttonCidades ) {
-				atualizarJListCidades(dados.listarCidades());
-				labelList.setText("Todas as cidades listadas:");
-				labelList.updateUI();
-				textfieldBusca.setText("");
-				textfieldBusca.updateUI();
-			} else if ( src == buttonProdutos ) {
-				atualizarJlistProdutos(dados.listar_tudo());
-				labelList.setText("Todos os produtos listados:");
-				labelList.updateUI();
-				textfieldBusca.setText("");
-				textfieldBusca.updateUI();
-			} else if ( src == buttonBusca && listMode != 2 ) {
-				buscar();
-			} else if ( src == buttonNovaLoja ) {
-				new TelaLoja(new Loja(null, null, null), this);
-			}
+		Object src = e.getSource();
+		if ( src == buttonLojas ) {
+			changeModo(1);
+			textfieldBusca.setText("");
+			textfieldBusca.updateUI();
+			buscar();
+		} else if ( src == buttonCidades ) {
+			changeModo(2);
+			textfieldBusca.setText("");
+			textfieldBusca.updateUI();
+			buscar();
+		} else if ( src == buttonProdutos ) {
+			changeModo(0);
+			textfieldBusca.setText("");
+			textfieldBusca.updateUI();
+			buscar();
+		} else if ( src == buttonNovaLoja ) {
+			new TelaLoja(new Loja(null, null, null), this);
+		}
 	}
 
+	/**
+	 * Trata da busca e atualização da HUD em {@link TelaMenu}.
+	 * <br>
+	 * Atualiza a {@link JList lista} com objetos de acordo com o listMode atual e o texto digitado.
+	 * <br><br>
+	 * Chama diferentes métodos para cada caso: <br>
+	 * ListMode = 0 >  {@link Dados#buscar_tudo(String)}<br>
+	 * ListMode = 1 >  {@link Loja#buscar_loja(String)}<br>
+	 * ListMode = 2 >  {@link Dados#buscarCidades(String)}<br>
+	 * <br>
+	 * Também atualiza o texto da {@link  JLabel} de acordo com o resultado da busca e do modo atual.
+	 *
+	 * @author Caio Pacheco
+	 * @see TelaMenu#atualizarJlistProdutos(ArrayList)
+	 * @see TelaMenu#atualizarJListLojas(ArrayList)
+	 * @see TelaMenu#atualizarJListCidades(String[])
+	 * @since 06/2023
+	 */
 	public void buscar() {
 		if ( textfieldBusca.getText().isBlank() ) {
 			buttonBusca.setText("Atualizar");
@@ -244,29 +291,60 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.clearSelection();
 	}
 
+	/**
+	 * Método que trata os eventos de clique na lista. <br>
+	 * Se {@link TelaMenu#clickable(long)} retornar true:<br><br>
+	 * Para listMode = 0, chama {@link TelaComestico#TelaComestico(Cosmetico, Object) new TelaCosmetico}  ou
+	 * {@link TelaMedicamento#TelaMedicamento(Medicamento, Object) new TelaMedicamento} de acordo com o tipo do produto
+	 * clicado.<br><br>
+	 * Para listMode = 1, chama {@link TelaLoja#TelaLoja(Loja, TelaMenu) new TelaLoja} com a loja clicada.<br><br>
+	 * Para listMode = 2, chama {@link TelaMenu#atualizarJListLojas(ArrayList)} e {@link Dados#buscar_lojas(String)}
+	 * com a {@link String} da cidade clicada.<br><br>
+	 *
+	 * @param e evento de clique
+	 * @see TelaLoja#clickable(long)
+	 * @see TelaMedicamento
+	 * @see TelaComestico
+	 * @since 06/2023
+	 */
 	public void valueChanged(ListSelectionEvent e) {
 
 		int index = jlistMenu.getSelectedIndex();
-		
-		if ( e.getValueIsAdjusting() &&  clickable(System.currentTimeMillis()) ) {
+
+		if ( e.getValueIsAdjusting() && clickable(System.currentTimeMillis()) ) {
 			if ( listMode == 0 ) {
 				if ( this.listaProdutos.get(index).getClass() == Cosmetico.class ) {
 					new TelaComestico((Cosmetico) this.listaProdutos.get(index), this);
 				} else if ( this.listaProdutos.get(index).getClass() == Medicamento.class ) {
 					new TelaMedicamento((Medicamento) this.listaProdutos.get(index), this);
-					}
- 
-				} else if ( listMode == 1 ) {
+				}
+
+			} else if ( listMode == 1 ) {
 				new TelaLoja(listaLojas.get(index), this);
-				} else if ( listMode == 2 ) {
+			} else if ( listMode == 2 ) {
 				cidadeClicada = listaCidades.get(index);
 				atualizarJListLojas(dados.buscar_lojas(cidadeClicada));
-					labelList.setText("Resultados para lojas na cidade '" + (cidadeClicada) + "'");
-					labelList.updateUI();
-				}
+				labelList.setText("Resultados para lojas na cidade '" + (cidadeClicada) + "'");
+				labelList.updateUI();
+			}
 		}
 	}
 
+	/**
+	 * Verifica se um evento de clique em um {@link TelaMenu#actionPerformed(ActionEvent) botão} ou em uma
+	 * {@link TelaMenu#valueChanged(ListSelectionEvent) lista}
+	 * pode ser executado.
+	 * <br>
+	 * Checa se tempo suficiente passou desde o último clique para validar se o novo pode ser executado.
+	 * <br>
+	 * Usado para evitar acionar múltiplos cliques acidentais.
+	 *
+	 * @param currentClick tempo atual no instante do clique.
+	 * @return true se o clique for válido para execução, false se não for.
+	 * @see TelaMenu#actionPerformed(ActionEvent)
+	 * @see TelaMenu#valueChanged(ListSelectionEvent)
+	 * @since 06/2023
+	 */
 	public boolean clickable(long currentClick) {
 		boolean x = false;
 		if ( currentClick - lastClick > 175 ) {
@@ -318,6 +396,10 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	}
 
+	/**
+	 * Atualiza a HUD usando {@link TelaMenu#buscar()} quando a janela recebe foco.
+	 * @param e {@link WindowEvent evento de ativação da janela}
+	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		buscar();

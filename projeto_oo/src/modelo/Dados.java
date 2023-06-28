@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe que simula um banco de dados. Todos os dados do progama são armazenados dentro dessa classe.
+ * Classe que simula um banco de dados. Todos os dados do progama são armazenados e manipulados dentro dessa classe.
  *
  * @author Aline Melo
  * @version 1.0
- * @see Controle
  * @since 05/2023
  */
 public class Dados {
@@ -19,7 +18,9 @@ public class Dados {
 
 
 	/**
-	 * Popula a classe Dados com os dados padrão.
+	 * Construtor da classe Dados. <br>
+	 * Chama {@link #criarDados()} para popular o programa com os dados base.
+	 *
 	 * @author Aline Melo
 	 * @since 05/2023
 	 */
