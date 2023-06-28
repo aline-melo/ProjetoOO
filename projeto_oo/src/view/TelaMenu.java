@@ -184,13 +184,12 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 */
 	public void changeModo(int novoModo) {
 		listMode = novoModo;
-		switch (novoModo) {
-			case 0:
-				labelModo.setText("Buscando em produtos");
-			case 1:
-				labelModo.setText("Buscando em lojas");
-			case 2:
-				labelModo.setText("Buscando em cidades");
+		if ( novoModo == 0 ) {
+			labelModo.setText("Buscando em produtos");
+		} else if ( novoModo == 1 ) {
+			labelModo.setText("Buscando em lojas");
+		} else if ( novoModo == 2 ) {
+			labelModo.setText("Buscando em cidades");
 		}
 		labelModo.updateUI();
 	}
