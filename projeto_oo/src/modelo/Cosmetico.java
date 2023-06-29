@@ -1,33 +1,33 @@
 package modelo;
 
-public class Cosmetico extends Produto{
+public class Cosmetico extends Produto {
 	private String cor;
 	private String fragrancia;
 	private boolean hipoalergenico;
-	
-	
-	public Cosmetico(String nom, String desc,String fabri,double prc, int emEstoq, 
-			String quant, String c, String frag, boolean hipoaler ) {
-		super(nom, desc, fabri,prc, emEstoq, quant);
+
+
+	/**
+	 * Construtor da classe cosmético.
+	 *
+	 * @param nom      {@link String} do nome.
+	 * @param desc     {@link String} da descrição.
+	 * @param fabri    {@link String} com o nome do fabricante.
+	 * @param prc      {@link Double} do preço.
+	 * @param emEstoq  {@link Integer Int} da quantidade em estoque.
+	 * @param quant    {@link String} com a quantidade por embalagem.
+	 * @param c        {@link String} da cor do cosmético.
+	 * @param frag     {@link String} com a fragância.
+	 * @param hipoaler {@link Boolean} se o cosmético é hipoalergênico.
+	 */
+	public Cosmetico(String nom, String desc, String fabri, double prc, int emEstoq,
+					 String quant, String c, String frag, boolean hipoaler) {
+		super(nom, desc, fabri, prc, emEstoq, quant);
 		cor = c;
 		fragrancia = frag;
 		hipoalergenico = hipoaler;
 	}
-	
-	public String toString() {
-		return "\nNome:" + nome 
-				+"\nDescrição:" + descricao 
-				+"\nFabricante:"+ fabricante
-				+"\nPreço:" + preco 
-				+"\nQuantidade:" + quantidade
-				+"\nCor:"+ retornoCor()
-				+"\nFragrância:"+ retornoFragrancia()
-				+"\nHipoalergênico:" + retornoHipoalergenico()
-				+"\nEm estoque: " + emEstoque;
-	}
 
-	
-	public String getCor() {		
+	public String getCor() {
 		return cor;
 	}
 	public void setCor(String cor) {
@@ -45,31 +45,5 @@ public class Cosmetico extends Produto{
 	public void setHipoalergenico(boolean hipoalergenico) {
 		this.hipoalergenico = hipoalergenico;
 	}
-	
-	
-	
-	
-	public String retornoCor() {
-		if (cor == null) {
-			return "Este produto não tem cor registrada";
-		}
-		else {
-			return cor;
-		}
-	}
-	public String retornoFragrancia() {
-		if (fragrancia == null){
-			return "Este Produto não possui fragrância.";
-		}
-		else{
-			return fragrancia;
-		}
-	}
-	public String retornoHipoalergenico() {
-		if (hipoalergenico) {
-			return "Este produto é hipoalergênico";
-		} else {
-			return "Este produto não é hipoalergênico";
-		}
-	}
+
 }

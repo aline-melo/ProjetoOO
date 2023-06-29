@@ -149,7 +149,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 
 	/**
-	 * Atualiza a HUD e o parâmetro listaObjetos com uma nova {@link ArrayList lista} de {@link String cidades} e chama
+	 * Atualiza a HUD e o parâmetro listaCidades com uma nova {@link ArrayList lista} de {@link String cidades} e chama
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
 	 * @param obj_list {@link java.util.List String[]} com as cidades a serem mostradas na {@link JList}
