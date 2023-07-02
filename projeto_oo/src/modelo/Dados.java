@@ -336,6 +336,7 @@ public class Dados {
 	 * @see view.TelaMenu
 	 * @since 06/2023
 	 */
+	
 	public ArrayList<Produto> buscar_tudo(String termo) {
 		ArrayList<Produto> return_list = new ArrayList<Produto>();
 		for (Loja y : lojas) {

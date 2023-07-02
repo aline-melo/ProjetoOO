@@ -250,6 +250,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * @see TelaMenu#atualizarJListCidades(String[])
 	 * @since 06/2023
 	 */
+	
 	public void buscar() {
 		if ( textfieldBusca.getText().isBlank() ) {
 			buttonBusca.setText("Atualizar");
