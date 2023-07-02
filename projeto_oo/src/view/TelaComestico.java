@@ -1,6 +1,5 @@
 package view;
 
-//import modelo.Controle;
 import modelo.Cosmetico;
 import modelo.Dados;
 import modelo.Loja;
@@ -9,7 +8,6 @@ import modelo.Produto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.*;
 
 
 /**

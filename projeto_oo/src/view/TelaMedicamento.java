@@ -1,14 +1,10 @@
 package view;
 
-//import modelo.Controle;
 import modelo.*;
 
 import java.awt.event.*;
-import java.util.ArrayList;
 import javax.swing.*;
 
-import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
 
 /**
  * Interface gráfica para a classe {@link Medicamento}.
