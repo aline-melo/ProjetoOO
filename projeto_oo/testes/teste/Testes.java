@@ -3,6 +3,8 @@
   
   import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
   import modelo.*;
@@ -24,8 +26,13 @@ import org.junit.jupiter.api.Test;
 	  @Test
 	  void testeBuscarTudo() {
 		  Dados dadosTeste = new Dados();
+		  Loja loja1 = new Loja("local1","cidade1", new ArrayList<Produto>());
+		  
 		  Cosmetico cosmeticoTeste = new Cosmetico ("produto existente", null, null, 0, 0, null, null, null, false);
-		  dadosTeste.getLojas().get(1).addToEstoque(cosmeticoTeste);
+		  
+		  dadosTeste.getLojas().add(loja1);
+		  loja1.addToEstoque(cosmeticoTeste);
+		  
 		  
 		  assertTrue(dadosTeste.buscar_tudo("produto").contains(cosmeticoTeste));
 		  assertTrue(dadosTeste.buscar_tudo("produto existente").contains(cosmeticoTeste));
@@ -34,13 +41,18 @@ import org.junit.jupiter.api.Test;
 	  }
 
 	  @Test
-	  void testeListarCidades() {
-		  Loja loja1 = new Loja("local1","cidade1", null);
+	  void testeDeletarProduto() {
 		  Dados dadosTeste = new Dados();
+		  Loja loja1 = new Loja("local1","cidade1", new ArrayList<Produto>());
+		  
+		  Medicamento medicamentoTeste = new Medicamento(null, null, null, 0, 0, null, null, null, false, null);
+		  Cosmetico cosmeticoTeste = new Cosmetico ("produto existente", null, null, 0, 0, null, null, null, false);
+		  
 		  dadosTeste.getLojas().add(loja1);
+		  loja1.addToEstoque(cosmeticoTeste);
 		  
-		  String resultado = dadosTeste.listarCidades()[dadosTeste.listarCidades().length-1];
-		  
-		  assertEquals(resultado,"cidade1");
+		  assertTrue(dadosTeste.deletarProduto(cosmeticoTeste));
+		  assertFalse(dadosTeste.deletarProduto(cosmeticoTeste));
+		  assertFalse(dadosTeste.deletarProduto(medicamentoTeste));
 	  }
   }

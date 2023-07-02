@@ -91,7 +91,8 @@ public class Dados {
 	 * @param item {@link Produto} a ser deletado.
 	 * @since 06/2023
 	 */
-	public void deletarProduto(Produto item) {
+	public boolean deletarProduto(Produto item) {
+		boolean retorno = false;
 		for (Loja loja : getLojas()) {
 			if ( loja.getEstoque().contains(item) ) {
 				ArrayList<Produto> novoEstoque = loja.getEstoque();
@@ -99,8 +100,10 @@ public class Dados {
 					novoEstoque.remove(item);
 				}
 				loja.setEstoque(novoEstoque);
+				retorno = true;
 			}
 		}
+		return retorno;
 	}
 
 	//generate the JavaDoc for the method salvarCosmetico using as template all the other JavaDoc comments
