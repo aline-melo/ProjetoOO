@@ -20,8 +20,7 @@ import modelo.*;
  */
 @SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod", "OverlyComplexMethod"})
 public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener, WindowListener, FocusListener {
-
-//	private final Controle controleDados = new Controle();
+	
 	private final Dados dados;
 	private final JButton buttonBusca = new JButton("Atualizar");
 	private static final JButton buttonCidades = new JButton("Cidades");

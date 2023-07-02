@@ -15,8 +15,7 @@ public class Dados {
 	private ArrayList<Loja> lojas = new ArrayList<Loja>();
 	private static Dados dados = new Dados();
 
-	//private int qtdLojas = lojas.size();
-
+	
 
 	/**
 	 * Construtor da classe Dados. <br>
@@ -407,8 +406,7 @@ public class Dados {
 		lojas.add(outraLoja);
 		lojas.add(lojaNoroeste);
 		lojas.add(lojaTampa);
-		//int qtdLojas = lojas.size();
-
+		
 
 	}
 
