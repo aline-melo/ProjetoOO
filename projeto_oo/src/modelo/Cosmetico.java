@@ -4,6 +4,10 @@ package modelo;
  * Classe que representa um cosmético. Herda características básicas de {@link Produto}.<br><br>
  * Possui atributos específicos como cor, fragrância e se é hipoalergênico. <br><br>
  * Toda {@link view.TelaComestico TelaCosmetico} possui um Cosmético associado a ela.
+ *
+ * @author Aline Melo
+ * @version 1.0
+ * @since 05/2023
  */
 public class Cosmetico extends Produto {
 	private String cor;
@@ -33,26 +37,56 @@ public class Cosmetico extends Produto {
 		hipoalergenico = hipoaler;
 	}
 
+	/**
+	 * Retorna a cor do cosmético.
+	 *
+	 * @return {@link String} da cor.
+	 */
 	public String getCor() {
 		return cor;
 	}
 
+	/**
+	 * Altera a cor do cosmético.
+	 *
+	 * @param cor {@link String} da cor.
+	 */
 	public void setCor(String cor) {
 		this.cor = cor;
 	}
 
+	/**
+	 * Retorna a fragrância do cosmético.
+	 *
+	 * @return {@link String} da fragrância.
+	 */
 	public String getFragrancia() {
 		return fragrancia;
 	}
 
+	/**
+	 * Altera a fragrância do cosmético.
+	 *
+	 * @param fragrancia {@link String} da fragrância.
+	 */
 	public void setFragrancia(String fragrancia) {
 		this.fragrancia = fragrancia;
 	}
 
+	/**
+	 * Retorna se o cosmético é hipoalergênico.
+	 *
+	 * @return {@link Boolean} se é hipoalergênico.
+	 */
 	public boolean isHipoalergenico() {
 		return hipoalergenico;
 	}
 
+	/**
+	 * Altera se o cosmético é hipoalergênico.
+	 *
+	 * @param hipoalergenico {@link Boolean} se é hipoalergênico.
+	 */
 	public void setHipoalergenico(boolean hipoalergenico) {
 		this.hipoalergenico = hipoalergenico;
 	}

@@ -10,7 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import modelo.*;
 
 /**
- * Classe que cria a tela principal do programa.
+ * Interface gráfica do menu principal do programa.
  *
  * @version 1.0
  * @see TelaComestico
@@ -90,6 +90,11 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		jlistMenu.addListSelectionListener(this);
 	}
 
+	/**
+	 * Método main que inicia o programa.
+	 *
+	 * @param args Argumentos passados na execução do programa.
+	 */
 	public static void main(String[] args) {
 		new TelaMenu();
 	}
@@ -99,7 +104,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
 	 * @param obj_list {@link ArrayList} com os Produtos a serem mostradas na {@link JList}
-	 * @author Caio Pacheco
+
 	 * @see TelaMenu#changeModo(int)
 	 * @see TelaMenu#atualizarJlistProdutos()
 	 * @see TelaMenu#atualizarJListLojas(ArrayList)
@@ -117,7 +122,6 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * Atualiza a HUD usando o parâmetro listaProdutos de {@link Produto Produtos} e chama
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
-	 * @author Caio Pacheco
 	 * @see TelaMenu#changeModo(int)
 	 * @see TelaMenu#atualizarJListLojas(ArrayList)
 	 * @see TelaMenu#atualizarJListCidades(String[])
@@ -134,7 +138,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
 	 * @param obj_list {@link ArrayList} com as Lojas a serem mostradas na {@link JList}
-	 * @author Caio Pacheco
+
 	 * @see TelaMenu#changeModo(int)
 	 * @see TelaMenu#atualizarJlistProdutos()
 	 * @see TelaMenu#atualizarJListCidades(String[])
@@ -153,7 +157,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * {@link TelaMenu#changeModo(int)} para alterar o modo de execução. <br>
 	 *
 	 * @param obj_list {@link java.util.List String[]} com as cidades a serem mostradas na {@link JList}
-	 * @author Caio Pacheco
+
 	 * @see TelaMenu#changeModo(int)
 	 * @see TelaMenu#atualizarJlistProdutos()
 	 * @see TelaMenu#atualizarJListLojas(ArrayList)
@@ -177,7 +181,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * ListMode é usado para especificar que tipo de objeto está sendo buscado e mostrado na {@link JList lista}. <br>
 	 *
 	 * @param novoModo {@link Integer int} com o valor do modo para ser alterado.
-	 * @author Caio Pacheco
+
 	 * @see TelaMenu#actionPerformed(ActionEvent)
 	 * @see TelaMenu#buscar()
 	 * @since 06/2023
@@ -244,7 +248,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 	 * <br>
 	 * Também atualiza o texto da {@link  JLabel} de acordo com o resultado da busca e do modo atual.
 	 *
-	 * @author Caio Pacheco
+
 	 * @see TelaMenu#atualizarJlistProdutos(ArrayList)
 	 * @see TelaMenu#atualizarJListLojas(ArrayList)
 	 * @see TelaMenu#atualizarJListCidades(String[])
@@ -355,41 +359,81 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		return x;
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
 
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 
 	}
 
+	/**
+	 * Atualiza a HUD chamando {@link #buscar()} quando uma tecla é solta.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		buscar();
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 
@@ -397,6 +441,7 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 
 	/**
 	 * Atualiza a HUD usando {@link TelaMenu#buscar()} quando a janela recebe foco.
+	 *
 	 * @param e {@link WindowEvent evento de ativação da janela}
 	 */
 	@Override
@@ -404,15 +449,30 @@ public class TelaMenu implements ActionListener, ListSelectionListener, KeyListe
 		buscar();
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void focusGained(FocusEvent e) {
 
 	}
 
+	/**
+	 * Método não implementado e não utilizado.
+	 *
+	 * @param e the event to be processed
+	 */
 	@Override
 	public void focusLost(FocusEvent e) {
 

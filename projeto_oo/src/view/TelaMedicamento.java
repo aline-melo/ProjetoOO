@@ -1,9 +1,7 @@
 package view;
 
 //import modelo.Controle;
-import modelo.Dados;
-import modelo.Loja;
-import modelo.Medicamento;
+import modelo.*;
 
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -12,6 +10,16 @@ import javax.swing.*;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+/**
+ * Interface gráfica para a classe {@link Medicamento}.
+ *
+ * @author Caio Pacheco
+ * @version 1.0
+ * @see TelaMedicamento#TelaMedicamento(Medicamento, Object)  TelaMedicamento
+ * @see TelaMedicamento#actionPerformed(ActionEvent)
+ * @see Dados
+ * @since 06/2023
+ */
 public class TelaMedicamento implements ActionListener {
 	private final Dados dados;
     private final JFrame janelaMedicamento = new JFrame("");
@@ -42,10 +50,15 @@ public class TelaMedicamento implements ActionListener {
     private Object telaPai;
     private long lastClick = 0;
 
-
+    /**
+     * Construtor da classe {@link TelaMedicamento}.
+     *
+     * @param item {@link Medicamento} que será editado.
+     * @param pai  {@link Object} que chamou essa tela.
+     */
     public TelaMedicamento(Medicamento item, Object pai) {
 
-		this.dados = Dados.getDados();
+        this.dados = Dados.getDados();
         field_nome.setBounds(40, 50, 300, 30);
         button_salvar.setBounds(350, 50, 145, 30);
         field_descricao.setBounds(40, 120, 300, 90);
@@ -135,6 +148,20 @@ public class TelaMedicamento implements ActionListener {
         button_apagar.revalidate();
         button_apagar.updateUI();
     }
+
+    /**
+     * Verifica se um evento de clique em um {@link TelaMedicamento#actionPerformed(ActionEvent) botão}
+     * pode ser executado.
+     * <br>
+     * Checa se tempo suficiente passou desde o último clique para validar se o novo pode ser executado.
+     * <br>
+     * Usado para evitar acionar múltiplos cliques acidentais.
+     *
+     * @param currentClick tempo atual no instante do clique.
+     * @return true se o clique for válido para execução, false se não for.
+     * @see TelaMedicamento#actionPerformed(ActionEvent)
+     * @since 06/2023
+     */
     public boolean clickable(long currentClick) {
         boolean x = false;
 
@@ -145,6 +172,17 @@ public class TelaMedicamento implements ActionListener {
         return x;
     }
 
+    /**
+     * Trata de eventos de clique em botões.<br><br>
+     * Se {@link TelaMedicamento#clickable(long) clickable} retornar true então:<br><br>
+     * Chama {@link Dados#salvarMedicamento(String, String, String, String, double, int, String, String, String, Boolean, String)}
+     * salvarCosmetico} se o botão clicado for o de salvar e o campo de nome estiver preenchido.<br><br>
+     * Chama {@link Dados#deletarProduto(Produto)  deletarProduto} se o botão clicado for o de apagar.<br><br>
+     * <p>
+     * Fecha a janela se alguma ação for executada.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
@@ -155,8 +193,8 @@ public class TelaMedicamento implements ActionListener {
                 } else {
                     if ( nomeAnterior != null ) {
                         dados.salvarMedicamento(
-                        		
-                        		nomeAnterior, 
+
+                                nomeAnterior,
                                 field_nome.getText(),
                                 field_descricao.getText(), 
                                 field_fabricante.getText(), 

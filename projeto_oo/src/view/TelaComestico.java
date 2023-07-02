@@ -4,18 +4,26 @@ package view;
 import modelo.Cosmetico;
 import modelo.Dados;
 import modelo.Loja;
+import modelo.Produto;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.lang.*;
 
-import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
 
+/**
+ * Interface gráfica para a classe {@link Cosmetico}.
+ *
+ * @author Caio Pacheco
+ * @version 1.0
+ * @see TelaComestico#TelaComestico(Cosmetico, Object)  TelaComestico
+ * @see TelaComestico#actionPerformed(ActionEvent)
+ * @see Dados
+ * @since 06/2023
+ */
 public class TelaComestico implements ActionListener {
-	private final Dados dados;
+    private final Dados dados;
     private final JFrame janelaComestico = new JFrame("");
     private final JButton button_salvar = new JButton("Salvar");
     private final JButton button_apagar = new JButton("Apagar Produto");
@@ -42,9 +50,16 @@ public class TelaComestico implements ActionListener {
     private Object telaPai;
     private long lastClick = 0;
 
+
+    /**
+     * Construtor da classe {@link TelaComestico}.
+     *
+     * @param item {@link Cosmetico} que será editado.
+     * @param pai  {@link Object} que chamou essa tela.
+     */
     public TelaComestico(Cosmetico item, Object pai) {
 
-		this.dados = Dados.getDados();
+        this.dados = Dados.getDados();
         nomeAnterior = item.getNome();
         cosmeticoPai = item;
         telaPai = pai;
@@ -119,11 +134,20 @@ public class TelaComestico implements ActionListener {
         }
 
     }
-    public String getNomeAnterior() {
-        return nomeAnterior;
-    }
 
-
+    /**
+     * Verifica se um evento de clique em um {@link TelaComestico#actionPerformed(ActionEvent) botão}
+     * pode ser executado.
+     * <br>
+     * Checa se tempo suficiente passou desde o último clique para validar se o novo pode ser executado.
+     * <br>
+     * Usado para evitar acionar múltiplos cliques acidentais.
+     *
+     * @param currentClick tempo atual no instante do clique.
+     * @return true se o clique for válido para execução, false se não for.
+     * @see TelaComestico#actionPerformed(ActionEvent)
+     * @since 06/2023
+     */
     public boolean clickable(long currentClick) {
         boolean x = false;
 
@@ -134,6 +158,17 @@ public class TelaComestico implements ActionListener {
         return x;
     }
 
+    /**
+     * Trata de eventos de clique em botões.<br><br>
+     * Se {@link TelaComestico#clickable(long) clickable} retornar true então:<br><br>
+     * Chama {@link Dados#salvarCosmetico(String, String, String, String, double, int, String, String, String, boolean)
+     * salvarCosmetico} se o botão clicado for o de salvar e o campo de nome estiver preenchido.<br><br>
+     * Chama {@link Dados#deletarProduto(Produto)  deletarProduto} se o botão clicado for o de apagar.<br><br>
+     * <p>
+     * Fecha a janela se alguma ação for executada.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
@@ -144,41 +179,35 @@ public class TelaComestico implements ActionListener {
                 } else {
                     if ( nomeAnterior != null ) {
                         dados.salvarCosmetico(
-                        		nomeAnterior,
+                                nomeAnterior,
                                 field_nome.getText(),
                                 field_descricao.getText(),
                                 field_fabricante.getText(),
                                 Double.parseDouble(field_preco.getText()) ,
-                        		Integer.parseInt(field_estoque.getText()),
+                                Integer.parseInt(field_estoque.getText()),
                                 field_tamanho_embalagem.getText(),
                                 field_cor.getText(),
                                 field_fragancia.getText(),
                                 checkbox_hipoalergenico.isSelected()
-                        		);
+                        );
                     } else {
                         dados.criarCosmetico(
-                        		nomeAnterior,
+                                nomeAnterior,
                                 field_nome.getText(),
                                 field_descricao.getText(),
                                 field_fabricante.getText(),
                                 Double.parseDouble(field_preco.getText()) ,
-                        		Integer.parseInt(field_estoque.getText()),
+                                Integer.parseInt(field_estoque.getText()),
                                 field_tamanho_embalagem.getText(),
                                 field_cor.getText(),
                                 field_fragancia.getText(),
                                 checkbox_hipoalergenico.isSelected()
-                                
-                        		, (Loja) ((TelaLoja) telaPai).getLojaPai());
+
+                                , (Loja) ((TelaLoja) telaPai).getLojaPai());
                     }
 
                     janelaComestico.dispose();
 
-                    if ( telaPai instanceof TelaMenu ) {
-                        ((TelaMenu) telaPai).atualizarJlistProdutos();
-                    } else if ( telaPai instanceof TelaLoja ) {
-                        ((TelaLoja) telaPai).atualizarJlistProdutos();
-                        ((TelaLoja) telaPai).getTelaPai().atualizarJlistProdutos();
-                    }
                 }
             } else if ( src == button_apagar ) {
                 int option = JOptionPane.showConfirmDialog(null,

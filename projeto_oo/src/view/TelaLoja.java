@@ -139,10 +139,20 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
 
     }
 
+    /**
+     * Retorna a {@link Loja} que está sendo exibida.
+     *
+     * @return {@link Loja}
+     */
     public Loja getLojaPai() {
         return lojaPai;
     }
 
+    /**
+     * Retorna a {@link TelaMenu} que chamou a {@link TelaLoja}.
+     *
+     * @return {@link TelaMenu}
+     */
     public TelaMenu getTelaPai() {
         return telaPai;
     }
@@ -165,6 +175,12 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         jlistLoja.updateUI();
     }
 
+    /**
+     * Atualiza a HUD e o parâmetro listaProdutos com uma nova {@link ArrayList lista} de {@link Produto Produtos}. <br>
+     *
+     * @param lista {@link ArrayList} com os Produtos a serem mostradas na {@link JList}
+     * @since 06/2023
+     */
     public void atualizarJlistProdutos(ArrayList<Produto> lista) {
         listaObjetos = lista;
         jlistLoja.setListData(dados.listarProdutoEmString(lista));
@@ -231,17 +247,25 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * @see LojaWindowAdapter#windowActivated(WindowEvent)
      * @since 06/2023
      */
-     class LojaWindowAdapter extends WindowAdapter {
+    class LojaWindowAdapter extends WindowAdapter {
+        /**
+         * Fecha a janela.
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void windowClosing(WindowEvent e) {
             janelaLoja.dispose();
         }
 
+        /**
+         * Atualiza a HUD usando {@link #buscar()} quando a janela recebe foco.
+         *
+         * @param e {@link WindowEvent evento de ativação da janela}
+         */
         @Override
         public void windowActivated(WindowEvent e) {
-
             buscar();
-
         }
 
     }
@@ -320,7 +344,6 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
      * <br>
      * Também atualiza a {@link  JLabel} de acordo com o resultado da busca.
      *
-     * @author Caio Pacheco
      * @see TelaLoja#atualizarJlistProdutos(ArrayList)
      * @see Loja#buscar_loja(String)
      * @since 06/2023
@@ -343,30 +366,49 @@ public class TelaLoja implements ActionListener, ListSelectionListener, KeyListe
         labelList.updateUI();
     }
 
-
-    public TelaMedicamento medicamentoVazio() {
-        return new TelaMedicamento(new Medicamento(null, null,
+    /**
+     * Abre uma nova {@link TelaMedicamento} com um {@link Medicamento} vazio.
+     */
+    public void medicamentoVazio() {
+        new TelaMedicamento(new Medicamento(null, null,
                 null, 0, 0, null, null, null, false,
                 null), this);
     }
 
+    /**
+     * Abre uma nova {@link TelaComestico} com um {@link Cosmetico} vazio.
+     */
     public void cosmeticoVazio() {
         new TelaComestico(new Cosmetico(null,
                 null, null, 0, 0,
                 null, null, null, true), this);
     }
 
-
+    /**
+     * Método não implementado e não utilizado.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
+    /**
+     * Método não implementado e não utilizado.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
 
     }
 
+    /**
+     * Atualiza a HUD chamando {@link #buscar()} quando uma tecla é solta.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         buscar();

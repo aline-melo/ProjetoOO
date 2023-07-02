@@ -8,7 +8,7 @@ import java.util.List;
  * Só existe uma instância dessa classe a qualquer momento.
  *
  * @author Aline Melo
- * @version 1.0
+ * @version 2.0
  * @since 05/2023
  */
 public class Dados {
@@ -20,46 +20,77 @@ public class Dados {
 
 	/**
 	 * Construtor da classe Dados. <br>
-	 * Chama {@link #criarDados()} para popular o programa com os dados base.
-	 *
-	 * @author Aline Melo
+	 * Chama {@link #criarDados()} para popular a classe com os dados base.
 	 * @since 05/2023
 	 */
 	public Dados() {
 		this.criarDados();
 	}
+
+	/**
+	 * Método que retorna uma lista de {@link String Strings} com as localizações e cidades de todas as lojas que foram
+	 * passadas na {@link ArrayList } de {@link Loja Lojas} como parâmetro. <br><br>
+	 * Caso a lista de lojas passada como parâmetro esteja vazia, retorna uma lista vazia.
+	 * Percorre a lista de lojas passada como parâmetro e para cada loja, adiciona uma {@link String} com a localização
+	 * na lista de retorno. Por fim, retorna a lista.
+	 *
+	 * @param lista {@link ArrayList} de {@link Loja Lojas} que serão listadas.
+	 * @return {@link String Strings} com as localizações e cidades de todas as lojas cadastradas.
+	 * @see Loja#getLocalizacao()
+	 * @see Loja#getCidade()
+	 * @see #getLojas()
+	 * @see #listarLojaEmString(ArrayList)
+	 * @since 06/2023
+	 */
+
 	public String[] listarLojaEmString(ArrayList<Loja> lista) {
 		String[] lista_retorno = new String[lista.size()];
 		if ( lista.isEmpty() ) {
 			lista_retorno = new String[0];
-		} 
-		else {
-				for (int i = 0; i < lista.size(); i++) {
-					lista_retorno[i] = (((Loja) lista.get(i)).getLocalizacao() + ", "
-							+ ((Loja) lista.get(i)).getCidade());
-				}
-		}
-		return lista_retorno;
-	}
-
-	public String[] listarProdutoEmString(ArrayList<Produto> lista) {
-		String[] lista_retorno = new String[lista.size()];
-		if ( lista.isEmpty() ) {
-			lista_retorno = new String[0];
 		} else {
-			if ( lista.get(0) != null ) {
-				for (int i = 0; i < lista.size(); i++) {
-					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
-				}
-			} else {
-				for (int i = 0; i < lista.size(); i++) {
-					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
-				}
+			for (int i = 0; i < lista.size(); i++) {
+				lista_retorno[i] = (((Loja) lista.get(i)).getLocalizacao() + ", "
+						+ ((Loja) lista.get(i)).getCidade());
 			}
 		}
 		return lista_retorno;
 	}
 
+	/**
+	 * Método que retorna uma lista de {@link String Strings} com os nomes de todos os produtos que foram
+	 * passados na {@link ArrayList } de {@link Produto Produtos} como parâmetro. <br><br>
+	 * Caso a lista de produtos passada como parâmetro esteja vazia, retorna uma lista vazia.
+	 * Percorre a lista de produtos passada como parâmetro e para cada produto, adiciona uma {@link String} com o nome
+	 * na lista de retorno. Por fim, retorna a lista.
+	 *
+	 * @param lista {@link ArrayList} de {@link Produto Produtos} que serão listados.
+	 * @return {@link String Strings} com os nomes de todos os produtos cadastrados.
+	 * @see Produto#getNome()
+	 * @see #getLojas()
+	 * @see #listarLojaEmString(ArrayList)
+	 * @since 06/2023
+	 */
+	public String[] listarProdutoEmString(ArrayList<Produto> lista) {
+		String[] lista_retorno = new String[lista.size()];
+		if ( lista.isEmpty() ) {
+			lista_retorno = new String[0];
+		} else {
+			for (int i = 0; i < lista.size(); i++) {
+				lista_retorno[i] = ((Produto) lista.get(i)).getNome();
+			}
+		}
+		return lista_retorno;
+	}
+
+
+	/**
+	 * Deleta um {@link Produto} de todas as {@link Loja Lojas} que o possuem em estoque. <br><br>
+	 * Percorre a lista de lojas e para cada loja, verifica se o produto passado como parâmetro está em seu estoque.<br>
+	 * Caso esteja, remove todas as instâncias do produto do estoque da loja.
+	 *
+	 * @param item {@link Produto} a ser deletado.
+	 * @since 06/2023
+	 */
 	public void deletarProduto(Produto item) {
 		for (Loja loja : getLojas()) {
 			if ( loja.getEstoque().contains(item) ) {
@@ -72,13 +103,33 @@ public class Dados {
 		}
 	}
 
-	
-	public  void salvarCosmetico(String nomeAnterior, String nome,
-			String descricao, String fabricante, double preco,
-			int emEstoque, String quantidade, String cor, 
-			String fragrancia,boolean hipoalergenico) {
+	//generate the JavaDoc for the method salvarCosmetico using as template all the other JavaDoc comments
+
+	/**
+	 * Salva um {@link Cosmetico} que foi editado em {@link view.TelaComestico TelaCosmetico}. <br><br>
+	 * Percorre a lista de produtos e para cada produto, verifica se o nome do produto é igual ao nome anterior a
+	 * edição e é da classe {@link Cosmetico}.<br>
+	 * Caso seja, altera os atributos do produto para os novos atributos passados como parâmetro.<br>
+	 * Caso não sejam encontrados produtos com o nome anterior, o método não executa nenhuma ação.
+	 *
+	 * @param nomeAnterior   {@link String} com o nome do cosmético antes da edição.
+	 * @param nome           {@link String} com o nome do cosmético após a edição.
+	 * @param descricao      {@link String} com a descrição do cosmético.
+	 * @param fabricante     {@link String} com o fabricante do cosmético.
+	 * @param preco          {@link Double} com o preço do cosmético.
+	 * @param emEstoque      {@link Integer int} com a quantidade do cosmético em estoque.
+	 * @param quantidade     {@link String} com a quantidade por embalag0[em.
+	 * @param cor            {@link String} com a cor do cosmético.
+	 * @param fragrancia     {@link String} com a fragrância do cosmético.
+	 * @param hipoalergenico {@link Boolean} se o cosmético é hipoalergênico.
+	 * @since 06/2023
+	 */
+	public void salvarCosmetico(String nomeAnterior, String nome,
+								String descricao, String fabricante, double preco,
+								int emEstoque, String quantidade, String cor,
+								String fragrancia, boolean hipoalergenico) {
 		for (Produto item : listar_tudo()) {
-			if (item.getNome().matches(nomeAnterior) && item.getClass() == Cosmetico.class ) {
+			if ( item.getNome().matches(nomeAnterior) && item.getClass() == Cosmetico.class ) {
 				item.setNome(nome);
 				item.setDescricao(descricao);
 				item.setFabricante(fabricante);
@@ -91,12 +142,34 @@ public class Dados {
 			}
 		}
 	}
+	//generate the JavaDoc for the method salvarMedicamento using as template the JavaDoc comment of the method salvarCosmetico
+
+	/**
+	 * Salva um {@link Medicamento} que foi editado em {@link view.TelaMedicamento TelaMedicamento}. <br><br>
+	 * Percorre a lista de todos produtos e para cada produto, verifica se o nome do produto é igual ao nome anterior
+	 * a edição e é da classe {@link Medicamento}.<br>
+	 * Caso seja, altera os atributos do produto para os novos atributos passados como parâmetro.<br>
+	 * Caso não sejam encontrados produtos com o nome anterior, o método não executa nenhuma ação.
+	 *
+	 * @param nomeAnterior   {@link String} com o nome do medicamento antes da edição.
+	 * @param nome           {@link String} com o nome do medicamento após a edição.
+	 * @param descricao      {@link String} com a descrição do medicamento.
+	 * @param fabricante     {@link String} com o fabricante do medicamento.
+	 * @param preco          {@link Double} com o preço do medicamento.
+	 * @param emEstoque      {@link Integer int} com a quantidade do medicamento em estoque.
+	 * @param quantidade     {@link String} com a quantidade por embalagem.
+	 * @param tratamento     {@link String} com o tipo de tratamento do medicamento.
+	 * @param tarja          {@link String} com a tarja do medicamento.
+	 * @param generico       {@link Boolean} se o medicamento é genérico.
+	 * @param principioAtivo {@link String} com o princípio ativo do medicamento.
+	 * @since 06/2023
+	 */
 	public void salvarMedicamento(String nomeAnterior, String nome,
-			String descricao, String fabricante, double preco,
-			int emEstoque, String quantidade, String tratamento, String tarja,
-			Boolean generico, String principioAtivo) {
+								  String descricao, String fabricante, double preco,
+								  int emEstoque, String quantidade, String tratamento, String tarja,
+								  Boolean generico, String principioAtivo) {
 		for (Produto item : listar_tudo()) {
-			if (item.getNome().matches(nomeAnterior) &&  item.getClass() == Medicamento.class ) {
+			if ( item.getNome().matches(nomeAnterior) && item.getClass() == Medicamento.class ) {
 				item.setNome(nome);
 				item.setDescricao(descricao);
 				item.setFabricante(fabricante);
@@ -110,43 +183,97 @@ public class Dados {
 			}
 		}
 	}
+
+	/**
+	 * Cria um {@link Cosmetico} e adiciona ao estoque de uma {@link Loja}.<br><br>
+	 * Verifica se o nome do cosmético já existe na lista de produtos da loja.<br><br>
+	 * Caso não exista, cria um novo {@link Cosmetico} com os parâmetros passados e adiciona ao estoque da loja.<br>
+	 * Caso exista, chama {@link #salvarCosmetico(String, String, String, String, double, int, String, String, String,
+	 * boolean) salvarCosmetico} para editar o cosmético já existente.
+	 *
+	 * @param nomeAnterior   {@link String} com o nome do cosmético antes da edição. {@code null} caso o cosmético não exista.
+	 * @param nome           {@link String} com o nome do cosmético.
+	 * @param descricao      {@link String} com a descrição do cosmético.
+	 * @param fabricante     {@link String} com o fabricante do cosmético.
+	 * @param preco          {@link Double} com o preço do cosmético.
+	 * @param emEstoque      {@link Integer int} com a quantidade do cosmético em estoque.
+	 * @param quantidade     {@link String} com a quantidade por embalagem.
+	 * @param cor            {@link String} com a cor do cosmético.
+	 * @param fragrancia     {@link String} com a fragrância do cosmético.
+	 * @param hipoalergenico {@link Boolean} se o cosmético é hipoalergênico.
+	 * @param lojaPertecente {@link Loja} a qual o cosmético pertencerá.
+	 * @since 06/2023
+	 */
 	public void criarCosmetico(String nomeAnterior, String nome,
-			String descricao, String fabricante, double preco,
-			int emEstoque, String quantidade, String cor, 
-			String fragrancia,boolean hipoalergenico, Loja lojaPertecente) {
+							   String descricao, String fabricante, double preco,
+							   int emEstoque, String quantidade, String cor,
+							   String fragrancia, boolean hipoalergenico, Loja lojaPertecente) {
 		if ( buscar_tudo(nome).isEmpty() ) {
 			lojaPertecente.addToEstoque(new Cosmetico(nome,
-							descricao,fabricante,preco,
-							emEstoque,quantidade,cor, 
-							fragrancia,hipoalergenico));
+					descricao, fabricante, preco,
+					emEstoque, quantidade, cor,
+					fragrancia, hipoalergenico));
 		} else {
-			salvarCosmetico(nomeAnterior,nome,
-					descricao,fabricante,preco,
-					emEstoque,quantidade,cor, 
-					fragrancia,hipoalergenico);
+			salvarCosmetico(nomeAnterior, nome,
+					descricao, fabricante, preco,
+					emEstoque, quantidade, cor,
+					fragrancia, hipoalergenico);
 		}
 	}
+	//generate the JavaDoc for the method criarMedicamento using as template the JavaDoc comment of the method criarCosmetico
 
+	/**
+	 * Cria um {@link Medicamento} e adiciona ao estoque de uma {@link Loja}.<br><br>
+	 * Verifica se o nome do medicamento já existe na lista de produtos da loja.<br><br>
+	 * Caso não exista, cria um novo {@link Medicamento} com os parâmetros passados e adiciona ao estoque da loja.<br>
+	 * Caso exista, chama {@link #salvarMedicamento(String, String, String, String, double, int, String, String, String,
+	 * Boolean, String)  salvarMedicamento} para editar o medicamento já existente.
+	 *
+	 * @param nomeAnterior   {@link String} com o nome do medicamento antes da edição. {@code null} caso o medicamento não exista.
+	 * @param nome           {@link String} com o nome do medicamento.
+	 * @param descricao      {@link String} com a descrição do medicamento.
+	 * @param fabricante     {@link String} com o fabricante do medicamento.
+	 * @param preco          {@link Double} com o preço do medicamento.
+	 * @param emEstoque      {@link Integer int} com a quantidade do medicamento em estoque.
+	 * @param quantidade     {@link String} com a quantidade por embalagem.
+	 * @param tratamento     {@link String} com o tipo de tratamento do medicamento.
+	 * @param tarja          {@link String} com a tarja do medicamento.
+	 * @param generico       {@link Boolean} se o medicamento é genérico.
+	 * @param principioAtivo {@link String} com o princípio ativo do medicamento.
+	 * @param lojaPertecente {@link Loja} a qual o medicamento pertencerá.
+	 * @since 06/2023
+	 */
 	public void criarMedicamento(String nomeAnterior, String nome,
-			String descricao, String fabricante, double preco,
-			int emEstoque, String quantidade, String tratamento, String tarja,
-			Boolean generico, String principioAtivo, Loja lojaPertecente) {
+								 String descricao, String fabricante, double preco,
+								 int emEstoque, String quantidade, String tratamento, String tarja,
+								 Boolean generico, String principioAtivo, Loja lojaPertecente) {
 		if ( buscar_tudo(nome).isEmpty() ) {
 			lojaPertecente.addToEstoque(
 					new Medicamento(nome,
-							descricao,fabricante,preco,
-							emEstoque, quantidade, tratamento,tarja,
-							generico,principioAtivo)
+							descricao, fabricante, preco,
+							emEstoque, quantidade, tratamento, tarja,
+							generico, principioAtivo)
 			);
 		} else {
-			salvarMedicamento(nomeAnterior,nome,
-					descricao,fabricante,preco,
-					emEstoque, quantidade, tratamento,tarja,
-					generico,principioAtivo);
+			salvarMedicamento(nomeAnterior, nome,
+					descricao, fabricante, preco,
+					emEstoque, quantidade, tratamento, tarja,
+					generico, principioAtivo);
 		}
 	}
 
-	public void salvarLoja(Loja loja,String localizacao,String cidade, ArrayList<Produto> estoque) {
+	/**
+	 * Salva uma {@link Loja} na lista de lojas.<br><br>
+	 * Altera os atributos da loja com os parâmetros passados.<br><br>
+	 * Caso a loja não exista na lista, adiciona a loja à lista em {@link Dados}.<br>
+	 *
+	 * @param loja        {@link Loja} a ser salva.
+	 * @param localizacao {@link String} com a localização da loja.
+	 * @param cidade      {@link String} com a cidade da loja.
+	 * @param estoque     {@link ArrayList} de {@link Produto} com o estoque da loja.
+	 * @since 06/2023
+	 */
+	public void salvarLoja(Loja loja, String localizacao, String cidade, ArrayList<Produto> estoque) {
 		loja.setLocalizacao(localizacao);
 		loja.setCidade(cidade);
 		loja.setEstoque(estoque);
@@ -160,33 +287,26 @@ public class Dados {
 
 	}
 
+	/**
+	 * Deleta uma {@link Loja} e todos os {@link Produto Produtos} em seu estoque.
+	 *
+	 * @param loja {@link Loja} a ser deletada.
+	 * @since 06/2023
+	 */
 	public void deletarLoja(Loja loja) {
 		loja.setEstoque(new ArrayList<Produto>());
 		getLojas().remove(loja);
 	}
 
-	public String[] listarLojas() {
-		ArrayList<Loja> lojas = getLojas();
-		String[] listaLojas = new String[lojas.size()];
-
-		for (int i = 0; i < lojas.size(); i++) {
-			listaLojas[i] = lojas.get(i).getLocalizacao() + ", " + lojas.get(i).getCidade();
-		}
-		return listaLojas;
-	}
-
-	public String[] listarCidades() {
-		ArrayList<Loja> lojas = getLojas();
-		List<String> lista = new ArrayList<>();
-		for (Loja loja : lojas) {
-			if ( !lista.contains(loja.getCidade()) ) {
-				lista.add(loja.getCidade());
-			}
-		}
-		String[] listaCidades = new String[lista.size()];
-		listaCidades = lista.toArray(listaCidades);
-		return listaCidades;
-	}
+	/**
+	 * Busca de Cidades cadastradas.<br><br>
+	 * Percorre a lista de lojas e verifica se a cidade da loja contém o termo de busca em seu atributo cidade.<br><br>
+	 * Adiciona a cidade à lista de cidades caso não esteja na lista. Retorna a lista de cidades ao terminar.<br>
+	 *
+	 * @param termoDeBusca {@link String} com o termo de busca.
+	 * @return {@link String}[] com a lista de cidades encontradas.
+	 * @since 06/2023
+	 */
 
 	public String[] buscarCidades(String termoDeBusca) {
 		ArrayList<Loja> lojas = getLojas();
@@ -203,7 +323,11 @@ public class Dados {
 		return listaCidades;
 	}
 
-
+	/**
+	 * Popula a classe {@link Dados} com dados padrõe. Usado para não inicializar o programa com dados vazios.
+	 *
+	 * @since 05/2023
+	 */
 	public void criarDados() {
 
 		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília", new ArrayList<>());
@@ -285,10 +409,18 @@ public class Dados {
 
 	}
 
+	/**
+	 * Retorna a lista de {@link Loja lojas} cadastradas no sistema.
+	 * @return {@link ArrayList} de {@link Loja lojas}.
+	 */
 	public ArrayList<Loja> getLojas() {
 		return lojas;
 	}
 
+	/**
+	 * Altera a lista de {@link Loja lojas} cadastradas no sistema.
+	 * @param lojas {@link ArrayList} de {@link Loja lojas}.
+	 */
 	public void setLojas(ArrayList<Loja> lojas) {
 		this.lojas = lojas;
 	}
@@ -301,7 +433,6 @@ public class Dados {
 	 * @param termo O termo a ser utilizado para a busca.
 	 * @return {@link ArrayList} com as lojas encontradas. Retorna uma {@link ArrayList} vazia se nenhuma {@link Loja} foi
 	 * encontrada.
-	 * @author Caio Pacheco
 	 * @see Dados#buscar_tudo(String)
 	 * @since 06/2023
 	 */
@@ -330,7 +461,6 @@ public class Dados {
 	 * @param termo O termo a ser utilizado para a busca.
 	 * @return {@link ArrayList} com os {@link Produto produtos} encontradas. Retorna uma {@link ArrayList} vazia se
 	 * nenhum Produto foi encontrado.
-	 * @author Caio Pacheco
 	 * @see Loja#buscar_loja(String)
 	 * @see Dados#listar_tudo()
 	 * @see view.TelaMenu
@@ -353,7 +483,6 @@ public class Dados {
 	 * Esse método retorna clones ao invés de retornar referêcias aos objetos originais.
 	 *
 	 * @return {@link ArrayList} com todos os {@link Produto produtos} cadastrados.
-	 * @author Caio Pacheco
 	 * @see Loja#buscar_loja(String)
 	 * @see Dados#buscar_tudo(String)
 	 * @since 05/2023
@@ -366,10 +495,13 @@ public class Dados {
 		}
 		return return_list;
 	}
+
+	/**
+	 * Retorna a instância de {@link Dados} que está sendo utilizada.
+	 * @return {@link Dados}
+	 */
 	public static Dados getDados() {
 		return dados;
 	}
-	public static void setDados(Dados dados) {
-		Dados.dados = dados;
-	}
+
 }
