@@ -12,14 +12,7 @@ public class Loja {
 		cidade = cid;
 		estoque = est;
 	}
-	 
-	public String toString() {
-		return "A loja OO Drogarias na localização " + localizacao
-				+ " na cidade de "+ cidade
-				+", possui em seu estoque:";
-	}
-	
-	
+
 	public String getLocalizacao() {
 		return localizacao;
 	}

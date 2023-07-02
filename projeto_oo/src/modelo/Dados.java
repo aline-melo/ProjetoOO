@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe que simula um banco de dados. Todos os dados do progama são armazenados e manipulados dentro dessa classe.
+ * Classe que simula um banco de dados. Todos os dados do progama são armazenados e manipulados dentro dessa classe.<br>
+ * Só existe uma instância dessa classe a qualquer momento.
  *
  * @author Aline Melo
  * @version 1.0
@@ -46,13 +47,11 @@ public class Dados {
 		if ( lista.isEmpty() ) {
 			lista_retorno = new String[0];
 		} else {
-			if ( lista.get(0) instanceof Produto ) {
+			if ( lista.get(0) != null ) {
 				for (int i = 0; i < lista.size(); i++) {
 					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
 				}
-			} 
-			
-		else {
+			} else {
 				for (int i = 0; i < lista.size(); i++) {
 					lista_retorno[i] = ((Produto) lista.get(i)).getNome();
 				}
@@ -204,23 +203,7 @@ public class Dados {
 		return listaCidades;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public void criarDados() {
 
 		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília", new ArrayList<>());
