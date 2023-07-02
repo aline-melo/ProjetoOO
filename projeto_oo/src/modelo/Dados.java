@@ -335,8 +335,7 @@ public class Dados {
 		Loja lojinhaDeEsquina = new Loja("Esquina da 708N", "Brasília", new ArrayList<>());
 		Loja outraLoja = new Loja("Shopping do gama", "Gama", new ArrayList<>());
 		Loja lojaNoroeste = new Loja("Noroeste", "Brasília", new ArrayList<>());
-		Loja lojaTampa = new Loja("Amalie Arena", "Tampa Bay", new ArrayList<>());
-
+		
 
 		Medicamento medicamento1Teste = new Medicamento("Serenata", "SERENATA 50MG É UM MEDICAMENTO. SEU USO PODE TRAZER RISCOS. PROCURE UM MÉDICO OU UM FARMACÊUTICO.\n LEIA A BULA. MEDICAMENTOS PODEM CAUSAR EFEITOS INDESEJADOS. EVITE A AUTOMEDICAÇÃO: INFORME-SE COM O FARMACÊUTICO."
 				, "Torrent pharma", 148.57, 20, "30 comprimidos", "Anti-depressivo", "Vermelha", false, "Cloridato de Sertralina");
@@ -381,13 +380,7 @@ public class Dados {
 		Cosmetico cosmetico5Teste = new Cosmetico("Balm Protetor Labial Soleil FPS 15",
 				"O Vult Soleil é um balm labial com proteção solar FPS 15, que mantém os lábios protegidos e hidratados por 8h após aplicação, graças a um complexo de vitaminas hidratantes com óleo de rícino. ", "Vult", 18.99, 76,
 				"3.6g", "Rosa Claro", "Cranberry", true);
-		Cosmetico cosmetico6Teste = new Cosmetico("",
-				"", "", 119.90, 10,
-				"", "", null, false);
-		Cosmetico cosmetico7Teste = new Cosmetico("",
-				"", "", 119.90, 10,
-				"", "", null, false);
-
+		
 
 		lojinhaDeEsquina.addToEstoque(cosmetico1Teste);
 		lojinhaDeEsquina.addToEstoque(medicamento1Teste);
@@ -405,7 +398,6 @@ public class Dados {
 		lojas.add(lojinhaDeEsquina);
 		lojas.add(outraLoja);
 		lojas.add(lojaNoroeste);
-		lojas.add(lojaTampa);
 		
 
 	}
