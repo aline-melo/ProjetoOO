@@ -169,7 +169,7 @@ public class Dados {
 	public void salvarMedicamento(String nomeAnterior, String nome,
 								  String descricao, String fabricante, double preco,
 								  int emEstoque, String quantidade, String tratamento, String tarja,
-								  Boolean generico, String principioAtivo) {
+								  boolean generico, String principioAtivo) {
 		for (Produto item : listar_tudo()) {
 			if ( item.getNome().matches(nomeAnterior) && item.getClass() == Medicamento.class ) {
 				item.setNome(nome);
@@ -248,7 +248,7 @@ public class Dados {
 	public void criarMedicamento(String nomeAnterior, String nome,
 								 String descricao, String fabricante, double preco,
 								 int emEstoque, String quantidade, String tratamento, String tarja,
-								 Boolean generico, String principioAtivo, Loja lojaPertecente) {
+								 boolean generico, String principioAtivo, Loja lojaPertecente) {
 		if ( buscar_tudo(nome).isEmpty() ) {
 			lojaPertecente.addToEstoque(
 					new Medicamento(nome,
