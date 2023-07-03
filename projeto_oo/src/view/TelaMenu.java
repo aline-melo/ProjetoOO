@@ -18,7 +18,6 @@ import modelo.*;
  * @see TelaLoja
  * @since 06/2023
  */
-@SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod", "OverlyComplexMethod"})
 public class TelaMenu implements ActionListener, ListSelectionListener, KeyListener, WindowListener, FocusListener {
 	
 	private final Dados dados;

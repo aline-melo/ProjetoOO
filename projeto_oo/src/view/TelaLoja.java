@@ -28,7 +28,6 @@ import java.util.ArrayList;
  * @see Dados
  * @since 06/2023
  */
-@SuppressWarnings({"FieldMayBeFinal", "OverlyLongMethod"})
 public class TelaLoja implements ActionListener, ListSelectionListener, KeyListener {
 	private final Dados dados;
 
